@@ -1,0 +1,16 @@
+{
+  "name": "italian-printing-company",
+  "version": "1.0.0",
+  "description": "Italian Printing Company - Static Website",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve .",
+    "analytics:inject": "node inject-analytics.js"
+  },
+  "keywords": ["printing", "italy"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
