@@ -54,7 +54,10 @@ module.exports = async (req, res) => {
       body: p.toString()
     });
     const session = await r.json();
-    if (session.error) return res.status(502).json({ error: session.error.message });
+    if (session.error) {
+      console.error("Stripe error:", session.error.type, session.error.message);
+      return res.status(502).json({ error: session.error.message });
+    }
     return res.status(200).json({ url: session.url });
   } catch (e) {
     return res.status(500).json({ error: "Stripe request failed" });
