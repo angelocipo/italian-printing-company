@@ -4,7 +4,7 @@
 
 // Prices in cents, defined server-side so the client can't tamper with them.
 const PRODUCTS = [
-  { name: "10 Rigid posters — 60x90cm, Foam Boards PVC 5mm, single sided full color", amount: 100 }
+  { name: "10 Rigid posters — 60x90cm, Foam Boards PVC 5mm, single sided full color", amount: 69900 }
 ];
 const ZONES = {
   rome_s: { label: "Same day Rome South / EUR / Center", amount: 2000 },
