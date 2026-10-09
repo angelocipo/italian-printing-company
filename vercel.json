@@ -48,6 +48,11 @@
       "permanent": true
     },
     {
+      "source": "/custom-print-service-italy",
+      "destination": "/custom-print-service-italy.html",
+      "permanent": true
+    },
+    {
       "source": "/florence",
       "destination": "/florence.html",
       "permanent": true
