@@ -8,6 +8,11 @@
       "permanent": true
     },
     {
+      "source": "/cheap-print-service-italy",
+      "destination": "/cheap-print-service-italy.html",
+      "permanent": true
+    },
+    {
       "source": "/bologna",
       "destination": "/bologna.html",
       "permanent": true
