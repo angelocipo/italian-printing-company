@@ -161,6 +161,31 @@
       "source": "/where-to-print-in-rome",
       "destination": "/where-to-print-in-rome.html",
       "permanent": true
+    },
+    {
+      "source": "/printing-fiera-milano",
+      "destination": "/printing-fiera-milano.html",
+      "permanent": true
+    },
+    {
+      "source": "/printing-allianz-mico-milano",
+      "destination": "/printing-allianz-mico-milano.html",
+      "permanent": true
+    },
+    {
+      "source": "/printing-fiera-roma",
+      "destination": "/printing-fiera-roma.html",
+      "permanent": true
+    },
+    {
+      "source": "/printing-la-nuvola-rome",
+      "destination": "/printing-la-nuvola-rome.html",
+      "permanent": true
+    },
+    {
+      "source": "/printing-events-europe",
+      "destination": "/printing-events-europe.html",
+      "permanent": true
     }
   ]
 }
