@@ -57,20 +57,6 @@
   </section>
 
   <div id="cd-form">
-  <section style="max-width:1100px; margin:0 auto; padding:56px 22px 0;">
-    <div style="background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:26px; overflow:hidden; padding:clamp(26px,3.4vw,46px); font-family:Poppins,'SF Pro Display',-apple-system,sans-serif;">
-      <div style="display:flex; align-items:center; flex-wrap:wrap; gap:16px 20px;">
-        <div style="font-size:clamp(24px,2.5vw,38px); font-weight:800; color:#1B2A6B; letter-spacing:-1px;">Questions? Contact us!</div>
-        <a href="https://api.whatsapp.com/send/?phone=393396021366&amp;text&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:16px;">
-          <span style="width:clamp(42px,4vw,58px); height:clamp(42px,4vw,58px); border-radius:12px; background:#25D366; display:flex; align-items:center; justify-content:center; flex:none;">
-            <svg viewBox="0 0 32 32" width="62%" height="62%" fill="#fff" aria-hidden="true"><path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.115.553 4.1 1.523 5.823L4 29l8.4-1.49A11.94 11.94 0 0 0 16 27c6.627 0 12-5.373 12-12S22.628 3 16.001 3zm0 21.6c-1.84 0-3.560-.5-5.040-1.370l-.36-.21-4.98.88.9-4.86-.235-.375A9.56 9.56 0 0 1 6.4 15c0-5.29 4.31-9.6 9.6-9.6s9.6 4.31 9.6 9.6-4.31 9.6-9.6 9.6z"></path><path d="M21.3 17.7c-.29-.145-1.71-.845-1.975-.94-.265-.097-.458-.145-.65.145-.193.29-.747.94-.916 1.133-.168.193-.337.217-.626.072-.29-.145-1.223-.45-2.33-1.437-.86-.767-1.44-1.715-1.610-2.005-.168-.29-.018-.447.127-.59.13-.13.29-.337.435-.506.145-.168.193-.29.29-.483.097-.193.048-.362-.024-.507-.072-.145-.65-1.567-.89-2.146-.235-.563-.473-.487-.65-.496l-.553-.01c-.193 0-.507.072-.772.362-.265.29-1.012.99-1.012 2.412 0 1.422 1.036 2.797 1.18 2.99.145.193 2.04 3.115 4.943 4.370.69.298 1.23.476 1.65.61.693.22 1.324.19 1.823.115.556-.083 1.71-.7 1.95-1.376.241-.676.241-1.255.169-1.376-.072-.12-.265-.193-.555-.338z"></path></svg>
-          </span>
-          <span style="font-size:clamp(24px,2.9vw,44px); font-weight:700; color:#1B2A6B; letter-spacing:-0.5px;">+39 339 60 21 366</span>
-        </a>
-        </div>
-    </div>
-  </section>
-
   <section id="checkout" style="max-width:1100px; margin:0 auto; padding:64px 22px 0;">
     <p style="font-size:14px; font-weight:600; color:#0071e3; letter-spacing:0.4px; text-transform:uppercase;">Your details</p>
     <h2 style="font-size:clamp(32px,4.4vw,50px); line-height:1.06; font-weight:700; letter-spacing:-1.6px; margin-top:12px;">Delivery and invoice details.</h2>
@@ -85,7 +71,11 @@
       <input type="hidden" name="_next" value="https://www.italianprintingcompany.com/client-details.html?sent=1">
       <div class="co-cols" style="display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:start;">
       <div>
-      <h3 style="font-size:21px; font-weight:600; letter-spacing:-0.4px;">Who is ordering</h3>
+      <div>
+        <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Short description of goods to deliver <span style="color:#0071e3;">*</span></label>
+        <input required="" name="Goods to deliver" placeholder="e.g. 500 business cards, 2 roll-ups" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;">
+      </div>
+      <h3 style="font-size:21px; font-weight:600; letter-spacing:-0.4px; margin-top:34px;">Who is ordering</h3>
       <div class="co-two" style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;">
         <div>
           <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Name <span style="color:#0071e3;">*</span></label>
@@ -109,8 +99,8 @@
       <p style="font-size:14px; color:#86868b; margin-top:6px;">The invoice will be issued exactly as written here.</p>
       <div class="co-two" style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;">
         <div>
-          <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">P. IVA / Codice Fiscale</label>
-          <input name="P. IVA / CF" placeholder="Private customers: leave blank" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;">
+          <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">VAT number</label>
+          <input name="VAT number" placeholder="Private customers: leave blank" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;">
         </div>
         <div>
           <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Codice destinatario / PEC</label>
@@ -179,6 +169,20 @@
         <p style="font-size:13px; color:#86868b; text-align:center; margin-top:4px;">Your details remain confidential and are used only to process your order.</p>
       </div>
     </form>
+  </section>
+
+  <section style="max-width:1100px; margin:0 auto; padding:44px 22px 0;">
+    <div style="background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:26px; overflow:hidden; padding:clamp(26px,3.4vw,46px); font-family:Poppins,'SF Pro Display',-apple-system,sans-serif;">
+      <div style="display:flex; align-items:center; flex-wrap:wrap; gap:16px 20px;">
+        <div style="font-size:clamp(24px,2.5vw,38px); font-weight:800; color:#1B2A6B; letter-spacing:-1px;">Questions? Contact us!</div>
+        <a href="https://api.whatsapp.com/send/?phone=393396021366&amp;text&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:16px;">
+          <span style="width:clamp(42px,4vw,58px); height:clamp(42px,4vw,58px); border-radius:12px; background:#25D366; display:flex; align-items:center; justify-content:center; flex:none;">
+            <svg viewBox="0 0 32 32" width="62%" height="62%" fill="#fff" aria-hidden="true"><path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.115.553 4.1 1.523 5.823L4 29l8.4-1.49A11.94 11.94 0 0 0 16 27c6.627 0 12-5.373 12-12S22.628 3 16.001 3zm0 21.6c-1.84 0-3.560-.5-5.040-1.370l-.36-.21-4.98.88.9-4.86-.235-.375A9.56 9.56 0 0 1 6.4 15c0-5.29 4.31-9.6 9.6-9.6s9.6 4.31 9.6 9.6-4.31 9.6-9.6 9.6z"></path><path d="M21.3 17.7c-.29-.145-1.71-.845-1.975-.94-.265-.097-.458-.145-.65.145-.193.29-.747.94-.916 1.133-.168.193-.337.217-.626.072-.29-.145-1.223-.45-2.33-1.437-.86-.767-1.44-1.715-1.610-2.005-.168-.29-.018-.447.127-.59.13-.13.29-.337.435-.506.145-.168.193-.29.29-.483.097-.193.048-.362-.024-.507-.072-.145-.65-1.567-.89-2.146-.235-.563-.473-.487-.65-.496l-.553-.01c-.193 0-.507.072-.772.362-.265.29-1.012.99-1.012 2.412 0 1.422 1.036 2.797 1.18 2.99.145.193 2.04 3.115 4.943 4.370.69.298 1.23.476 1.65.61.693.22 1.324.19 1.823.115.556-.083 1.71-.7 1.95-1.376.241-.676.241-1.255.169-1.376-.072-.12-.265-.193-.555-.338z"></path></svg>
+          </span>
+          <span style="font-size:clamp(24px,2.9vw,44px); font-weight:700; color:#1B2A6B; letter-spacing:-0.5px;">+39 339 60 21 366</span>
+        </a>
+        </div>
+    </div>
   </section>
 
   <section style="max-width:1100px; margin:0 auto; padding:44px 22px 0;">
