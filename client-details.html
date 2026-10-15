@@ -22,7 +22,10 @@
   #cd-sent { display:none; }
   html.cd-sent #cd-sent { display:block; }
   html.cd-sent #cd-form { display:none; }
-  @media (max-width:900px) { .co-cols { grid-template-columns:1fr !important; } .co-two { grid-template-columns:1fr !important; } }
+  @media (max-width:900px) { .co-cols { grid-template-columns:minmax(0,1fr) !important; } .co-two { grid-template-columns:minmax(0,1fr) !important; } }
+  .co-cols > *, .co-two > * { min-width:0; }
+  form input, form select, form textarea { max-width:100%; min-width:0; }
+  @media (max-width:600px) { #checkout + section form { padding:22px !important; } }
   @media (max-width:820px) { .vip-row { grid-template-columns:1fr !important; } .vip-hero-h { font-size:40px !important; } }
 </style>
 <script>try{if(/[?&]sent=1/.test(location.search))document.documentElement.classList.add('cd-sent');}catch(e){}</script>
