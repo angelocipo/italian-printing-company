@@ -3,9 +3,14 @@
 // Place this file at /api/create-checkout-session.js in the repo root.
 
 // Prices in cents, defined server-side so the client can't tamper with them.
-const PRODUCTS = [
-  { name: "1 foam board — A1, foam board 5mm no lamination, single sided full color Express print", amount: 100 }
-];
+// Prices before / after DEADLINE (Rome time). Keep in sync with VIP Studio.dc.html
+const DEADLINE = new Date("2026-10-16T09:12:00+02:00").getTime();
+const PAPERS = {
+  "170": { label: "170gsm matte paper", before: 47200, after: 52500 },
+  "170g": { label: "170gsm glossy paper", before: 51300, after: null },
+  "250": { label: "250gsm matte paper", before: 59200, after: 65100 },
+  "250g": { label: "250gsm glossy paper", before: 67300, after: 73400 }
+};
 const ZONES = {
   rome_s: { label: "Same day Rome South / EUR / Center", amount: 0 },
   rome:   { label: "Same day rest of Rome", amount: 0 },
@@ -22,6 +27,10 @@ module.exports = async (req, res) => {
 
   const body = req.body || {};
   const zone = ZONES[body.zone] || ZONES.it;
+  const paper = PAPERS[body.paper] || PAPERS["170"];
+  const amount = Date.now() < DEADLINE ? paper.before : paper.after;
+  if (amount == null) return res.status(410).json({ error: paper.label + " is no longer available at this price." });
+  const PRODUCTS = [{ name: "2.000 bifold — A3 folded to A4, " + paper.label + ", double sided full color offset", amount }];
   const ref = String(body.ref || "").replace(/[^A-Za-z0-9-]/g, "").slice(0, 20);
   const email = String(body.email || "").slice(0, 200);
 
@@ -45,6 +54,7 @@ module.exports = async (req, res) => {
   p.append("client_reference_id", ref);
   if (email) p.append("customer_email", email);
   p.append("metadata[reference]", ref);
+  p.append("metadata[paper]", paper.label);
 
   try {
     const r = await fetch("https://api.stripe.com/v1/checkout/sessions", {
