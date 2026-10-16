@@ -30,9 +30,10 @@ module.exports = async (req, res) => {
   const paper = PAPERS[body.paper] || PAPERS["170"];
   const amount = Date.now() < DEADLINE ? paper.before : paper.after;
   if (amount == null) return res.status(410).json({ error: paper.label + " is no longer available at this price." });
-  const PRODUCTS = [{ name: "2.000 bifold — A3 folded to A4, " + paper.label + ", double sided full color offset", amount }];
+  const PRODUCTS = [{ name: "2.000 bifold, 4 pages — A3 folded to A4, " + paper.label + ", double sided full color offset", amount }];
   const ref = String(body.ref || "").replace(/[^A-Za-z0-9-]/g, "").slice(0, 20);
   const email = String(body.email || "").slice(0, 200);
+  const page = /^vip-studio[a-z0-9-]*\.html$/.test(String(body.page || "")) ? body.page : "vip-studio.html";
 
   const p = new URLSearchParams();
   p.append("mode", "payment");
@@ -49,8 +50,8 @@ module.exports = async (req, res) => {
   p.append(`line_items[${si}][price_data][unit_amount]`, String(zone.amount));
   p.append(`line_items[${si}][quantity]`, "1");
   }
-  p.append("success_url", `${SITE}/vip-studio.html?paid=1&ref=${encodeURIComponent(ref)}`);
-  p.append("cancel_url", `${SITE}/vip-studio.html?canceled=1`);
+  p.append("success_url", `${SITE}/${page}?paid=1&ref=${encodeURIComponent(ref)}`);
+  p.append("cancel_url", `${SITE}/${page}?canceled=1`);
   p.append("client_reference_id", ref);
   if (email) p.append("customer_email", email);
   p.append("metadata[reference]", ref);
