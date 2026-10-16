@@ -9,7 +9,9 @@ const PAPERS = {
   "170": { label: "170gsm matte paper", before: 47200, after: 52500 },
   "170g": { label: "170gsm glossy paper", before: 51300, after: null },
   "250": { label: "250gsm matte paper", before: 59200, after: 65100 },
-  "250g": { label: "250gsm glossy paper", before: 67300, after: 73400 }
+  "250g": { label: "250gsm glossy paper", before: 67300, after: 73400 },
+  "mag": { label: "cover 300gsm, internal 250gsm, all matte", before: 38400, after: 44320, deadline: new Date("2026-10-19T09:00:00+02:00").getTime(), closes: new Date("2026-10-22T09:00:00+02:00").getTime(), name: "250 magazines, 12 pages, A5 — open A4, closed A5, cover 300gsm, internal 250gsm, all matte, double sided full color" },
+  "m170": { label: "cover 300gsm, internal 170gsm, all matte", before: 26400, after: 31520, deadline: new Date("2026-10-20T09:00:00+02:00").getTime(), closes: new Date("2026-10-23T09:00:00+02:00").getTime(), name: "250 magazines, 12 pages, A5 — open A4, closed A5, cover 300gsm, internal 170gsm, all matte, double sided full color" }
 };
 const ZONES = {
   rome_s: { label: "Same day Rome South / EUR / Center", amount: 0 },
@@ -28,9 +30,10 @@ module.exports = async (req, res) => {
   const body = req.body || {};
   const zone = ZONES[body.zone] || ZONES.it;
   const paper = PAPERS[body.paper] || PAPERS["170"];
-  const amount = Date.now() < DEADLINE ? paper.before : paper.after;
+  if (paper.closes && Date.now() >= paper.closes) return res.status(410).json({ error: "This offer has ended. Contact us for a new quote." });
+  const amount = Date.now() < (paper.deadline || DEADLINE) ? paper.before : paper.after;
   if (amount == null) return res.status(410).json({ error: paper.label + " is no longer available at this price." });
-  const PRODUCTS = [{ name: "2.000 bifold, 4 pages — A3 folded to A4, " + paper.label + ", double sided full color offset", amount }];
+  const PRODUCTS = [{ name: paper.name || "2.000 bifold, 4 pages — A3 folded to A4, " + paper.label + ", double sided full color offset", amount }];
   const ref = String(body.ref || "").replace(/[^A-Za-z0-9-]/g, "").slice(0, 20);
   const email = String(body.email || "").slice(0, 200);
   const page = /^vip-studio[a-z0-9-]*\.html$/.test(String(body.page || "")) ? body.page : "vip-studio.html";
