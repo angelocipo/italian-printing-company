@@ -20,6 +20,9 @@ function events() {
     add(p.deadline, "vip-studio-martina.html", "Magazines, " + p.label + ": Fast Track price ends, Night Shift price applies");
     add(p.closes, "vip-studio-martina.html", "Magazines, " + p.label + ": Night Shift ends, offer closes");
   }
+  if (PAPERS.mk) {
+    add(PAPERS.mk.closes, "vip-studio-mark.html", "100 bifold, 170gsm matte: Night Shift ends, offer closes");
+  }
   for (const k of Object.keys(RANA)) {
     const r = RANA[k];
     if (r.after != null) add(r.deadline, "vip-studio-rana.html", r.name + ": price ends, express price applies");
