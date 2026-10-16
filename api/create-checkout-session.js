@@ -4,7 +4,7 @@
 
 // Prices in cents, defined server-side so the client can't tamper with them.
 // Prices before / after DEADLINE (Rome time). Keep in sync with VIP Studio.dc.html
-const DEADLINE = new Date("2026-10-16T09:12:00+02:00").getTime();
+const DEADLINE = new Date("2026-10-16T18:00:00+02:00").getTime();
 const PAPERS = {
   "170": { label: "170gsm matte paper", before: 47200, after: 52500 },
   "170g": { label: "170gsm glossy paper", before: 51300, after: null },
