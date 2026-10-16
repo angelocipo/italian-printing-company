@@ -83,7 +83,7 @@
       <div style="background:#f5f5f7; border-radius:26px; padding:34px;">
         <dl class="vip-spec" style="margin:0; display:grid; grid-template-columns:auto 1fr; gap:14px 26px; font-size:17px; line-height:1.5;">
           <dt style="font-weight:600; color:#86868b;">Product:</dt>
-          <dd style="margin:0; font-weight:600;">2.000 bifold</dd>
+          <dd style="margin:0; font-weight:600;">2.000 bifold, 4 pages</dd>
           <dt style="font-weight:600; color:#86868b;">Size:</dt>
           <dd style="margin:0;">A3 folded to A4</dd>
           <dt style="font-weight:600; color:#86868b;">Print:</dt>
@@ -328,7 +328,7 @@ fi.addEventListener('change',function(){fi.previousElementSibling.textContent=fi
 var v=function(n){var el=f.elements[n];return el&&el.value?el.value:'';};
 var busy=function(on,err){sb.disabled=on;sb.textContent=on?'Sending\u2026':'Place the order';hint.textContent=err||HINT;};
 var PAYERR='Could not start the payment. Your order was received by email \u2014 we will send you a payment link.';
-function pay(ref,k){fetch('/api/create-checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({paper:k,ref:ref,email:v('email')})}).then(function(r){return r.json();}).then(function(d){if(d&&d.url)location.href=d.url;else busy(false,PAYERR);}).catch(function(){busy(false,PAYERR);});}
+function pay(ref,k){fetch('/api/create-checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({paper:k,ref:ref,email:v('email'),page:(location.pathname.split('/').pop()||'vip-studio.html')})}).then(function(r){return r.json();}).then(function(d){if(d&&d.url)location.href=d.url;else busy(false,PAYERR);}).catch(function(){busy(false,PAYERR);});}
 function send(kind){
 var k=paper(),TOTAL=money(price(k)),ORDER='2.000 bifold \u2014 A3 folded to A4, '+PAP[k].label+', double sided full color offset \u2014 '+TOTAL;
 var ref='VIP-'+Math.random().toString(36).slice(2,7).toUpperCase(),d=new FormData();
