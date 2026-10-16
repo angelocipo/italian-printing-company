@@ -168,13 +168,14 @@ After that, Night Shift prices apply.</span></dd>
           <div data-if="differentAddress" style="display:contents;">
             <div style="margin-top:14px;">
               <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Shipping address</label>
-              <textarea name="shipping" rows="3" placeholder="Pickup point, commercial address, hotel, stand number — anything that helps the courier find you" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; line-height:1.45; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; resize:vertical; outline:none;"></textarea>
+              <textarea name="shipping" rows="3" placeholder="Hotel name and address, guest name, check-in date" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; line-height:1.45; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; resize:vertical; outline:none;"></textarea>
+              <p style="font-size:13px; color:#86868b; margin-top:8px;">Preferably a hotel, addressed to a registered guest.</p>
             </div>
           </div>
           <div class="co-two" style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px;">
             <div>
-              <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Contact person at the venue <span style="color:#0071e3;">*</span></label>
-              <input required="" name="venue_contact" placeholder="Who will be there to receive it" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;">
+              <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Registered guest <span style="color:#0071e3;">*</span></label>
+              <input required="" name="venue_contact" placeholder="Name as on the hotel booking" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;">
             </div>
             <div>
               <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Their mobile number <span style="color:#0071e3;">*</span></label>
@@ -267,7 +268,7 @@ After that, Night Shift prices apply.</span></dd>
           </li>
           <li style="display:grid; grid-template-columns:38px 1fr; gap:16px; align-items:start;">
             <span style="width:32px; height:32px; border-radius:50%; background:#1d1d1f; color:#fff; font-size:15px; font-weight:600; display:flex; align-items:center; justify-content:center;">5</span>
-            <p style="font-size:16.5px; line-height:1.55; color:#1d1d1f; text-wrap:pretty;">To ensure a more efficient and trouble-free delivery, we prefer to ship to pickup points or commercial addresses. This way, we guarantee you receive your package conveniently without any issue. Delivery date means delivery in the entire day, we can’t promise delivery at 8am. Preferably give a day extra for delivery, better safe than sorry.</p>
+            <p style="font-size:16.5px; line-height:1.55; color:#1d1d1f; text-wrap:pretty;">To ensure a more efficient and trouble-free delivery, we prefer to ship straight to your hotel, addressed to a registered guest. This way, we guarantee you receive your package conveniently without any issue. Delivery date means delivery in the entire day, we can’t promise delivery at 8am. Preferably give a day extra for delivery, better safe than sorry.</p>
           </li>
           <li style="display:grid; grid-template-columns:38px 1fr; gap:16px; align-items:start;">
             <span style="width:32px; height:32px; border-radius:50%; background:#1d1d1f; color:#fff; font-size:15px; font-weight:600; display:flex; align-items:center; justify-content:center;">6</span>
@@ -330,14 +331,14 @@ var busy=function(on,err){sb.disabled=on;sb.textContent=on?'Sending\u2026':'Plac
 var PAYERR='Could not start the payment. Your order was received by email \u2014 we will send you a payment link.';
 function pay(ref,k){fetch('/api/create-checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({paper:k,ref:ref,email:v('email'),page:(location.pathname.split('/').pop()||'vip-studio.html')})}).then(function(r){return r.json();}).then(function(d){if(d&&d.url)location.href=d.url;else busy(false,PAYERR);}).catch(function(){busy(false,PAYERR);});}
 function send(kind){
-var k=paper(),TOTAL=money(price(k)),ORDER='2.000 bifold \u2014 A3 folded to A4, '+PAP[k].label+', double sided full color offset \u2014 '+TOTAL;
+var k=paper(),TOTAL=money(price(k)),ORDER='2.000 bifold, 4 pages \u2014 A3 folded to A4, '+PAP[k].label+', double sided full color offset \u2014 '+TOTAL;
 var ref='VIP-'+Math.random().toString(36).slice(2,7).toUpperCase(),d=new FormData();
 var add=function(x,y){d.append(x,y);};
 add('_subject',(kind==='quote'?'VIP quote request ':'VIP order ')+ref);add('_captcha','false');add('_template','table');add('_replyto',v('email'));
 add('_autoresponse','Thank you for your order, '+v('name')+'.\n\nReference: '+ref+'\n\n'+ORDER+'\n\nSubtotal: '+TOTAL+'\nShipping: Free\nTotal: '+TOTAL+' (VAT included)\n\nPayment is completed securely via Stripe at checkout. We check your file and confirm your deadline within one working day, then send the proof. Reply to this email if anything needs correcting.\n\nItalian Printing Company by Printing Italy di Angelo Cipolla\nVia Lorenzo Bonincontri 26, 00147 Roma RM \u00b7 P.IVA 02452700590');
 add('Reference',ref);add('Request type',kind==='quote'?'Formal quote requested':'Order placed');add('Paper',PAP[k].label);add('Order',ORDER);add('Total',TOTAL);add('Shipping','Free');add('Grand total',TOTAL);
 add('Name',v('name'));add('Email',v('email'));add('Phone',v('phone'));add('Company',v('company')||'\u2014');add('VAT number',v('vat')||'\u2014');add('Codice destinatario / PEC',v('sdi')||'\u2014');
-add('Billing address',v('billing'));add('Shipping address',cb.checked?'Same as billing':(v('shipping')||'\u2014'));add('Venue contact',v('venue_contact')||'\u2014');add('Venue mobile',v('venue_phone')||'\u2014');
+add('Billing address',v('billing'));add('Shipping address',cb.checked?'Same as billing':(v('shipping')||'\u2014'));add('Registered guest',v('venue_contact')||'\u2014');add('Venue mobile',v('venue_phone')||'\u2014');
 add('Deadline',v('deadline'));add('File link',v('filelink')||'\u2014');add('Notes',v('notes')||'\u2014');if(fi.files[0])add('attachment',fi.files[0]);
 busy(true);
 fetch('https://formsubmit.co/ajax/info@italianprintingcompany.com',{method:'POST',body:d,headers:{Accept:'application/json'}}).then(function(r){return r.json();}).then(function(){if(kind==='order')pay(ref,k);else{busy(false);done(ref);}}).catch(function(){busy(false,'Something went wrong. Please email info@italianprintingcompany.com \u2014 we will pick it up from there.');});
