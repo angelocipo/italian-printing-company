@@ -228,7 +228,7 @@
               <span style="flex:1; height:1px; background:rgba(0,0,0,0.1);"></span>
             </div>
             <button type="button" style="width:100%; background:#fff; color:#1d1d1f; border:1px solid #d2d2d7; font-size:17px; font-weight:500; font-family:inherit; padding:15px; border-radius:980px; cursor:pointer;">Request a formal quote instead</button>
-            <p style="font-size:13px; color:#86868b; text-align:center; margin-top:12px;">Same details, no payment. We send a signed quote and you pay on order.</p>
+            <p style="font-size:13px; color:#86868b; text-align:center; margin-top:12px;">Downloads your quote as a PDF right away. No payment, no required fields.</p>
             <p style="font-size:13px; line-height:1.5; color:#86868b; text-align:center; margin-top:18px; text-wrap:pretty;"><strong style="font-weight:600; color:#6e6e73;">Privacy:</strong> your details are used only to process your order. We don’t track you, and we never sell or share your data.</p>
           </div>
         </form>
@@ -348,7 +348,8 @@ busy(true);
 fetch('https://formsubmit.co/ajax/info@italianprintingcompany.com',{method:'POST',body:d,headers:{Accept:'application/json'}}).then(function(r){return r.json();}).then(function(){if(kind==='order')pay(ref);else{busy(false);if(window.ipcQuotePDF)ipcQuotePDF({ref:ref,url:location.href.split('?')[0],lines:ORDER.split('\n').map(function(l){var i=l.lastIndexOf(' \u2014 ');return {text:l.slice(0,i),amount:l.slice(i+3)};}),subtotal:TOTAL,shippingCost:shipT(),total:money(total()+ship()),name:v('name'),company:v('company'),vat:v('vat'),sdi:v('sdi'),billing:v('billing'),email:v('email'),phone:v('phone'),shipping:cb.checked?'Same as billing address':v('shipping'),guest:v('venue_contact'),guestPhone:v('venue_phone'),deadline:v('deadline')});done(ref,true);}}).catch(function(){busy(false,'Something went wrong. Please email info@italianprintingcompany.com \u2014 we will pick it up from there.');});
 }
 f.addEventListener('submit',function(e){e.preventDefault();send('order');});
-qb.addEventListener('click',function(){if(!f.reportValidity()){hint.textContent='Please fill in the required fields first.';return;}send('quote');});
+function quickPDF(){var ch=chosen();if(!ch.length){hint.textContent='Please choose at least one product above.';return;}var TOTAL=money(total()),ORDER=ch.map(function(c){return c.txt+' \u2014 '+money(c.amt);}).join('\n');var ref='Q-'+Math.random().toString(36).slice(2,7).toUpperCase();if(!window.ipcQuotePDF){hint.textContent='The quote PDF is loading, please try again in a moment.';return;}ipcQuotePDF({ref:ref,url:location.href.split('?')[0],lines:ORDER.split('\n').map(function(l){var i=l.lastIndexOf(' \u2014 ');return {text:l.slice(0,i),amount:l.slice(i+3)};}),subtotal:TOTAL,shippingCost:shipT(),total:money(total()+ship()),name:v('name'),company:v('company'),vat:v('vat'),sdi:v('sdi'),billing:v('billing'),email:v('email'),phone:v('phone'),shipping:cb.checked?'Same as billing address':v('shipping'),guest:v('venue_contact'),guestPhone:v('venue_phone'),deadline:v('deadline')});if(v('email')&&v('name'))send('quote');}
+qb.addEventListener('click',function(){quickPDF();});
 })();</script>
 </body>
 </html>
