@@ -4,12 +4,12 @@
 
 // Prices in cents, defined server-side so the client can't tamper with them.
 const PRODUCTS = [
-  { name: "10 Rigid posters — 60x90cm, Foam Boards PVC 5mm, single sided full color", amount: 69900 }
+  { name: "1 foam board — A1, foam board 5mm no lamination, single sided full color Express print", amount: 100 }
 ];
 const ZONES = {
-  rome_s: { label: "Same day Rome South / EUR / Center", amount: 2000 },
-  rome:   { label: "Same day rest of Rome", amount: 3000 },
-  it:     { label: "Italy (+1 day)", amount: 1500 }
+  rome_s: { label: "Same day Rome South / EUR / Center", amount: 0 },
+  rome:   { label: "Same day rest of Rome", amount: 0 },
+  it:     { label: "Italy (+1 day)", amount: 0 }
 };
 const SITE = "https://www.italianprintingcompany.com";
 
@@ -34,10 +34,12 @@ module.exports = async (req, res) => {
     p.append(`line_items[${i}][quantity]`, "1");
   });
   const si = PRODUCTS.length;
+  if (zone.amount > 0) {
   p.append(`line_items[${si}][price_data][currency]`, "eur");
   p.append(`line_items[${si}][price_data][product_data][name]`, "Shipping — " + zone.label);
   p.append(`line_items[${si}][price_data][unit_amount]`, String(zone.amount));
   p.append(`line_items[${si}][quantity]`, "1");
+  }
   p.append("success_url", `${SITE}/vip-studio.html?paid=1&ref=${encodeURIComponent(ref)}`);
   p.append("cancel_url", `${SITE}/vip-studio.html?canceled=1`);
   p.append("client_reference_id", ref);
