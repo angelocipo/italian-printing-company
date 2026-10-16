@@ -60,14 +60,21 @@ module.exports = async (req, res) => {
     if (rq > 0) PRODUCTS.push({ name: "Rollup delivery — UPS Priority (" + rq + (rq > 1 ? " rollups" : " rollup") + ")", amount: 2000 + 1500 * (rq - 1), quantity: 1 });
     label = PRODUCTS.map(x => x.quantity + "x " + x.name).join("; ").slice(0, 490);
   } else {
-    const paper = PAPERS[body.paper] || PAPERS["170"];
+    const paper = PAPERS[body.paper] || (/^ms[0-9]$/.test(body.paper) ? PAPERS.am8 : PAPERS["170"]);
     if (paper.closes && Date.now() >= paper.closes) return res.status(410).json({ error: "This offer has ended. Contact us for a new quote." });
     const amount = Date.now() < (paper.deadline || DEADLINE) ? paper.before : paper.after;
     if (amount == null) return res.status(410).json({ error: paper.label + " is no longer available at this price." });
     PRODUCTS = [{ name: paper.name || "2.000 bifold, 4 pages — A3 folded to A4, " + paper.label + ", double sided full color offset", amount }];
     label = paper.label;
-    if (/^am[0-9]$/.test(body.paper)) { const q = Math.max(1, Math.min(20, parseInt(body.qty, 10) || 1)); PRODUCTS[0].quantity = q; PRODUCTS[0].name = PRODUCTS[0].name.replace(/^1 table cloth/, "Table cloth"); }
-    if (/^am[0-9]$/.test(body.paper)) PRODUCTS.push(body.ship === "ovn" ? { name: "UPS overnight shipping (1 working day)", amount: 9900, quantity: 1 } : { name: "UPS standard shipping (2–3 working days)", amount: 5500, quantity: 1 });
+    if (/^(am|ms)[0-9]$/.test(body.paper)) {
+      const q = Math.max(1, Math.min(20, parseInt(body.qty, 10) || 1));
+      // Amanda mesh banner, cents (×1.6 applied). Keep in sync with vip-studio-amanda.html
+      const MESH = { ms7: { amount: 30966, name: "Mesh banner — 487x359,5cm, mesh 260 g/m², single sided full color, production 7 working days" }, ms4: { amount: 35611, name: "Mesh banner — 487x359,5cm, mesh 260 g/m², single sided full color, Fast Track, production 4 working days" } };
+      const tc = PRODUCTS[0]; tc.quantity = q; tc.name = tc.name.replace(/^1 table cloth/, "Table cloth");
+      PRODUCTS = MESH[body.paper] ? [{ name: MESH[body.paper].name, amount: MESH[body.paper].amount, quantity: q }] : [tc];
+      label = PRODUCTS.map(x => x.quantity + "x " + x.name).join("; ").slice(0, 490);
+    }
+    if (/^(am|ms)[0-9]$/.test(body.paper)) PRODUCTS.push(body.ship === "ovn" ? { name: "UPS overnight shipping (1 working day)", amount: 9900, quantity: 1 } : { name: "UPS standard shipping (2–3 working days)", amount: 5500, quantity: 1 });
     if (body.paper === "mk") PRODUCTS.push({ name: "UPS shipping to Madrid", amount: 5600, quantity: 1 });
   }
   const ref = String(body.ref || "").replace(/[^A-Za-z0-9-]/g, "").slice(0, 20);
