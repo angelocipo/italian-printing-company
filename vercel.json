@@ -1,641 +1,159 @@
 {
   "cleanUrls": false,
   "trailingSlash": false,
+  "crons": [
+    { "path": "/api/deadline-reminders", "schedule": "0 7 * * *" }
+  ],
   "redirects": [
-    {
-      "source": "/content",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/content/",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/uploads/:path*",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/wordpress-embed.html",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/printer-in-italy-2.html",
-      "destination": "/printer-in-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/conferences-in-rome.html",
-      "destination": "/printing-services-for-conferences-in-rome.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2026/04/23/how-much-does-professional-printing-cost-in-italy",
-      "destination": "/cheap-print-service-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2026/04/23/how-much-does-professional-printing-cost-in-italy/",
-      "destination": "/cheap-print-service-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2026/05/15/urgent-any-recommendations-for-print-shops-in-bologna",
-      "destination": "/bologna.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2026/05/15/urgent-any-recommendations-for-print-shops-in-bologna/",
-      "destination": "/bologna.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2026/05/15/urgent-any-recommendations-for-print-shops-in-milan",
-      "destination": "/milan.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2026/05/15/urgent-any-recommendations-for-print-shops-in-milan/",
-      "destination": "/milan.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/01/15/perche-scegliere-il-nostro-servizio-di-stampa-magliette-a-roma-eur-in-24-ore",
-      "destination": "/personalized-garments-for-your-business.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/01/15/perche-scegliere-il-nostro-servizio-di-stampa-magliette-a-roma-eur-in-24-ore/",
-      "destination": "/personalized-garments-for-your-business.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/11/17/is-there-an-italian-printing-company-in-rome-with-english-speaking-staff.html",
-      "destination": "/is-there-an-italian-printing-company-in-rome-with-english-speaking-staff.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/real-reviews-what-our-clients-say",
-      "destination": "/printing-services-in-italy-italian-real-reviews.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/real-reviews-what-our-clients-say/",
-      "destination": "/printing-services-in-italy-italian-real-reviews.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/:junk(.*s\\.href.*)",
-      "destination": "/",
-      "statusCode": 301
-    },
     {
       "source": "/best-city-in-italy-for-printing-trade-show-materials-rome",
       "destination": "/best-city-in-italy-for-printing-trade-show-materials-rome.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/best-city-in-italy-for-printing-trade-show-materials-rome/",
-      "destination": "/best-city-in-italy-for-printing-trade-show-materials-rome.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/cheap-print-service-italy",
-      "destination": "/cheap-print-service-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/cheap-print-service-italy/",
-      "destination": "/cheap-print-service-italy.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/bologna",
       "destination": "/bologna.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/bologna/",
-      "destination": "/bologna.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/conference-lifesaver-in-italy",
       "destination": "/conference-lifesaver-in-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/conference-lifesaver-in-italy/",
-      "destination": "/conference-lifesaver-in-italy.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/conference-printing-in-bologna-delivered-fast-for-international-exhibitors",
       "destination": "/bologna.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/conference-printing-in-bologna-delivered-fast-for-international-exhibitors/",
-      "destination": "/bologna.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/conference-printing-in-florence-delivered-fast-for-international-exhibitors",
       "destination": "/florence.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/conference-printing-in-florence-delivered-fast-for-international-exhibitors/",
-      "destination": "/florence.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/conference-printing-in-milan-delivered-fast-for-international-exhibitors",
       "destination": "/milan.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/conference-printing-in-milan-delivered-fast-for-international-exhibitors/",
-      "destination": "/milan.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/conference-printing-in-rome-delivered-fast-for-international-exhibitors",
       "destination": "/rome.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/conference-printing-in-rome-delivered-fast-for-international-exhibitors/",
-      "destination": "/rome.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/contact",
       "destination": "/contact.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/contact/",
-      "destination": "/contact.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/custom-print-service-italy",
-      "destination": "/custom-print-service-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/custom-print-service-italy/",
-      "destination": "/custom-print-service-italy.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/florence",
       "destination": "/florence.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/florence/",
-      "destination": "/florence.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/is-there-an-italian-printing-company-in-rome-with-english-speaking-staff",
       "destination": "/is-there-an-italian-printing-company-in-rome-with-english-speaking-staff.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/is-there-an-italian-printing-company-in-rome-with-english-speaking-staff/",
-      "destination": "/is-there-an-italian-printing-company-in-rome-with-english-speaking-staff.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/italian-wedding-printing-services-superior-quality-quickly",
       "destination": "/italian-wedding-printing-services-superior-quality-quickly.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/italian-wedding-printing-services-superior-quality-quickly/",
-      "destination": "/italian-wedding-printing-services-superior-quality-quickly.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/lightweight-stand-solutions-rome",
       "destination": "/lightweight-stand-solutions-rome.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/lightweight-stand-solutions-rome/",
-      "destination": "/lightweight-stand-solutions-rome.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/looking-for-a-reliable-printer-near-lama-hotel-rome-eur-weve-got-you-covered",
       "destination": "/looking-for-a-reliable-printer-near-lama-hotel-rome-eur-weve-got-you-covered.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/looking-for-a-reliable-printer-near-lama-hotel-rome-eur-weve-got-you-covered/",
-      "destination": "/looking-for-a-reliable-printer-near-lama-hotel-rome-eur-weve-got-you-covered.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/milan",
       "destination": "/milan.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/milan/",
-      "destination": "/milan.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/personalized-garments-for-your-business",
       "destination": "/personalized-garments-for-your-business.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/personalized-garments-for-your-business/",
-      "destination": "/personalized-garments-for-your-business.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/print-vendor-italy",
       "destination": "/print-vendor-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/print-vendor-italy/",
-      "destination": "/print-vendor-italy.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/printer-in-italy",
       "destination": "/printer-in-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printer-in-italy/",
-      "destination": "/printer-in-italy.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/printers-in-rome-italy",
       "destination": "/printers-in-rome-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printers-in-rome-italy/",
-      "destination": "/printers-in-rome-italy.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/printing-rollups-in-rome-italy",
       "destination": "/printing-rollups-in-rome-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printing-rollups-in-rome-italy/",
-      "destination": "/printing-rollups-in-rome-italy.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/printing-services-for-conferences-in-rome",
       "destination": "/printing-services-for-conferences-in-rome.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printing-services-for-conferences-in-rome/",
-      "destination": "/printing-services-for-conferences-in-rome.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/printing-services-in-italy-italian-real-reviews",
       "destination": "/printing-services-in-italy-italian-real-reviews.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printing-services-in-italy-italian-real-reviews/",
-      "destination": "/printing-services-in-italy-italian-real-reviews.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/printing-services-in-italy-italian-real-reviews-2",
       "destination": "/printing-services-in-italy-italian-real-reviews.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printing-services-in-italy-italian-real-reviews-2/",
-      "destination": "/printing-services-in-italy-italian-real-reviews.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/qa",
       "destination": "/qa.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/qa/",
-      "destination": "/qa.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/reliable-printing-services-in-italy-for-tourists-business-travelers",
       "destination": "/reliable-printing-services-in-italy-for-tourists-business-travelers.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/reliable-printing-services-in-italy-for-tourists-business-travelers/",
-      "destination": "/reliable-printing-services-in-italy-for-tourists-business-travelers.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/rome",
       "destination": "/rome.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/rome/",
-      "destination": "/rome.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/rome-conference-planning-tips",
       "destination": "/rome-conference-planning-tips.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/rome-conference-planning-tips/",
-      "destination": "/rome-conference-planning-tips.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/rome-italy-printing-shop",
       "destination": "/rome-italy-printing-shop.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/rome-italy-printing-shop/",
-      "destination": "/rome-italy-printing-shop.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/vip-studio",
       "destination": "/vip-studio.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/vip-studio/",
-      "destination": "/vip-studio.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/where-is-a-reliable-printing-shop-in-rome-italy",
       "destination": "/where-is-a-reliable-printing-shop-in-rome-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/where-is-a-reliable-printing-shop-in-rome-italy/",
-      "destination": "/where-is-a-reliable-printing-shop-in-rome-italy.html",
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/where-to-print-in-rome",
       "destination": "/where-to-print-in-rome.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/where-to-print-in-rome/",
-      "destination": "/where-to-print-in-rome.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printing-fiera-milano",
-      "destination": "/printing-fiera-milano.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printing-fiera-milano/",
-      "destination": "/printing-fiera-milano.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printing-allianz-mico-milano",
-      "destination": "/printing-allianz-mico-milano.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printing-allianz-mico-milano/",
-      "destination": "/printing-allianz-mico-milano.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printing-fiera-roma",
-      "destination": "/printing-fiera-roma.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printing-fiera-roma/",
-      "destination": "/printing-fiera-roma.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printing-la-nuvola-rome",
-      "destination": "/printing-la-nuvola-rome.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printing-la-nuvola-rome/",
-      "destination": "/printing-la-nuvola-rome.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printing-events-europe",
-      "destination": "/printing-events-europe.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printing-events-europe/",
-      "destination": "/printing-events-europe.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printer-in-italy-2",
-      "destination": "/printer-in-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/printer-in-italy-2/",
-      "destination": "/printer-in-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/07/14/reliable-printing-services-in-italy-for-tourists-business-travelers",
-      "destination": "/reliable-printing-services-in-italy-for-tourists-business-travelers.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/07/14/reliable-printing-services-in-italy-for-tourists-business-travelers/",
-      "destination": "/reliable-printing-services-in-italy-for-tourists-business-travelers.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/11/17/best-city-in-italy-for-printing-trade-show-materials-rome",
-      "destination": "/best-city-in-italy-for-printing-trade-show-materials-rome.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/11/17/best-city-in-italy-for-printing-trade-show-materials-rome/",
-      "destination": "/best-city-in-italy-for-printing-trade-show-materials-rome.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/11/17/is-there-an-italian-printing-company-in-rome-with-english-speaking-staff",
-      "destination": "/is-there-an-italian-printing-company-in-rome-with-english-speaking-staff.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/11/17/is-there-an-italian-printing-company-in-rome-with-english-speaking-staff/",
-      "destination": "/is-there-an-italian-printing-company-in-rome-with-english-speaking-staff.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/11/28/conference-lifesaver-in-italy",
-      "destination": "/conference-lifesaver-in-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/11/28/conference-lifesaver-in-italy/",
-      "destination": "/conference-lifesaver-in-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/12/19/rome-italy-printing-shop",
-      "destination": "/rome-italy-printing-shop.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/12/19/rome-italy-printing-shop/",
-      "destination": "/rome-italy-printing-shop.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/12/24/where-is-a-reliable-printing-shop-in-rome-italy",
-      "destination": "/where-is-a-reliable-printing-shop-in-rome-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/2025/12/24/where-is-a-reliable-printing-shop-in-rome-italy/",
-      "destination": "/where-is-a-reliable-printing-shop-in-rome-italy.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/category/:path*",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/tag/:path*",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/author/:path*",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/page/:path*",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/feed",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/feed/",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/comments/feed",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/comments/feed/",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/hello-world",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/hello-world/",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/sample-page",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/sample-page/",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/index.php",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/home",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/home/",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/contatti",
-      "destination": "/contact.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/contatti/",
-      "destination": "/contact.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/faq",
-      "destination": "/qa.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/faq/",
-      "destination": "/qa.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/reviews",
-      "destination": "/printing-services-in-italy-italian-real-reviews.html",
-      "statusCode": 301
-    },
-    {
-      "source": "/reviews/",
-      "destination": "/printing-services-in-italy-italian-real-reviews.html",
-      "statusCode": 301
+      "permanent": true
     }
   ]
 }
