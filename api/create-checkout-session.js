@@ -107,3 +107,7 @@ module.exports = async (req, res) => {
     return res.status(500).json({ error: "Stripe request failed" });
   }
 };
+
+module.exports.PAPERS = PAPERS;
+module.exports.RANA = RANA;
+module.exports.DEADLINE = DEADLINE;
