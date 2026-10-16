@@ -3,18 +3,20 @@
 var SRC='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
 function load(cb){if(window.jspdf)return cb();var s=document.createElement('script');s.src=SRC;s.onload=cb;document.head.appendChild(s);}
 load(function(){});
+var LOGO=null;(function(){var im=new Image();im.onload=function(){try{var c=document.createElement('canvas');c.width=im.naturalWidth;c.height=im.naturalHeight;c.getContext('2d').drawImage(im,0,0);LOGO={d:c.toDataURL('image/png'),r:im.naturalWidth/im.naturalHeight};}catch(e){}};im.src='/img/ipc-logo.webp';})();
 window.ipcQuotePDF=function(o){load(function(){try{
 var doc=new window.jspdf.jsPDF({unit:'mm',format:'a4'}),W=210,M=20,y=22,ink=[29,29,31],grey=[110,110,115];
 var txt=function(t,x,yy,sz,b,c,al){doc.setFont('helvetica',b?'bold':'normal');doc.setFontSize(sz);doc.setTextColor.apply(doc,c||ink);doc.text(t,x,yy,al?{align:al}:undefined);};
 var wrap=function(t,w,sz){doc.setFontSize(sz);return doc.splitTextToSize(String(t||''),w);};
-txt('Italian Printing Company',M,y,16,true);
-txt('by Printing Italy di Angelo Cipolla',M,y+6,9,false,grey);
-txt('Via Lorenzo Bonincontri 26, 00147 Roma RM',M,y+10.5,9,false,grey);
-txt('P.IVA 02452700590 · info@italianprintingcompany.com',M,y+15,9,false,grey);
+var lh=0;if(LOGO){lh=14;doc.addImage(LOGO.d,'PNG',M,y-6,lh*LOGO.r,lh);lh+=4;}
+txt('Italian Printing Company',M,y+lh,LOGO?11:16,true);
+txt('by Printing Italy di Angelo Cipolla',M,y+lh+5,9,false,grey);
+txt('Via Lorenzo Bonincontri 26, 00147 Roma RM',M,y+lh+9.5,9,false,grey);
+txt('P.IVA 02452700590 · info@italianprintingcompany.com',M,y+lh+14,9,false,grey);
 txt('QUOTE',W-M,y,16,true,null,'right');
 txt(o.ref,W-M,y+6,10,true,null,'right');
 txt(new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}),W-M,y+10.5,9,false,grey,'right');
-y+=28;doc.setDrawColor(210,210,215);doc.line(M,y,W-M,y);y+=8;
+y+=28+lh;doc.setDrawColor(210,210,215);doc.line(M,y,W-M,y);y+=8;
 if(!L)L='\u2014';if(!R)R='\u2014';txt('Quote for',M,y,9,true,grey);txt('Delivery',W/2+4,y,9,true,grey);y+=5;
 var L0=[o.name,o.company,o.vat?'VAT number: '+o.vat:'',o.sdi?'Codice destinatario / PEC: '+o.sdi:'',o.billing,o.email,o.phone].filter(Boolean).join('\n'),L=L0;
 var R=[o.shipping,o.guest?'Registered guest: '+o.guest:'',o.guestPhone?'Mobile: '+o.guestPhone:'',o.deadline?'Event deadline: '+o.deadline:''].filter(Boolean).join('\n');
