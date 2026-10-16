@@ -341,7 +341,7 @@ busy(true);
 fetch('https://formsubmit.co/ajax/info@italianprintingcompany.com',{method:'POST',body:d,headers:{Accept:'application/json'}}).then(function(r){return r.json();}).then(function(){if(kind==='order')pay(ref,k);else{busy(false);done(ref);}}).catch(function(){busy(false,'Something went wrong. Please email info@italianprintingcompany.com \u2014 we will pick it up from there.');});
 }
 f.addEventListener('submit',function(e){e.preventDefault();send('order');});
-qb.addEventListener('click',function(){if(!v('name')||!v('email')||!v('billing')||!v('deadline')){hint.textContent='Please fill in name, email, billing address and deadline first.';return;}send('quote');});
+qb.addEventListener('click',function(){if(!f.reportValidity()){hint.textContent='Please fill in the required fields first.';return;}send('quote');});
 })();</script>
 </body>
 </html>
