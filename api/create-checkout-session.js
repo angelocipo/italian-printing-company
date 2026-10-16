@@ -13,6 +13,16 @@ const PAPERS = {
   "mag": { label: "cover 300gsm, internal 250gsm, all matte", before: 38400, after: 44320, deadline: new Date("2026-10-19T09:00:00+02:00").getTime(), closes: new Date("2026-10-22T09:00:00+02:00").getTime(), name: "250 magazines, 12 pages, A5 — open A4, closed A5, cover 300gsm, internal 250gsm, all matte, double sided full color" },
   "m170": { label: "cover 300gsm, internal 170gsm, all matte", before: 26400, after: 31520, deadline: new Date("2026-10-20T09:00:00+02:00").getTime(), closes: new Date("2026-10-23T09:00:00+02:00").getTime(), name: "250 magazines, 12 pages, A5 — open A4, closed A5, cover 300gsm, internal 170gsm, all matte, double sided full color" }
 };
+// Rana offer (vip-studio-rana.html): itemised, cents. after = express price from deadline on.
+const RANA = {
+  roll: { name: "Rollup — 80/85x200cm · Aluminum frame with indestructible synthetic paper · single sided full color", before: 7000, after: null, deadline: new Date("2026-10-28T09:00:00+01:00").getTime(), max: 50 },
+  bc250: { name: "6 x 250 business cards — 85x55mm, credit card size · 350gsm · double sided full color in offset", before: 22400, after: 28000, deadline: new Date("2026-10-20T09:00:00+02:00").getTime(), max: 1 },
+  bc500: { name: "6 x 500 business cards — 85x55mm, credit card size · 350gsm · double sided full color in offset", before: 25300, after: 29900, deadline: new Date("2026-10-20T09:00:00+02:00").getTime(), max: 1 },
+  br25: { name: "2,500 folded brochures — A4, open 63x29.7cm · 250gsm matte · double sided full color Offset", before: 83600, after: 104000, deadline: new Date("2026-10-21T09:00:00+02:00").getTime(), max: 1 },
+  br50: { name: "5,000 folded brochures — A4, open 63x29.7cm · 250gsm matte · double sided full color Offset", before: 152800, after: 189200, deadline: new Date("2026-10-21T09:00:00+02:00").getTime(), max: 1 },
+  env: { name: "2,500 DIN C6 (16,2 x 11,4 cm) envelopes — 80gsm · print full colour", before: 25600, after: null, deadline: new Date("2026-10-16T18:00:00+02:00").getTime(), max: 1 },
+  wc: { name: "2.500 white cards A6 (15x10,5 cm) — turnaround time 7 working days", before: 13100, after: 18080, deadline: new Date("2026-10-21T09:00:00+02:00").getTime(), closes: new Date("2026-10-27T09:00:00+01:00").getTime(), max: 1 }
+};
 const ZONES = {
   rome_s: { label: "Same day Rome South / EUR / Center", amount: 0 },
   rome:   { label: "Same day rest of Rome", amount: 0 },
@@ -29,11 +39,29 @@ module.exports = async (req, res) => {
 
   const body = req.body || {};
   const zone = ZONES[body.zone] || ZONES.it;
-  const paper = PAPERS[body.paper] || PAPERS["170"];
-  if (paper.closes && Date.now() >= paper.closes) return res.status(410).json({ error: "This offer has ended. Contact us for a new quote." });
-  const amount = Date.now() < (paper.deadline || DEADLINE) ? paper.before : paper.after;
-  if (amount == null) return res.status(410).json({ error: paper.label + " is no longer available at this price." });
-  const PRODUCTS = [{ name: paper.name || "2.000 bifold, 4 pages — A3 folded to A4, " + paper.label + ", double sided full color offset", amount }];
+  let PRODUCTS, label;
+  if (body.items && typeof body.items === "object") {
+    PRODUCTS = [];
+    for (const k of Object.keys(RANA)) {
+      const r = RANA[k], q = Math.max(0, Math.min(r.max, parseInt(body.items[k], 10) || 0));
+      if (!q) continue;
+      if (r.closes && Date.now() >= r.closes) return res.status(410).json({ error: r.name + " is no longer available." });
+      const amount = r.deadline && Date.now() >= r.deadline ? r.after : r.before;
+      if (amount == null) return res.status(410).json({ error: r.name + " is no longer available." });
+      PRODUCTS.push({ name: r.name, amount, quantity: q });
+    }
+    if (!PRODUCTS.length) return res.status(400).json({ error: "No products selected." });
+    const rq = (PRODUCTS.find(x => x.name === RANA.roll.name) || {}).quantity || 0;
+    if (rq > 0) PRODUCTS.push({ name: "Rollup delivery — UPS Priority (" + rq + (rq > 1 ? " rollups" : " rollup") + ")", amount: 2000 + 1500 * (rq - 1), quantity: 1 });
+    label = PRODUCTS.map(x => x.quantity + "x " + x.name).join("; ").slice(0, 490);
+  } else {
+    const paper = PAPERS[body.paper] || PAPERS["170"];
+    if (paper.closes && Date.now() >= paper.closes) return res.status(410).json({ error: "This offer has ended. Contact us for a new quote." });
+    const amount = Date.now() < (paper.deadline || DEADLINE) ? paper.before : paper.after;
+    if (amount == null) return res.status(410).json({ error: paper.label + " is no longer available at this price." });
+    PRODUCTS = [{ name: paper.name || "2.000 bifold, 4 pages — A3 folded to A4, " + paper.label + ", double sided full color offset", amount }];
+    label = paper.label;
+  }
   const ref = String(body.ref || "").replace(/[^A-Za-z0-9-]/g, "").slice(0, 20);
   const email = String(body.email || "").slice(0, 200);
   const page = /^vip-studio[a-z0-9-]*\.html$/.test(String(body.page || "")) ? body.page : "vip-studio.html";
@@ -44,7 +72,7 @@ module.exports = async (req, res) => {
     p.append(`line_items[${i}][price_data][currency]`, "eur");
     p.append(`line_items[${i}][price_data][product_data][name]`, prod.name);
     p.append(`line_items[${i}][price_data][unit_amount]`, String(prod.amount));
-    p.append(`line_items[${i}][quantity]`, "1");
+    p.append(`line_items[${i}][quantity]`, String(prod.quantity || 1));
   });
   const si = PRODUCTS.length;
   if (zone.amount > 0) {
@@ -58,7 +86,7 @@ module.exports = async (req, res) => {
   p.append("client_reference_id", ref);
   if (email) p.append("customer_email", email);
   p.append("metadata[reference]", ref);
-  p.append("metadata[paper]", paper.label);
+  p.append("metadata[paper]", label);
 
   try {
     const r = await fetch("https://api.stripe.com/v1/checkout/sessions", {
