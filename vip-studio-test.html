@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<title>Payment test | Italian Printing Company</title>
+<link rel="icon" type="image/webp" href="img/favicon.webp">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#f5f5f7; font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif; color:#1d1d1f; -webkit-font-smoothing:antialiased; }
+  a { color:#0071e3; text-decoration:none; }
+  a:hover { color:#0059b8; }
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</head>
+<body>
+<main style="max-width:560px; margin:0 auto; padding:64px 22px; display:flex; flex-direction:column; gap:24px;">
+  <a href="/" style="display:flex;"><img src="img/ipc-logo.webp" alt="Italian Printing Company" style="height:30px; width:auto;"></a>
+  <div id="msg" hidden style="background:#fff; border-radius:18px; padding:18px 22px; font-size:16px; line-height:1.45;"></div>
+  <div style="background:#fff; border-radius:26px; padding:32px; display:flex; flex-direction:column; gap:18px;">
+    <p style="font-size:13px; font-weight:600; color:#0071e3; letter-spacing:0.4px; text-transform:uppercase;">Internal · payment test</p>
+    <h1 style="font-size:30px; line-height:1.15; font-weight:700; letter-spacing:-0.6px;">Test product</h1>
+    <p style="font-size:16px; line-height:1.5; color:#6e6e73;">Real Stripe checkout for € 1,00. No shipping, nothing is printed. Refund it from the Stripe dashboard after checking.</p>
+    <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid #e5e5ea; padding-top:18px;">
+      <span style="font-size:17px; font-weight:600;">Total, VAT included</span>
+      <span style="font-size:24px; font-weight:700; font-variant-numeric:tabular-nums;">€&nbsp;1,00</span>
+    </div>
+    <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600; color:#6e6e73;">Email for the Stripe receipt (optional)
+      <input id="email" type="email" autocomplete="email" style="font:inherit; font-weight:400; color:#1d1d1f; font-size:17px; padding:12px 14px; border:1px solid #d2d2d7; border-radius:12px;">
+    </label>
+    <button id="pay" type="button" style="font:inherit; font-size:17px; font-weight:600; color:#fff; background:#0071e3; border:0; border-radius:980px; padding:15px 28px; cursor:pointer;">Pay € 1,00</button>
+  </div>
+</main>
+<script>(function(){
+var q=new URLSearchParams(location.search),m=document.getElementById('msg'),b=document.getElementById('pay');
+if(q.get('paid')){m.hidden=false;m.textContent='Payment received. Reference: '+(q.get('ref')||'');}
+if(q.get('canceled')){m.hidden=false;m.textContent='Payment canceled.';}
+b.addEventListener('click',function(){
+  b.disabled=true;b.textContent='Opening checkout…';
+  var ref='TEST-'+Date.now().toString(36).toUpperCase();
+  fetch('/api/create-checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({paper:'test',ref:ref,email:document.getElementById('email').value,page:'vip-studio-test.html'})})
+  .then(function(r){return r.json();}).then(function(d){if(d.url)location.href=d.url;else throw new Error(d.error||'Checkout failed');})
+  .catch(function(e){m.hidden=false;m.textContent=e.message;b.disabled=false;b.textContent='Pay € 1,00';});
+});
+})();</script>
+</body>
+</html>
