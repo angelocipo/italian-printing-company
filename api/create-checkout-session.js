@@ -10,6 +10,15 @@ const PAPERS = {
   "170g": { label: "170gsm glossy paper", before: 51300, after: null },
   "250": { label: "250gsm matte paper", before: 59200, after: 65100 },
   "250g": { label: "250gsm glossy paper", before: 67300, after: 73400 },
+  // Ruchira, per file of 1.000 bifold (×1.6 applied); quantity = files (1–10). Keep in sync with vip-studio-ruchira.html
+  "r170": { label: "170gsm matte paper", before: 28320, after: 32640, name: "1.000 bifold each file, 4 pages — A3 folded to A4, 170gsm matte paper, double sided full color offset" },
+  "r170g": { label: "170gsm glossy paper", before: 29280, after: 35200, name: "1.000 bifold each file, 4 pages — A3 folded to A4, 170gsm glossy paper, double sided full color offset" },
+  "r250": { label: "250gsm matte paper", before: 35840, after: 40640, name: "1.000 bifold each file, 4 pages — A3 folded to A4, 250gsm matte paper, double sided full color offset" },
+  "r250g": { label: "250gsm glossy paper", before: 38080, after: 42880, name: "1.000 bifold each file, 4 pages — A3 folded to A4, 250gsm glossy paper, double sided full color offset" },
+  "q170": { label: "170gsm matte paper", before: 47200, after: 52500, name: "2.000 bifold each file, 4 pages — A3 folded to A4, 170gsm matte paper, double sided full color offset" },
+  "q170g": { label: "170gsm glossy paper", before: 51300, after: null, name: "2.000 bifold each file, 4 pages — A3 folded to A4, 170gsm glossy paper, double sided full color offset" },
+  "q250": { label: "250gsm matte paper", before: 59200, after: 65100, name: "2.000 bifold each file, 4 pages — A3 folded to A4, 250gsm matte paper, double sided full color offset" },
+  "q250g": { label: "250gsm glossy paper", before: 67300, after: 73400, name: "2.000 bifold each file, 4 pages — A3 folded to A4, 250gsm glossy paper, double sided full color offset" },
   "mag": { label: "cover 300gsm, internal 250gsm, all matte", before: 38400, after: 44320, deadline: new Date("2026-10-19T09:00:00+02:00").getTime(), closes: new Date("2026-10-22T09:00:00+02:00").getTime(), name: "250 magazines, 12 pages, A5 — open A4, closed A5, cover 300gsm, internal 250gsm, all matte, double sided full color" },
   "m170": { label: "cover 300gsm, internal 170gsm, all matte", before: 26400, after: 31520, deadline: new Date("2026-10-20T09:00:00+02:00").getTime(), closes: new Date("2026-10-23T09:00:00+02:00").getTime(), name: "250 magazines, 12 pages, A5 — open A4, closed A5, cover 300gsm, internal 170gsm, all matte, double sided full color" },
   "mk": { label: "170gsm matte paper", before: 19520, after: 19520, deadline: new Date("2026-10-16T00:00:00+02:00").getTime(), closes: new Date("2026-10-19T09:00:00+02:00").getTime(), name: "100 full colour bifold — A3 folded to A4, 170gsm matte paper, double sided full colour" },
@@ -66,6 +75,7 @@ module.exports = async (req, res) => {
     if (amount == null) return res.status(410).json({ error: paper.label + " is no longer available at this price." });
     PRODUCTS = [{ name: paper.name || "2.000 bifold, 4 pages — A3 folded to A4, " + paper.label + ", double sided full color offset", amount }];
     label = paper.label;
+    if (/^[rq](170|250)g?$/.test(body.paper)) { const fq = Math.max(1, Math.min(10, parseInt(body.files, 10) || 1)); PRODUCTS[0].quantity = fq; label = fq + (fq > 1 ? " files" : " file") + " × " + (body.paper[0] === "q" ? "2.000" : "1.000") + " bifold, " + paper.label; }
     if (/^(am|ms)[0-9]$/.test(body.paper)) {
       const q = Math.max(1, Math.min(20, parseInt(body.qty, 10) || 1));
       // Amanda mesh banner, cents (×1.6 applied). Keep in sync with vip-studio-amanda.html
