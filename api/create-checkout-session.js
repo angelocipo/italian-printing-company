@@ -36,6 +36,7 @@ const RANA = {
   bc250: { name: "6 x 250 business cards — 85x55mm, credit card size · 350gsm · double sided full color in offset", before: 22400, after: 28000, deadline: new Date("2026-10-20T09:00:00+02:00").getTime(), max: 1 },
   bc500: { name: "6 x 500 business cards — 85x55mm, credit card size · 350gsm · double sided full color in offset", before: 25300, after: 29900, deadline: new Date("2026-10-20T09:00:00+02:00").getTime(), max: 1 },
   br25: { name: "2,500 folded brochures — A4, open 63x29.7cm · 250gsm matte · double sided full color Offset", before: 83600, after: 104000, deadline: new Date("2026-10-21T09:00:00+02:00").getTime(), max: 1 },
+  br25b: { name: "2,500 folded brochures (2nd design) — A4, open 63x29.7cm · 250gsm matte · double sided full color Offset", before: 83600, after: 104000, deadline: new Date("2026-10-21T09:00:00+02:00").getTime(), max: 1 },
   br50: { name: "5,000 folded brochures — A4, open 63x29.7cm · 250gsm matte · double sided full color Offset", before: 152800, after: 189200, deadline: new Date("2026-10-21T09:00:00+02:00").getTime(), max: 1 },
   env: { name: "2,500 DIN C6 (16,2 x 11,4 cm) envelopes — 80gsm · print full colour", before: 25600, after: null, max: 1 },
   wc: { name: "2.500 white cards A6 (15x10,5 cm) — turnaround time 7 working days", before: 13100, after: 18080, deadline: new Date("2026-10-21T09:00:00+02:00").getTime(), closes: new Date("2026-10-27T09:00:00+01:00").getTime(), max: 1 },
@@ -70,7 +71,7 @@ module.exports = async (req, res) => {
     }
     if (!PRODUCTS.length) return res.status(400).json({ error: "No products selected." });
     const rq = (PRODUCTS.find(x => x.name === RANA.roll.name) || {}).quantity || 0;
-    if (rq > 0) PRODUCTS.push({ name: "Rollup delivery — UPS Priority (" + rq + (rq > 1 ? " rollups" : " rollup") + ")", amount: 2000 + 1500 * (rq - 1), quantity: 1 });
+    if (rq > 0) PRODUCTS.push({ name: "Rollup delivery — UPS Priority (" + rq + (rq > 1 ? " rollups" : " rollup") + ")", amount: 2000, quantity: 1 });
     label = PRODUCTS.map(x => x.quantity + "x " + x.name).join("; ").slice(0, 490);
   } else {
     const paper = PAPERS[body.paper] || (/^ms[0-9]$/.test(body.paper) ? PAPERS.am8 : PAPERS["170"]);
