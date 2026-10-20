@@ -23,6 +23,7 @@ function events() {
   if (PAPERS.mk) {
     add(PAPERS.mk.closes, "vip-studio-mark.html", "100 bifold, 170gsm matte: Night Shift ends, offer closes");
   }
+  if (PAPERS.arina) { add(PAPERS.arina.deadline, "vip-studio-arina.html", "50 magazines, 24 pages A4: Standard price ends, Express price applies"); add(PAPERS.arina.closes, "vip-studio-arina.html", "50 magazines, 24 pages A4: Express ends, offer closes"); }
   if (PAPERS.karl) {
     add(PAPERS.karl.deadline, "vip-studio-karl.html", "5,000 A4 flyers, 130gsm: Standard price ends, Fast Track price applies");
     add(PAPERS.karl.closes, "vip-studio-karl.html", "5,000 A4 flyers, 130gsm: Fast Track ends, offer closes");
