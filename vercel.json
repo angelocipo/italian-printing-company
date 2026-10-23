@@ -157,6 +157,11 @@
       "source": "/where-to-print-in-rome",
       "destination": "/where-to-print-in-rome.html",
       "permanent": true
+    },
+    {
+      "source": "/magazine-printing-italy",
+      "destination": "/magazine-printing-italy.html",
+      "permanent": true
     }
   ],
   "headers": [
