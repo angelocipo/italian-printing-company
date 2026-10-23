@@ -162,6 +162,11 @@
       "source": "/magazine-printing-italy",
       "destination": "/magazine-printing-italy.html",
       "permanent": true
+    },
+    {
+      "source": "/printing-delivery-italy",
+      "destination": "/printing-delivery-italy.html",
+      "permanent": true
     }
   ],
   "headers": [
