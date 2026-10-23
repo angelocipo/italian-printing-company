@@ -320,15 +320,30 @@
       <h2 style="font-size:clamp(38px,5vw,60px); font-weight:700; letter-spacing:-2px; line-height:1.05;">Get prices in two hours.</h2>
       <p style="font-size:21px; color:#a1a1a6; margin-top:18px; max-width:560px; margin-left:auto; margin-right:auto; letter-spacing:-0.3px;">Tell us about your magazine. We reply Mon–Fri 8–12/15–18 · Sat 8-12 (CET).</p>
     </div>
-    <form style="max-width:680px; margin:46px auto 0; background:#fff; color:#1d1d1f; border-radius:28px; padding:44px; text-align:left;">
+    <div data-if="sent" hidden>
+      <div style="max-width:680px; margin:46px auto 0; background:#fff; color:#1d1d1f; border-radius:28px; padding:60px 44px; text-align:center;">
+        <h3 style="font-size:26px; font-weight:700; letter-spacing:-0.6px;">Request sent.</h3>
+        <p style="font-size:17px; color:#6e6e73; margin-top:10px; line-height:1.5;">Thanks — we'll reply Mon–Fri 8–12/15–18 · Sat 8-12 (CET), usually within two hours.</p>
+      </div>
+    </div>
+    <iframe name="ipc-hidden-frame" style="display:none" title="form submission target"></iframe>
+    <div data-if="notSent" style="display:contents">
+    <form action="https://formsubmit.co/info@italianprintingcompany.com" method="POST" target="ipc-hidden-frame" style="max-width:680px; margin:46px auto 0; background:#fff; color:#1d1d1f; border-radius:28px; padding:44px; text-align:left;">
+      <input type="hidden" name="_subject" value="Quote request — Magazine, ? pp, ? copies">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_replyto">
+      <input type="hidden" name="Source page" value="magazine-printing-italy.html">
+      <input type="hidden" name="Material" value="Magazines">
+      <input type="hidden" name="Binding" value="Stapled">
       <div class="ipc-pair" style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px;">
         <div>
           <label style="display:block; font-size:17px; font-weight:600; letter-spacing:-0.3px;">Page count <span style="color:#0071e3;">*</span></label>
-          <input name="pages" type="number" min="4" step="2" required="" placeholder="e.g. 32" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#f5f5f7; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; outline:none;">
+          <input name="Page count" type="number" min="4" step="2" required="" placeholder="e.g. 32" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#f5f5f7; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; outline:none;">
         </div>
         <div>
           <label style="display:block; font-size:17px; font-weight:600; letter-spacing:-0.3px;">Quantity <span style="color:#0071e3;">*</span></label>
-          <input name="quantity" type="number" min="1" required="" placeholder="e.g. 250" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#f5f5f7; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; outline:none;">
+          <input name="Quantity" type="number" min="1" required="" placeholder="e.g. 250" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#f5f5f7; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; outline:none;">
         </div>
       </div>
       <p style="font-size:13px; color:#86868b; margin-top:8px;">Count every page including the cover: a 32-page magazine has 32 printed pages.</p>
@@ -343,20 +358,21 @@
         
       </div>
       <label style="display:block; font-size:17px; font-weight:600; letter-spacing:-0.3px; margin-top:28px;">Format</label>
-      <select name="format" style="width:100%; margin-top:10px; font-size:17px; font-family:inherit; color:#1d1d1f; background:#f5f5f7; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; appearance:none; -webkit-appearance:none; outline:none;">
+      <select name="Format" style="width:100%; margin-top:10px; font-size:17px; font-family:inherit; color:#1d1d1f; background:#f5f5f7; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; appearance:none; -webkit-appearance:none; outline:none;">
         <option value="A4" selected>A4 (210 × 297 mm)</option>
         <option value="A5">A5 (148 × 210 mm)</option>
         <option value="Custom">Custom size</option>
       </select>
       <label style="display:block; font-size:17px; font-weight:600; letter-spacing:-0.3px; margin-top:28px;">Other information</label>
-      <textarea rows="4" placeholder="Paper, cover weight, lamination, custom size, delivery address…" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; line-height:1.45; color:#1d1d1f; background:#f5f5f7; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; resize:vertical; outline:none;"></textarea>
+      <textarea name="Other information" rows="4" placeholder="Paper, cover weight, lamination, custom size, delivery address…" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; line-height:1.45; color:#1d1d1f; background:#f5f5f7; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; resize:vertical; outline:none;"></textarea>
       <label style="display:block; font-size:17px; font-weight:600; letter-spacing:-0.3px; margin-top:28px;">When do you need them?</label>
-      <input placeholder="e.g. delivered to Milan by 20 November" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#f5f5f7; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; outline:none;">
+      <input name="Deadline" placeholder="e.g. delivered to Milan by 20 November" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#f5f5f7; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; outline:none;">
       <label style="display:block; font-size:17px; font-weight:600; letter-spacing:-0.3px; margin-top:28px;">Your email address for our reply <span style="color:#0071e3;">*</span></label>
-      <input type="email" required="" placeholder="you@company.com" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#f5f5f7; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; outline:none;">
+      <input type="email" name="email" required="" placeholder="you@company.com" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#f5f5f7; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; outline:none;">
       <button type="submit" style="width:100%; margin-top:32px; background:#0071e3; color:#fff; border:none; font-size:18px; font-weight:500; font-family:inherit; padding:16px; border-radius:980px; cursor:pointer;">Request my quote</button>
-      <p style="font-size:13px; color:#86868b; text-align:center; margin-top:14px;">Opens your email app with everything filled in — just hit send.</p>
+      <p style="font-size:13px; color:#86868b; text-align:center; margin-top:14px;">We'll email you back directly — no need to open your mail app.</p>
     </form>
+    </div>
   </section>
 
   <footer style="background:#f5f5f7; color:#86868b; font-size:12px; line-height:1.6; padding:40px 22px; text-align:center;">
@@ -371,12 +387,13 @@
 <script>(function(){
 var fb=document.querySelectorAll('#faq button');
 fb.forEach(function(b){b.addEventListener('click',function(){var w=b.nextElementSibling,open=w.style.gridTemplateRows==='1fr';fb.forEach(function(o){var x=o.nextElementSibling;x.style.gridTemplateRows='0fr';x.style.opacity='0';o.lastElementChild.textContent='+';});if(!open){w.style.gridTemplateRows='1fr';w.style.opacity='1';b.lastElementChild.textContent='\u2212';}});});
-var f=document.querySelector('#quote form');if(!f)return;
-var S="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #0071e3; background:#0071e3; color:#fff;",I="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #e2e2e4; background:#f5f5f7; color:#1d1d1f;",bind='Stapled';
-var bb=f.querySelectorAll('button[type=button]');bb.forEach(function(b){b.addEventListener('click',function(){bind=b.textContent.trim();bb.forEach(function(o){o.style.cssText=o===b?S:I;});});});
-f.addEventListener('submit',function(e){e.preventDefault();var g=function(s){var el=f.querySelector(s);return el&&el.value?el.value:'\u2014';};
-var lines=['Product: Magazine','Page count: '+g('input[name=pages]'),'Binding: '+bind,'Format: '+g('select'),'Quantity: '+g('input[name=quantity]'),'Other information: '+g('textarea'),'Deadline: '+g('input[placeholder^="e.g. delivered"]'),'Reply to: '+g('input[type=email]')];
-location.href='mailto:info@italianprintingcompany.com?subject='+encodeURIComponent('Quote request \u2014 Magazine, '+g('input[name=pages]')+' pp, '+g('input[name=quantity]')+' copies')+'&body='+encodeURIComponent(lines.join('\n'));});
+var show=function(n,on){document.querySelectorAll('[data-if="'+n+'"]').forEach(function(x){x.hidden=!on;x.style.display=on?'contents':'';});};
+var f=document.querySelector('form[action*="formsubmit"]');if(!f)return;
+var S="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #0071e3; background:#0071e3; color:#fff;",I="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #e2e2e4; background:#f5f5f7; color:#1d1d1f;";var h=function(n){return f.querySelector('input[name="'+n+'"]');};
+var bb=f.querySelectorAll('button[type=button]');bb.forEach(function(b){b.addEventListener('click',function(){h('Binding').value=b.textContent.trim();bb.forEach(function(o){o.style.cssText=o===b?S:I;});});});
+var fr=document.querySelector('iframe[name="ipc-hidden-frame"]'),sub=false;
+f.addEventListener('submit',function(e){var em=f.querySelector('input[type=email]');if(!em.value){e.preventDefault();return;}h('_replyto').value=em.value;h('_subject').value='Quote request \u2014 Magazine, '+(h('Page count').value||'?')+' pp, '+(h('Quantity').value||'?')+' copies';sub=true;var bt=f.querySelector('button[type=submit]');bt.textContent='Sending\u2026';bt.style.opacity='0.6';});
+fr&&fr.addEventListener('load',function(){if(!sub)return;sub=false;show('notSent',false);show('sent',true);});
 })();</script>
 </body>
 </html>

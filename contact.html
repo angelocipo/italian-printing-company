@@ -61,9 +61,23 @@
       </div>
     </div>
 
-    <form style="max-width:680px; margin:36px auto 0; background:#f5f5f7; color:#1d1d1f; border-radius:28px; padding:44px; text-align:left;">
+    <div data-if="sent" hidden>
+      <div style="max-width:680px; margin:36px auto 0; background:#f5f5f7; color:#1d1d1f; border-radius:28px; padding:60px 44px; text-align:center;">
+        <h3 style="font-size:26px; font-weight:700; letter-spacing:-0.6px;">Request sent.</h3>
+        <p style="font-size:17px; color:#6e6e73; margin-top:10px; line-height:1.5;">Thanks — we'll reply Mon–Fri 8–12/15–18 · Sat 8-12 (CET), usually within two hours.</p>
+      </div>
+    </div>
+    <iframe name="ipc-hidden-frame" style="display:none" title="form submission target"></iframe>
+    <div data-if="notSent" style="display:contents">
+    <form action="https://formsubmit.co/info@italianprintingcompany.com" method="POST" target="ipc-hidden-frame" style="max-width:680px; margin:36px auto 0; background:#f5f5f7; color:#1d1d1f; border-radius:28px; padding:44px; text-align:left;">
+      <input type="hidden" name="_subject" value="Quote request — Business Cards (Rome)">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_replyto">
+      <input type="hidden" name="Source page" value="contact.html">
+      <input type="hidden" name="Material" value="Business Cards">
       <label style="display:block; font-size:17px; font-weight:600; letter-spacing:-0.3px;">The event or job is in</label>
-      <select style="width:100%; margin-top:10px; font-size:17px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; appearance:none; -webkit-appearance:none; outline:none;">
+      <select name="Event city" style="width:100%; margin-top:10px; font-size:17px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; appearance:none; -webkit-appearance:none; outline:none;">
         <option value="Rome" selected>Rome</option>
         <option value="Milan">Milan</option>
         <option value="Florence">Florence</option>
@@ -77,11 +91,15 @@
         
           <button type="button" style="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #0071e3; background:#0071e3; color:#fff;">Business Cards</button>
         
-          <button type="button" style="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #e2e2e4; background:#fff; color:#1d1d1f;">Roll-up Banner</button>
-        
           <button type="button" style="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #e2e2e4; background:#fff; color:#1d1d1f;">Brochures</button>
         
+          <button type="button" style="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #e2e2e4; background:#fff; color:#1d1d1f;">Magazines</button>
+        
+          <button type="button" style="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #e2e2e4; background:#fff; color:#1d1d1f;">Roll-ups</button>
+        
           <button type="button" style="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #e2e2e4; background:#fff; color:#1d1d1f;">Posters</button>
+        
+          <button type="button" style="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #e2e2e4; background:#fff; color:#1d1d1f;">Flyers</button>
         
           <button type="button" style="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #e2e2e4; background:#fff; color:#1d1d1f;">Stickers</button>
         
@@ -93,17 +111,18 @@
       </div>
 
       <label style="display:block; font-size:17px; font-weight:600; letter-spacing:-0.3px; margin-top:28px;">Other information</label>
-      <textarea rows="4" placeholder="Quantities, sizes, finishes, file details…" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; line-height:1.45; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; resize:vertical; outline:none;"></textarea>
+      <textarea name="Other information" rows="4" placeholder="Quantities, sizes, finishes, file details…" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; line-height:1.45; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; resize:vertical; outline:none;"></textarea>
 
       <label style="display:block; font-size:17px; font-weight:600; letter-spacing:-0.3px; margin-top:28px;">When is your deadline?</label>
-      <input placeholder="e.g. Thursday morning, before the fair opens" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; outline:none;">
+      <input name="Deadline" placeholder="e.g. Thursday morning, before the fair opens" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; outline:none;">
 
       <label style="display:block; font-size:17px; font-weight:600; letter-spacing:-0.3px; margin-top:28px;">Your email address for our reply <span style="color:#0071e3;">*</span></label>
-      <input type="email" required="" placeholder="you@company.com" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; outline:none;">
+      <input type="email" name="email" required="" placeholder="you@company.com" style="width:100%; margin-top:10px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:14px; padding:14px 16px; outline:none;">
 
       <button type="submit" style="width:100%; margin-top:32px; background:#0071e3; color:#fff; border:none; font-size:18px; font-weight:500; font-family:inherit; padding:16px; border-radius:980px; cursor:pointer;">Send to Angelo</button>
-      <p style="font-size:13px; color:#86868b; text-align:center; margin-top:14px;">Opens your email app with everything filled in — just hit send.</p>
+      <p style="font-size:13px; color:#86868b; text-align:center; margin-top:14px;">We'll email you back directly — no need to open your mail app.</p>
     </form>
+    </div>
   </section>
 
   <footer style="background:#f5f5f7; color:#86868b; font-size:12px; line-height:1.6; padding:40px 22px; text-align:center;">
@@ -116,12 +135,19 @@
   </footer>
 
 </div>
-<script>(function(){var q=function(n){return document.querySelector('[data-if="'+n+'"]');},show=function(n,on){document.querySelectorAll('[data-if="'+n+'"]').forEach(function(e){if(on){e.hidden=false;e.style.display='contents';}else{e.hidden=true;e.style.display='';}});};
-var f=document.querySelector('form');if(f){var S="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #0071e3; background:#0071e3; color:#fff;",I="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #e2e2e4; background:#fff; color:#1d1d1f;",mat="Business Cards";
+<script>(function(){
+var fb=document.querySelectorAll('#faq button');
+fb.forEach(function(b){b.addEventListener('click',function(){var w=b.nextElementSibling,open=w.style.gridTemplateRows==='1fr';fb.forEach(function(o){var x=o.nextElementSibling;x.style.gridTemplateRows='0fr';x.style.opacity='0';o.lastElementChild.textContent='+';});if(!open){w.style.gridTemplateRows='1fr';w.style.opacity='1';b.lastElementChild.textContent='\u2212';}});});
+if(window.parent!==window){var p=function(){parent.postMessage({ipcEmbedHeight:Math.max(document.body.scrollHeight,document.documentElement.scrollHeight)},'*');};window.ResizeObserver&&new ResizeObserver(p).observe(document.body);addEventListener('load',p);addEventListener('resize',p);}
+var show=function(n,on){document.querySelectorAll('[data-if="'+n+'"]').forEach(function(x){x.hidden=!on;x.style.display=on?'contents':'';});};
+var f=document.querySelector('form[action*="formsubmit"]');if(!f)return;
+var S="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #0071e3; background:#0071e3; color:#fff;",I="font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; padding:11px 20px; border-radius:980px; border:1px solid #e2e2e4; background:#fff; color:#1d1d1f;",mat="Business Cards";
 var mb=f.querySelectorAll('button[type=button]');mb.forEach(function(b){b.addEventListener('click',function(){mat=b.textContent.trim();mb.forEach(function(o){o.style.cssText=o===b?S:I;});show('isOther',mat==='Other');});});
-f.addEventListener('submit',function(e){e.preventDefault();var g=function(el){return el&&el.value?el.value:'\u2014';};var city=f.querySelector('select').value;var oth=q('isOther');var m=mat==='Other'?'Other: '+g(oth&&oth.querySelector('input')):mat;
-var body='City: '+city+'\nPrinting needed: '+m+'\nDetails: '+g(f.querySelector('textarea'))+'\nDeadline: '+g(f.querySelector('input[placeholder^="e.g."]'))+'\nReply to: '+f.querySelector('input[type=email]').value;
-location.href='mailto:info@italianprintingcompany.com?subject='+encodeURIComponent('Quote request \u2014 '+city)+'&body='+encodeURIComponent(body);});}
-if(window.parent!==window){var p=function(){parent.postMessage({ipcEmbedHeight:Math.max(document.body.scrollHeight,document.documentElement.scrollHeight)},'*');};window.ResizeObserver&&new ResizeObserver(p).observe(document.body);addEventListener('load',p);addEventListener('resize',p);setTimeout(p,400);setTimeout(p,1500);}})();</script>
+var fr=document.querySelector('iframe[name="ipc-hidden-frame"]'),sub=false;
+var h=function(n){return f.querySelector('input[name="'+n+'"]');};
+f.addEventListener('submit',function(e){var em=f.querySelector('input[type=email]');if(!em||!em.value){e.preventDefault();return;}var oi=f.querySelector('[data-if="isOther"] input');var m=mat==='Other'?'Other: '+(oi&&oi.value||'\u2014'):mat;var c=f.querySelector('select');
+if(h('Material'))h('Material').value=m;if(h('_replyto'))h('_replyto').value=em.value;if(h('_subject'))h('_subject').value='Quote request \u2014 '+m+(c?' ('+c.value+')':'');sub=true;var bt=f.querySelector('button[type=submit]');if(bt){bt.textContent='Sending\u2026';bt.style.opacity='0.6';}});
+fr&&fr.addEventListener('load',function(){if(!sub)return;sub=false;show('notSent',false);show('sent',true);});
+})();</script>
 </body>
 </html>
