@@ -22,7 +22,7 @@ const PAPERS = {
   "mag": { label: "cover 300gsm, internal 250gsm, all matte", before: 38400, after: 44320, deadline: new Date("2026-10-19T09:00:00+02:00").getTime(), closes: new Date("2026-10-22T09:00:00+02:00").getTime(), name: "250 magazines, 12 pages, A5 — open A4, closed A5, cover 300gsm, internal 250gsm, all matte, double sided full color" },
   "m170": { label: "cover 300gsm, internal 170gsm, all matte", before: 26400, after: 31520, deadline: new Date("2026-10-20T09:00:00+02:00").getTime(), closes: new Date("2026-10-23T09:00:00+02:00").getTime(), name: "250 magazines, 12 pages, A5 — open A4, closed A5, cover 300gsm, internal 170gsm, all matte, double sided full color" },
   "mk": { label: "170gsm matte paper", before: 19520, after: 19520, deadline: new Date("2026-10-16T00:00:00+02:00").getTime(), closes: new Date("2026-10-19T09:00:00+02:00").getTime(), name: "100 full colour bifold — A3 folded to A4, 170gsm matte paper, double sided full colour" },
-  // Cat (vip-studio-cat.html), final prices (no ×1.6): Night Shift 6 wd until Mon 26 Oct 09:00, delivery Wed 4 Nov
+  // Cat (vip-studio-cat.html), final prices (no ×1.6): Night Shift 1 wd until Mon 26 Oct 09:00, delivery Tue 27 Oct
   "cat20": { label: "20 pages", before: 53100, after: 53100, deadline: new Date("2026-10-23T00:00:00+02:00").getTime(), closes: new Date("2026-10-26T09:00:00+01:00").getTime(), name: "500 magazines, 20 pages, A5 — open A4, closed A5, 130gsm glossy, double sided full color" },
   "cat28": { label: "28 pages", before: 69200, after: 69200, deadline: new Date("2026-10-23T00:00:00+02:00").getTime(), closes: new Date("2026-10-26T09:00:00+01:00").getTime(), name: "500 magazines, 28 pages, A5 — open A4, closed A5, 130gsm glossy, double sided full color" },
   "catst": { label: "1.000 stickers ø 4 cm", before: 19800, after: 19800, deadline: new Date("2026-10-23T00:00:00+02:00").getTime(), closes: new Date("2026-10-26T09:00:00+01:00").getTime(), name: "1.000 stickers — round ø 4 cm, full color" },
@@ -67,7 +67,7 @@ module.exports = async (req, res) => {
   const zone = ZONES[body.zone] || ZONES.it;
   let PRODUCTS, label;
   if (Array.isArray(body.cat) && body.cat.length) {
-    // Cat (vip-studio-cat.html): 20 and/or 28 pages, can be ordered together
+    // Cat (vip-studio-cat.html): magazines 20/28 pages and stickers 1.000/2.000, any combination
     PRODUCTS = [];
     for (const k of [...new Set(body.cat)].filter(x => x === "cat20" || x === "cat28" || x === "catst" || x === "catst2")) {
       const p = PAPERS[k];
