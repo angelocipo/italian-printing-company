@@ -1,7 +1,9 @@
 // Builds and downloads a PDF quote when a customer clicks "Request a formal quote instead" on a VIP Studio page.
 (function(){
 var SRC='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-function load(cb){if(window.jspdf)return cb();var s=document.createElement('script');s.src=SRC;s.onload=cb;document.head.appendChild(s);}
+var QRSRC='https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
+function one(src,ok,cb){if(ok())return cb();var s=document.createElement('script');s.src=src;s.onload=cb;s.onerror=cb;document.head.appendChild(s);}
+function load(cb){one(SRC,function(){return !!window.jspdf;},function(){one(QRSRC,function(){return !!window.qrcode;},cb);});}
 load(function(){});
 var LOGO=null;(function(){var im=new Image();im.onload=function(){try{var c=document.createElement('canvas');c.width=im.naturalWidth;c.height=im.naturalHeight;c.getContext('2d').drawImage(im,0,0);LOGO={d:c.toDataURL('image/png'),r:im.naturalWidth/im.naturalHeight};}catch(e){}};im.src='/img/ipc-logo.webp';})();
 window.ipcQuotePDF=function(o){load(function(){try{
@@ -31,5 +33,6 @@ y+=10;var c=wrap('Prices follow the deadlines shown on '+o.url+' (Rome time). Pr
 txt(c,M,y,9,false,grey);y+=c.length*4.2+6;
 txt('To confirm, reply to the email with this reference or order on the page:',M,y,9,true);
 txt(String(o.url||''),M,y+4.6,9,true);
+if(window.qrcode&&o.url){try{var S=26,qx=W-M-S,qy=y-5;if(qy+S+6>287){doc.addPage();qy=20;}var qr=window.qrcode(0,'M');qr.addData(String(o.url));qr.make();var n=qr.getModuleCount(),m=S/n;doc.setFillColor(29,29,31);for(var r=0;r<n;r++)for(var cc=0;cc<n;cc++)if(qr.isDark(r,cc))doc.rect(qx+cc*m,qy+r*m,m+0.02,m+0.02,'F');txt('Scan to order',qx+S/2,qy+S+4,8,false,grey,'center');}catch(e){}}
 doc.save('Quote-'+o.ref+'.pdf');}catch(e){console.error(e);}});};
 })();
