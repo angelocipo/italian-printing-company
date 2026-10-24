@@ -334,12 +334,12 @@ tick();setInterval(tick,1000);
 var sentW=$('[data-if="done"]'),formW=$('[data-if="notSent"]'),offW=$('[data-if="showOffer"]'),invW=$('[data-if="paidStep"]');
 var f=$('form',formW),sb=$('button[type=submit]',f),hint=sb.nextElementSibling,qb=$('button[type=button]',f);
 var g=$('form',invW),ib=$('button[type=submit]',g),ihint=ib.nextElementSibling,fi=$('input[type=file]',g);
-var HINT=hint.textContent,IHINT=ihint.textContent,REF='',SAVED={};
+var HINT=hint.textContent,IHINT=ihint.textContent,REF='',SID='',SAVED={};
 var v=function(n,form){var el=(form||f).elements[n];return el&&el.value?el.value:'';};
 var sv=function(n){return v(n,g)||(SAVED.f&&SAVED.f[n])||'';};
 var done=function(ref,q){var h=$('[data-sent-h]',sentW),pp=$('[data-sent-p]',sentW);if(h)h.textContent=q?'Your quote request is with us.':'Your order is complete.';if(pp)pp.textContent=q?'Your quote has been downloaded as a PDF. We reply within one working day with the signed quote. Nothing is charged until you confirm the order.':'Payment and invoice details received. The invoice is on its way to your inbox. We read every note before printing and reply within one working day with the proof.';$('strong',sentW).textContent=ref;show(sentW,true);show(formW,false);show(offW,false);show(invW,false);window.scrollTo(0,0);};
 var q=new URLSearchParams(location.search);
-if(q.get('paid')==='1'){try{SAVED=JSON.parse(localStorage.getItem('ipc_vip_paid')||'{}');}catch(e){}REF=q.get('ref')||SAVED.ref||'';$('[data-ref]',invW).textContent=REF;show(offW,false);show(formW,false);show(invW,true);window.scrollTo(0,0);}
+if(q.get('paid')==='1'){try{SAVED=JSON.parse(localStorage.getItem('ipc_vip_paid')||'{}');}catch(e){}REF=q.get('ref')||SAVED.ref||'';SID=q.get('session_id')||'';$('[data-ref]',invW).textContent=REF;show(offW,false);show(formW,false);show(invW,true);window.scrollTo(0,0);}
 else if(q.get('canceled')==='1')hint.textContent='Payment was canceled. Your order was not charged \u2014 you can try again below.';
 fi.addEventListener('change',function(){fi.previousElementSibling.textContent=fi.files[0]?fi.files[0].name:'Drop it here or choose a file';});
 var busy=function(on,err){sb.disabled=on;sb.textContent=on?'Sending\u2026':'Pay now';hint.textContent=err||HINT;};
@@ -353,16 +353,17 @@ function post(d,ok,fail){fetch('https://formsubmit.co/ajax/info@italianprintingc
 function base(d,ref,kind,k){var add=function(x,y){d.append(x,y);};add('_captcha','false');add('_template','table');add('Reference',ref);add('Request type',kind);add('Paper',PAP[k].label);add('Order',order(k));add('Total',money(price(k)));add('Shipping','Free');
 add('Email',sv('email')||v('email'));add('Hotel name',(v('hotel')||sv('hotel'))||'\u2014');add('Shipping address',(v('shipping')||sv('shipping'))||'\u2014');add('Registered guest',(v('venue_contact')||sv('venue_contact'))||'\u2014');add('Venue mobile',(v('venue_phone')||sv('venue_phone'))||'\u2014');add('Deadline',(v('deadline')||sv('deadline'))||'\u2014');}
 f.addEventListener('submit',function(e){e.preventDefault();var k=paper(),ref='VIP-'+Math.random().toString(36).slice(2,7).toUpperCase(),d=new FormData(),T=money(price(k));
-d.append('_subject','VIP order '+ref);d.append('_replyto',v('email'));
+d.append('_subject','VIP order '+ref);d.append('_replyto',v('email'));d.append('email',v('email'));
 d.append('_autoresponse','Thank you for your order.\n\nReference: '+ref+'\n\n'+order(k)+'\n\nSubtotal: '+T+'\nShipping: Free\nTotal: '+T+' (VAT included)\n\nPayment is completed securely via Stripe at checkout. Right after payment you fill in your invoice details and send your artwork on the page. We check your file and confirm your deadline within one working day, then send the proof. Reply to this email if anything needs correcting.\n\nItalian Printing Company by Printing Italy di Angelo Cipolla\nVia Lorenzo Bonincontri 26, 00147 Roma RM \u00b7 P.IVA 02452700590');
 base(d,ref,'Order placed, going to payment (step 1)',k);
 var sf={};FIELDS.forEach(function(n){sf[n]=v(n);});try{localStorage.setItem('ipc_vip_paid',JSON.stringify({ref:ref,paper:k,f:sf}));}catch(x){}
 busy(true);post(d,function(){pay(ref,k);},function(){busy(false,ERR);});});
 g.addEventListener('submit',function(e){e.preventDefault();var k=SAVED.paper&&PAP[SAVED.paper]?SAVED.paper:paper(),d=new FormData();
-d.append('_subject','VIP invoice details '+REF);d.append('_replyto',sv('email'));base(d,REF,'Invoice details and artwork (paid)',k);
+d.append('_subject','VIP invoice details '+REF);d.append('_replyto',sv('email'));d.append('email',sv('email'));base(d,REF,'Invoice details and artwork (paid)',k);
 ['name','company','vat','sdi','billing','postcode','city','country','phone','filelink','notes'].forEach(function(n){d.append({name:'Name',company:'Company',vat:'VAT number',sdi:'Codice destinatario / PEC',billing:'Billing address',postcode:'Postcode',city:'City',country:'Country',phone:'Phone',filelink:'File link',notes:'Notes'}[n],v(n,g)||'\u2014');});
 if(fi.files[0])d.append('attachment',fi.files[0]);
-ibusy(true);post(d,function(){try{localStorage.removeItem('ipc_vip_paid');}catch(x){}done(REF,false);},function(){ibusy(false,ERR);});});
+var cf={name:v('name',g),company:v('company',g),vat:v('vat',g),sdi:v('sdi',g),billing:v('billing',g),postcode:v('postcode',g),city:v('city',g),country:v('country',g),phone:v('phone',g),filelink:v('filelink',g),notes:v('notes',g),file:fi.files[0]?fi.files[0].name:'',hotel:sv('hotel'),shipping:sv('shipping'),guest:sv('venue_contact'),guestPhone:sv('venue_phone'),deadline:sv('deadline')};
+ibusy(true);post(d,function(){if(SID)fetch('/api/send-confirmation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:SID,f:cf})}).catch(function(){});try{localStorage.removeItem('ipc_vip_paid');}catch(x){}done(REF,false);},function(){ibusy(false,ERR);});});
 qb.addEventListener('click',function(){var list=Object.keys(PAP).filter(function(x){return price(x)!=null;}),ref='Q-'+Math.random().toString(36).slice(2,7).toUpperCase(),tot=money(price(paper()));
 if(!window.ipcQuotePDF){hint.textContent='The quote PDF is loading, please try again in a moment.';return;}window.ipcQuotePDF({ref:ref,url:location.href.split('?')[0],lines:[{text:'2.000 bifold, 4 pages \u2014 A3 folded to A4, '+PAP[paper()].label+', double sided full color offset',amount:tot}],subtotal:tot,shippingCost:'Free',total:tot,email:v('email'),shipping:[v('hotel'),v('shipping')].filter(Boolean).join('\n'),guest:v('venue_contact'),guestPhone:v('venue_phone'),deadline:v('deadline')});});
 })();</script>
