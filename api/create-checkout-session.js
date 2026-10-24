@@ -6,10 +6,11 @@
 // Prices before / after DEADLINE (Rome time). Keep in sync with VIP Studio.dc.html
 const DEADLINE = new Date("2026-10-16T18:00:00+02:00").getTime();
 const PAPERS = {
-  "170": { label: "170gsm matte paper", before: 47200, after: 52500 },
-  "170g": { label: "170gsm glossy paper", before: 51300, after: null },
-  "250": { label: "250gsm matte paper", before: 59200, after: 65100 },
-  "250g": { label: "250gsm glossy paper", before: 67300, after: 73400 },
+  // vip-studio.html: test price € 0,50 (end price, no ×1.6)
+  "170": { label: "170gsm matte paper", before: 50, after: 50 },
+  "170g": { label: "170gsm glossy paper", before: 50, after: 50 },
+  "250": { label: "250gsm matte paper", before: 50, after: 50 },
+  "250g": { label: "250gsm glossy paper", before: 50, after: 50 },
   // Ruchira, per file of 1.000 bifold (×1.6 applied); quantity = files (1–10). Keep in sync with vip-studio-ruchira.html
   "r170": { label: "170gsm matte paper", before: 28320, after: 32640, name: "1.000 bifold each file, 4 pages — A3 folded to A4, 170gsm matte paper, double sided full color offset" },
   "r170g": { label: "170gsm glossy paper", before: 29280, after: 35200, name: "1.000 bifold each file, 4 pages — A3 folded to A4, 170gsm glossy paper, double sided full color offset" },
@@ -22,11 +23,11 @@ const PAPERS = {
   "mag": { label: "cover 300gsm, internal 250gsm, all matte", before: 38400, after: 44320, deadline: new Date("2026-10-19T09:00:00+02:00").getTime(), closes: new Date("2026-10-22T09:00:00+02:00").getTime(), name: "250 magazines, 12 pages, A5 — open A4, closed A5, cover 300gsm, internal 250gsm, all matte, double sided full color" },
   "m170": { label: "cover 300gsm, internal 170gsm, all matte", before: 26400, after: 31520, deadline: new Date("2026-10-20T09:00:00+02:00").getTime(), closes: new Date("2026-10-23T09:00:00+02:00").getTime(), name: "250 magazines, 12 pages, A5 — open A4, closed A5, cover 300gsm, internal 170gsm, all matte, double sided full color" },
   "mk": { label: "170gsm matte paper", before: 19520, after: 19520, deadline: new Date("2026-10-16T00:00:00+02:00").getTime(), closes: new Date("2026-10-19T09:00:00+02:00").getTime(), name: "100 full colour bifold — A3 folded to A4, 170gsm matte paper, double sided full colour" },
-  // Cat (vip-studio-cat.html), final prices (no ×1.6): Night Shift 1 wd until Mon 26 Oct 09:00, delivery Tue 27 Oct
-  "cat20": { label: "20 pages", before: 53100, after: 53100, deadline: new Date("2026-10-23T00:00:00+02:00").getTime(), closes: new Date("2026-10-26T09:00:00+01:00").getTime(), name: "500 magazines, 20 pages, A5 — open A4, closed A5, 130gsm glossy, double sided full color" },
-  "cat28": { label: "28 pages", before: 69200, after: 69200, deadline: new Date("2026-10-23T00:00:00+02:00").getTime(), closes: new Date("2026-10-26T09:00:00+01:00").getTime(), name: "500 magazines, 28 pages, A5 — open A4, closed A5, 130gsm glossy, double sided full color" },
-  "catst": { label: "1.000 stickers ø 4 cm", before: 19800, after: 19800, deadline: new Date("2026-10-23T00:00:00+02:00").getTime(), closes: new Date("2026-10-26T09:00:00+01:00").getTime(), name: "1.000 stickers — round ø 4 cm, full color" },
-  "catst2": { label: "2.000 stickers ø 4 cm", before: 25800, after: 25800, deadline: new Date("2026-10-23T00:00:00+02:00").getTime(), closes: new Date("2026-10-26T09:00:00+01:00").getTime(), name: "2.000 stickers — round ø 4 cm, full color" },
+  // Cat (vip-studio-cat.html), final prices (no ×1.6): Night Shift 1 wd until Mon 26 Oct 09:30 London time, delivery Tue 27 Oct
+  "cat20": { label: "20 pages", before: 53100, after: 53100, deadline: new Date("2026-10-23T00:00:00+02:00").getTime(), closes: new Date("2026-10-26T09:30:00+00:00").getTime(), name: "500 magazines, 20 pages, A5 — open A4, closed A5, 130gsm glossy, double sided full color" },
+  "cat28": { label: "28 pages", before: 69200, after: 69200, deadline: new Date("2026-10-23T00:00:00+02:00").getTime(), closes: new Date("2026-10-26T09:30:00+00:00").getTime(), name: "500 magazines, 28 pages, A5 — open A4, closed A5, 130gsm glossy, double sided full color" },
+  "catst": { label: "1.000 stickers ø 4 cm", before: 19800, after: 19800, deadline: new Date("2026-10-23T00:00:00+02:00").getTime(), closes: new Date("2026-10-26T09:30:00+00:00").getTime(), name: "1.000 stickers — round ø 4 cm, full color" },
+  "catst2": { label: "2.000 stickers ø 4 cm", before: 25800, after: 25800, deadline: new Date("2026-10-23T00:00:00+02:00").getTime(), closes: new Date("2026-10-26T09:30:00+00:00").getTime(), name: "2.000 stickers — round ø 4 cm, full color" },
   // Arina (vip-studio-arina.html), final prices (no ×1.6): Standard 6–8 wd € 218,62 (112 ×1.22 ×1.6) until Wed 21 Oct 09:00, Express 5–6 wd € 277,18 (142 ×1.22 ×1.6) until Fri 23 Oct 09:00, delivery Fri 30 Oct
   "arina": { label: "130gsm glossy", before: 21862, after: 27718, deadline: new Date("2026-10-21T09:00:00+02:00").getTime(), closes: new Date("2026-10-23T09:00:00+02:00").getTime(), name: "50 magazines, 24 pages, A4 — open A3, closed A4, 130gsm glossy, double sided full color" },
   // Karl (vip-studio-karl.html), final client prices (no ×1.6): Standard 7 wd until Thu 22 Oct 09:00, Fast Track 3 wd until Wed 28 Oct 09:00, then closed
