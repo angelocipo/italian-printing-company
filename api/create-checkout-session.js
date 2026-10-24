@@ -129,7 +129,7 @@ module.exports = async (req, res) => {
   p.append(`line_items[${si}][price_data][unit_amount]`, String(zone.amount));
   p.append(`line_items[${si}][quantity]`, "1");
   }
-  p.append("success_url", `${SITE}/${page}?paid=1&ref=${encodeURIComponent(ref)}`);
+  p.append("success_url", `${SITE}/${page}?paid=1&ref=${encodeURIComponent(ref)}&session_id={CHECKOUT_SESSION_ID}`);
   p.append("cancel_url", `${SITE}/${page}?canceled=1`);
   p.append("client_reference_id", ref);
   if (email) p.append("customer_email", email);
