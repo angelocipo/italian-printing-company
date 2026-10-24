@@ -28,7 +28,7 @@ function html(d) {
 ${lines}
 <tr><td style="padding:26px 0 0; ${L} font-size:12px;">TOTAL PAID</td><td colspan="2" align="right" style="padding:20px 0 0; font-size:32px; font-weight:700; color:#1d1d1f; letter-spacing:-1px; white-space:nowrap;">${eur(d.total)}</td></tr>
 <tr><td colspan="3" align="right" style="padding:2px 0 0; font-size:13px; color:#6e6e73;">VAT included · delivery included</td></tr></table></td></tr>
-${box("INVOICE DETAILS", `<div style="font-size:21px; font-weight:700; color:#1d1d1f; letter-spacing:-0.4px; padding-top:6px;">The invoice will be issued like this</div>
+${!(f.name || f.vat || f.billing) ? box("INVOICE DETAILS", `<div style="font-size:21px; font-weight:700; color:#1d1d1f; letter-spacing:-0.4px; padding-top:6px;">Complete your invoice details</div><div style="font-size:15px; line-height:1.55; color:#6e6e73; padding-top:8px;">Your payment is received. Fill in your invoice details and send your artwork on your order page, so we can issue the invoice and start production.</div><div style="padding-top:16px;"><a href="${esc(d.link)}" style="display:inline-block; background:#0071e3; color:#ffffff; font-size:15px; font-weight:600; text-decoration:none; padding:12px 24px; border-radius:980px;">Add invoice details</a></div>`, true) : box("INVOICE DETAILS", `<div style="font-size:21px; font-weight:700; color:#1d1d1f; letter-spacing:-0.4px; padding-top:6px;">The invoice will be issued like this</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:8px;">${row("NAME", val(f.name))}${row("COMPANY", val(f.company))}${row("VAT NUMBER", val(f.vat))}${row("SDI / PEC", val(f.sdi))}${row("ADDRESS", val([f.billing, [f.postcode, f.city].filter(Boolean).join(" "), f.country].filter(Boolean).join("\n")))}${row("EMAIL", `<a href="mailto:${esc(d.email)}" style="color:#0071e3;">${esc(d.email)}</a>`)}</table>
 <div style="padding-top:14px; font-size:14px; line-height:1.5; color:#6e6e73;">Need a correction? Reply to this email within one working day, before the invoice is issued.</div>`, true)}
 ${box("ARTWORK", `<div style="font-size:15px; line-height:1.55; color:#6e6e73; padding-top:8px;">File reference: <strong style="color:#1d1d1f;">${esc(d.ref)}</strong> — ${val([f.file, f.filelink].filter(Boolean).join(", ")) === "—" ? "no file yet, please reply with your print-ready PDF" : val([f.file, f.filelink].filter(Boolean).join(", "))}</div><div style="font-size:14px; line-height:1.5; color:#6e6e73; padding-top:10px;">Quote this reference in every message about the order.</div>`)}
@@ -56,18 +56,22 @@ module.exports = async (req, res) => {
     const email = (s.customer_details && s.customer_details.email) || s.customer_email;
     if (!email) return res.status(400).json({ error: "No customer email" });
     const f = body.f && typeof body.f === "object" ? body.f : {};
+    const page = /^vip-studio[a-z0-9-]*\.html$/.test(String(body.page || "")) ? body.page : "vip-studio.html";
     const d = {
+      link: SITE + "/" + page + "?paid=1&ref=" + encodeURIComponent(s.client_reference_id || "") + "&session_id=" + sid,
       ref: s.client_reference_id || (s.metadata && s.metadata.reference) || sid.slice(-8),
       email, f, total: s.amount_total,
       lines: (li.data || []).map(x => ({ name: x.description, qty: x.quantity, amount: x.amount_total }))
     };
-    const r = await fetch("https://api.resend.com/emails", {
+    const mail = html(d), subject = "Order confirmed — #" + d.ref;
+    const send = (to, key, replyTo) => fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json", "Idempotency-Key": "confirm-" + sid },
-      body: JSON.stringify({ from: FROM, to: [email], bcc: [BCC], reply_to: BCC, subject: "Order confirmed — #" + d.ref, html: html(d) })
-    });
-    const out = await r.json();
-    if (!r.ok) { console.error("Resend error:", out); return res.status(502).json({ error: "Email not sent" }); }
+      headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json", "Idempotency-Key": key + sid },
+      body: JSON.stringify({ from: FROM, to: [to], reply_to: replyTo, subject, html: mail })
+    }).then(async r => ({ ok: r.ok, out: await r.json() }));
+    // Same email, sent separately to the client and to the shop (identical content and subject)
+    const [c, o] = await Promise.all([send(email, "confirm-", BCC), send(BCC, "confirm-shop-", email)]);
+    if (!c.ok || !o.ok) { console.error("Resend error:", c.out, o.out); return res.status(502).json({ error: "Email not sent" }); }
     return res.status(200).json({ ok: true });
   } catch (e) {
     console.error(e);
