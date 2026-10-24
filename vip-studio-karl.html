@@ -107,11 +107,10 @@
 
   <div data-if="notSent" style="display:contents">
   <div>
-    <section id="checkout" style="max-width:1100px; margin:0 auto; padding:64px 22px 0;"><div data-s1="">
+    <section id="checkout" style="max-width:1100px; margin:0 auto; padding:64px 22px 0;"><div data-s1="" style="text-align:center;">
       <p style="font-size:14px; font-weight:600; color:#0071e3; letter-spacing:0.4px; text-transform:uppercase;">Step 1 of 2 · Delivery and payment</p>
       <h2 style="font-size:clamp(32px,4.4vw,50px); line-height:1.06; font-weight:700; letter-spacing:-1.6px; margin-top:12px;">Pay now, invoice details after.</h2>
       <p style="font-size:16px; line-height:1.5; color:#6e6e73; margin-top:16px; text-wrap:pretty;">Tell us where to deliver and pay securely. Right after payment you fill in your invoice details and send your artwork.</p>
-      <div data-footer-copy="" style="margin-top:12px; font-size:16px; line-height:1.5; color:#6e6e73; text-wrap:pretty;"><div style="font-weight:600; color:#1d1d1f;">Italian Printing Company by Printing Italy di Angelo Cipolla.</div><div>A Dutch-Italian printing company based in Rome, serving international exhibitors across Italy.</div></div>
     </div><div data-s2="" style="display:none"><div style="width:48px; height:48px; border-radius:50%; background:#0071e3; display:flex; align-items:center; justify-content:center;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6"></path></svg></div><p style="font-size:14px; font-weight:600; color:#0071e3; letter-spacing:0.4px; text-transform:uppercase; margin-top:22px;">Step 2 of 2 · Invoice and artwork</p><h2 style="font-size:clamp(32px,4.4vw,50px); line-height:1.06; font-weight:700; letter-spacing:-1.6px; margin-top:12px;">Payment received. Now your invoice.</h2><p style="font-size:16px; line-height:1.5; color:#6e6e73; margin-top:16px; text-wrap:pretty;">Reference <strong data-ref2="" style="color:#1d1d1f;"></strong>. The invoice will be issued exactly as written here.</p></div></section>
 
     <section style="max-width:1100px; margin:0 auto; padding:36px 22px 0;">
@@ -214,7 +213,11 @@
             <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Deadline of the event <span style="color:#0071e3;">*</span></label>
             <input required="" name="deadline" placeholder="e.g. Thursday morning, before the fair opens" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;">
             <p style="font-size:13px; color:#86868b; margin-top:8px;">Tell us the deadline and we confirm feasibility by email, before anything is charged.</p>
-          </div></div><div data-s2="" style="display:none"><h3 style="font-size: 21px; font-weight: 600; letter-spacing: -0.4px; margin-top: 0px;">Your artwork</h3><label style="display:block; border:1px dashed #b9b9be; border-radius:14px; background:#fff; padding:18px; margin-top:16px; cursor:pointer;">
+          </div></div><div data-s2="" style="display:none"><div style="margin-top:14px;">
+            <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Notes</label>
+            <textarea name="notes" rows="3" placeholder="Sizes and quantities per size, Pantone colours, print position, your designer's contact…" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; line-height:1.45; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; resize:vertical; outline:none;"></textarea>
+          </div><button type="button" data-s2btn="" style="width:100%; margin-top:24px; background:#0071e3; color:#fff; border:none; font-size:18px; font-weight:500; font-family:inherit; padding:16px; border-radius:980px; cursor:pointer;">Send invoice details</button><p style="font-size:13px; color:#86868b; text-align:center; margin-top:12px;">Production starts once your artwork is checked.</p></div></div>
+          <div style="max-width: none; margin: 0px; border-top-width: medium; border-top-style: none; border-top-color: currentcolor; padding-top: 0px;" data-s1="" data-pay=""><div data-art=""><h3 style="font-size: 21px; font-weight: 600; letter-spacing: -0.4px; margin-top: 34px;" data-arth="">Your artwork</h3><label style="display:block; border:1px dashed #b9b9be; border-radius:14px; background:#fff; padding:18px; margin-top:16px; cursor:pointer;">
             <span style="display:block; font-size:15px; font-weight:600; color:#1d1d1f;">Upload your design</span>
             <span style="display:block; font-size:13px; color:#86868b; margin-top:4px;">Drop it here or choose a file</span>
             <input type="file" name="attachment" style="margin-top:12px; font-size:13px; font-family:inherit; color:#6e6e73;">
@@ -222,11 +225,7 @@
             <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Or paste a link to your file</label>
             <input name="filelink" placeholder="Canva editing link, WeTransfer, Google Drive, SwissTransfer…" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;">
             <p style="font-size:13px; color:#86868b; margin-top:8px;"><strong style="font-weight:700; color:#1d1d1f;">NO PASSWORD.</strong> Google Drive: set General access to “Anyone with the link”, so we can open it right away without requesting access.</p>
-          </div><div style="margin-top:14px;">
-            <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Notes</label>
-            <textarea name="notes" rows="3" placeholder="Sizes and quantities per size, Pantone colours, print position, your designer's contact…" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; line-height:1.45; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; resize:vertical; outline:none;"></textarea>
-          </div><button type="button" data-s2btn="" style="width:100%; margin-top:24px; background:#0071e3; color:#fff; border:none; font-size:18px; font-weight:500; font-family:inherit; padding:16px; border-radius:980px; cursor:pointer;">Send invoice details</button><p style="font-size:13px; color:#86868b; text-align:center; margin-top:12px;">Production starts once your artwork is checked.</p></div></div>
-          <div style="max-width: none; margin: 0px; border-top-width: medium; border-top-style: none; border-top-color: currentcolor; padding-top: 0px;" data-s1=""><h3 style="font-size:21px; font-weight:600; letter-spacing:-0.4px; margin-bottom:16px;">Payment</h3>
+          </div></div><h3 style="font-size: 21px; font-weight: 600; letter-spacing: -0.4px; margin-bottom: 16px; margin-top: 34px;">Payment</h3>
             <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px;">
               <span style="font-size:19px; font-weight:600; letter-spacing:-0.4px;">Subtotal</span>
               <span style="font-size:28px; font-weight:700; letter-spacing:-1px;" data-price="">€ 297,00</span>
@@ -255,6 +254,10 @@
         </form>
 
       </div>
+    </section>
+
+    <section data-s1="" style="max-width:1100px; margin:0 auto; padding:44px 22px 0;">
+      <div data-footer-copy="" style="font-size:16px; line-height:1.5; color:#6e6e73; text-wrap:pretty; text-align:center;"><div style="font-weight:600; color:#1d1d1f;">Italian Printing Company by Printing Italy di Angelo Cipolla.</div><div>A Dutch-Italian printing company based in Rome, serving international exhibitors across Italy.</div></div>
     </section>
 
     <section style="max-width:1100px; margin:0 auto; padding:44px 22px 0;" data-s1="">
@@ -376,8 +379,8 @@ var qp=function(k){var x=price(k);return x!=null?x:(PAP[k].a!=null?PAP[k].a:PAP[
 function quickPDF(){var k=paper();var TOTAL=money(qp(k)),ORDER='5,000 flyers \u2014 A4, 130gsm paper, '+speed()+' \u2014 '+TOTAL;var ref='Q-'+Math.random().toString(36).slice(2,7).toUpperCase();if(!window.ipcQuotePDF){hint.textContent='The quote PDF is loading, please try again in a moment.';return;}ipcQuotePDF({ref:ref,url:location.href.split('?')[0],lines:ORDER.split('\n').map(function(l){var i=l.lastIndexOf(' \u2014 ');return {text:l.slice(0,i),amount:l.slice(i+3)};}),subtotal:TOTAL,shippingCost:'Free',total:TOTAL,name:v('name'),company:v('company'),vat:v('vat'),sdi:v('sdi'),billing:[v('billing'),[v('postcode'),v('city')].filter(Boolean).join(' '),v('country')].filter(Boolean).join('\n'),email:v('email'),phone:v('phone'),shipping:cb.checked?'Same as billing address':[v('hotel'),v('shipping')].filter(Boolean).join('\n'),guest:v('venue_contact'),guestPhone:v('venue_phone'),deadline:v('deadline')});if(v('email')&&v('name'))send('quote');}
 qb.addEventListener('click',function(){quickPDF();});
 
-var DFS=['email','hotel','shipping','venue_contact','venue_phone','deadline'];
-var stp=function(n){document.querySelectorAll('[data-s1]').forEach(function(e){e.style.display=n===1?'':'none';});document.querySelectorAll('[data-s2]').forEach(function(e){e.style.display=n===2?'':'none';});document.querySelectorAll('[data-req]').forEach(function(e){e.required=n===2;});};
+var DFS=['email','hotel','shipping','venue_contact','venue_phone','deadline','filelink'];
+var stp=function(n){document.querySelectorAll('[data-s1]').forEach(function(e){e.style.display=n===1?'':'none';});document.querySelectorAll('[data-s2]').forEach(function(e){e.style.display=n===2?'':'none';});document.querySelectorAll('[data-req]').forEach(function(e){e.required=n===2;});var ah=document.querySelector('[data-arth]');if(ah)ah.style.marginTop='0';var aw=document.querySelector('[data-art]'),bt=document.querySelector('[data-s2btn]'),pc=document.querySelector('[data-pay]');if(aw&&bt&&pc){if(n===2)bt.parentNode.insertBefore(aw,bt.parentNode.firstChild);else pc.insertBefore(aw,pc.firstChild);}};
 var R2=q.get('ref')||'',SID2=q.get('session_id')||'',PG2=location.pathname.split('/').pop()||'vip-studio.html';
 if(q.get('paid')==='1'){var sv2={};try{sv2=JSON.parse(localStorage.getItem('ipc_vip_paid')||'{}');}catch(x){}var sf2=sv2.ref===R2&&sv2.f?sv2.f:{};DFS.forEach(function(n){var el=f.elements[n];if(el&&sf2[n])el.value=sf2[n];});stp(2);var rr=document.querySelector('[data-ref2]');if(rr)rr.textContent=R2;window.scrollTo(0,0);
 if(SID2)fetch('/api/send-confirmation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:SID2,page:PG2,f:{hotel:sf2.hotel||'',shipping:sf2.shipping||'',guest:sf2.venue_contact||'',guestPhone:sf2.venue_phone||'',deadline:sf2.deadline||''}})}).catch(function(){});}
