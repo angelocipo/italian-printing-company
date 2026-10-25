@@ -34,6 +34,8 @@ const PAPERS = {
   "karl": { label: "130gsm paper", before: 29700, after: 39300, deadline: new Date("2026-10-22T09:00:00+02:00").getTime(), closes: new Date("2026-10-28T09:00:00+01:00").getTime(), name: "5,000 flyers — A4, 130gsm paper" },
   // Test product for vip-studio-test.html — exactly € 1,00, no shipping, no deadline (not ×1.6)
   "test": { label: "Test product", before: 100, after: 100, deadline: 0, name: "Test product — payment check, nothing will be printed" },
+  // A0 (vip-studio-a0.html), final price (no ×1.6): € 17 per poster + € 20 UPS shipping per order. Night Shift 1 wd, closes Mon 26 Oct 09:00 Rome, delivery Tue 27 Oct
+  "a0": { label: "A0 poster, 180gsm", before: 1700, after: 1700, deadline: new Date("2026-10-26T09:00:00+01:00").getTime(), closes: new Date("2026-10-26T09:00:00+01:00").getTime(), name: "A0 poster — 84,1 x 118,9 cm, 180gsm paper" },
   "am8": { label: "production 8 working days", before: 54560, after: 54560, deadline: 0, name: "1 table cloth — 487x289,5cm, 100% polyester fabric 235 g/m², single sided full color, production 8 working days" },
   "am4": { label: "production 4 working days", before: 60160, after: 60160, deadline: 0, name: "1 table cloth — 487x289,5cm, 100% polyester fabric 235 g/m², single sided full color, production 4 working days" },
   "am2": { label: "Night Shift, production 2 working days", before: 65600, after: 65600, deadline: 0, name: "1 table cloth — 487x289,5cm, 100% polyester fabric 235 g/m², single sided full color, Night Shift, production 2 working days" }
@@ -108,6 +110,7 @@ module.exports = async (req, res) => {
       label = PRODUCTS.map(x => x.quantity + "x " + x.name).join("; ").slice(0, 490);
     }
     if (/^(am|ms)[0-9]$/.test(body.paper)) PRODUCTS.push(body.ship === "ovn" ? { name: "UPS overnight shipping (1 working day)", amount: 9900, quantity: 1 } : { name: "UPS standard shipping (2–3 working days)", amount: 5500, quantity: 1 });
+    if (body.paper === "a0") { const aq = Math.max(1, Math.min(50, parseInt(body.qty, 10) || 1)); PRODUCTS[0].quantity = aq; label = aq + "x A0 poster, 180gsm"; PRODUCTS.push({ name: "UPS shipping", amount: 2000, quantity: 1 }); }
     if (body.paper === "mk") PRODUCTS.push({ name: "UPS shipping to Madrid", amount: 5600, quantity: 1 });
   }
   const ref = String(body.ref || "").replace(/[^A-Za-z0-9-]/g, "").slice(0, 20);
