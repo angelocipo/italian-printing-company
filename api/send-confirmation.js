@@ -1,6 +1,7 @@
 // Vercel serverless function — sends the HTML order confirmation (Resend) after a paid VIP Studio order.
 // Requires env vars: RESEND_API_KEY, STRIPE_SECRET_KEY. Optional: MAIL_FROM (default order@italianprintingcompany.com).
 // Amounts, products and the customer email come from Stripe (verified paid session), never from the browser.
+const { ddtPdf, ddtData } = require("../lib/ddt-pdf");
 const SITE = "https://www.italianprintingcompany.com";
 const FROM = process.env.MAIL_FROM || "Italian Printing Company <order@italianprintingcompany.com>";
 const BCC = "info@italianprintingcompany.com";
@@ -64,13 +65,16 @@ module.exports = async (req, res) => {
       lines: (li.data || []).map(x => ({ name: x.description, qty: x.quantity, amount: x.amount_total }))
     };
     const mail = html(d), subject = "Order confirmed — #" + d.ref;
-    const send = (to, key, replyTo) => fetch("https://api.resend.com/emails", {
+    const send = (to, key, replyTo, attachments) => fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json", "Idempotency-Key": key + sid },
-      body: JSON.stringify({ from: FROM, to: [to], reply_to: replyTo, subject, html: mail })
+      body: JSON.stringify({ from: FROM, to: [to], reply_to: replyTo, subject, html: mail, ...(attachments ? { attachments } : {}) })
     }).then(async r => ({ ok: r.ok, out: await r.json() }));
+    // DDT (PDF) attached only to the shop copy
+    let ddt = null;
+    try { ddt = [{ filename: "DDT-" + String(d.ref).replace(/[^A-Za-z0-9-]/g, "") + ".pdf", content: Buffer.from(ddtPdf(ddtData(d.ref, s, f, d.lines)), "latin1").toString("base64") }]; } catch (e) { console.error("DDT error:", e); }
     // Same email, sent separately to the client and to the shop (identical content and subject)
-    const [c, o] = await Promise.all([send(email, "confirm-", BCC), send(BCC, "confirm-shop-", email)]);
+    const [c, o] = await Promise.all([send(email, "confirm-", BCC), send(BCC, "confirm-shop-", email, ddt)]);
     if (!c.ok || !o.ok) { console.error("Resend error:", c.out, o.out); return res.status(502).json({ error: "Email not sent" }); }
     return res.status(200).json({ ok: true });
   } catch (e) {
