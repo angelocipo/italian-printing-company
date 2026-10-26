@@ -2,6 +2,7 @@
 // Requires env vars: RESEND_API_KEY, STRIPE_SECRET_KEY. Optional: MAIL_FROM (default order@italianprintingcompany.com).
 // Amounts, products and the customer email come from Stripe (verified paid session), never from the browser.
 const { ddtPdf, ddtData } = require("../lib/ddt-pdf");
+const { fatturaFromOrder } = require("../lib/fattura-order");
 const SITE = "https://www.italianprintingcompany.com";
 const FROM = process.env.MAIL_FROM || "Italian Printing Company <order@italianprintingcompany.com>";
 const BCC = "info@italianprintingcompany.com";
@@ -73,6 +74,8 @@ module.exports = async (req, res) => {
     // DDT (PDF) attached only to the shop copy
     let ddt = null;
     try { ddt = [{ filename: "DDT-" + String(d.ref).replace(/[^A-Za-z0-9-]/g, "") + ".pdf", content: Buffer.from(ddtPdf(ddtData(d.ref, s, f, d.lines)), "latin1").toString("base64") }]; } catch (e) { console.error("DDT error:", e); }
+    // Aruba invoice draft (FatturaPA XML), shop copy only
+    try { const fx = fatturaFromOrder(d, s, f); (ddt = ddt || []).push({ filename: fx.filename, content: Buffer.from(fx.xml, "utf8").toString("base64") }); if (fx.warnings.length) console.warn("Fattura " + d.ref + ": " + fx.warnings.join(" | ")); } catch (e) { console.error("Fattura XML error:", e); }
     // Same email, sent separately to the client and to the shop (identical content and subject)
     const [c, o] = await Promise.all([send(email, "confirm-", BCC), send(BCC, "confirm-shop-", email, ddt)]);
     if (!c.ok || !o.ok) { console.error("Resend error:", c.out, o.out); return res.status(502).json({ error: "Email not sent" }); }
