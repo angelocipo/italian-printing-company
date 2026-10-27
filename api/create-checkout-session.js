@@ -38,6 +38,14 @@ const PAPERS = {
   "a0": { label: "A0 poster, 180gsm", before: 1700, after: 1700, deadline: new Date("2026-10-26T09:00:00+01:00").getTime(), closes: new Date("2026-10-26T09:00:00+01:00").getTime(), name: "A0 poster — 84,1 x 118,9 cm, 180gsm paper" },
   // Malta (vip-studio-malta.html): € 128 ×1.6 = € 204,80, UPS to Malta included. Night Shift, closes Wed 28 Oct 09:00 Rome, delivery Fri 30 Oct
   "malta": { label: "300 folded leaflets, A4, matte ~170gsm", before: 20480, after: 20480, deadline: new Date("2026-10-28T09:00:00+01:00").getTime(), closes: new Date("2026-10-28T09:00:00+01:00").getTime(), name: "300 folded leaflets — A4, folded in the centre, matte ~170gsm, UPS delivery to Malta included" },
+  // Sroman (vip-studio-sroman.html): 125 conference programs A5, 8 pages, stapled. ×1.6 applied. Orders close Wed 4 Nov 09:00 Rome
+  "sr10": { label: "Matte coated, 10 working days", before: 35040, after: 35040, deadline: 0, closes: new Date("2026-10-22T09:00:00+02:00").getTime(), name: "125 conference programs — A5, 8 pages, stapled, matte coating, double sided full color, production 10 working days" },
+  // srn: Normal 7 wd until Tue 27 Oct 09:00, Fast Track 4 wd until Fri 30 Oct 09:00, Night Shift 1 wd until Wed 4 Nov 09:00 (delivery Fri 6 Nov)
+  "srn": { label: "Not laminated", tiers: [[new Date("2026-10-27T09:00:00+01:00").getTime(), 12320, "Normal, 7 working days"], [new Date("2026-10-30T09:00:00+01:00").getTime(), 17440, "Fast Track, 4 working days"], [new Date("2026-11-04T09:00:00+01:00").getTime(), 20800, "Night Shift, 1 working day"]], closes: new Date("2026-11-04T09:00:00+01:00").getTime(), name: "125 conference programs — A5, 8 pages, stapled, not laminated, double sided full color" },
+  // sra: 3 A3 posters, 3 copies of 1 file — (37 / 70 / 91) ×1.6 for the 3, same tiers as srn
+  "sra": { label: "3 posters A3", tiers: [[new Date("2026-10-27T09:00:00+01:00").getTime(), 5920, "Normal, 7 working days"], [new Date("2026-10-30T09:00:00+01:00").getTime(), 11200, "Fast Track, 4 working days"], [new Date("2026-11-04T09:00:00+01:00").getTime(), 14560, "Night Shift, 1 working day"]], closes: new Date("2026-11-04T09:00:00+01:00").getTime(), name: "3 posters A3 — light foam board 5 mm, single sided full color, 3 copies of 1 file" },
+  // srp: 3 A2 posters, light foam board 5 mm — 3 × (22 / 54 / 75) ×1.6, same tiers as srn
+  "srp": { label: "3 posters A2", tiers: [[new Date("2026-10-27T09:00:00+01:00").getTime(), 10560, "Normal, 7 working days"], [new Date("2026-10-30T09:00:00+01:00").getTime(), 25920, "Fast Track, 4 working days"], [new Date("2026-11-04T09:00:00+01:00").getTime(), 36000, "Night Shift, 1 working day"]], closes: new Date("2026-11-04T09:00:00+01:00").getTime(), name: "3 posters A2 — light foam board 5 mm, single sided full color, 3 different files" },
   "am8": { label: "production 8 working days", before: 54560, after: 54560, deadline: 0, name: "1 table cloth — 487x289,5cm, 100% polyester fabric 235 g/m², single sided full color, production 8 working days" },
   "am4": { label: "production 4 working days", before: 60160, after: 60160, deadline: 0, name: "1 table cloth — 487x289,5cm, 100% polyester fabric 235 g/m², single sided full color, production 4 working days" },
   "am2": { label: "Night Shift, production 2 working days", before: 65600, after: 65600, deadline: 0, name: "1 table cloth — 487x289,5cm, 100% polyester fabric 235 g/m², single sided full color, Night Shift, production 2 working days" }
@@ -71,7 +79,18 @@ module.exports = async (req, res) => {
   const body = req.body || {};
   const zone = ZONES[body.zone] || ZONES.it;
   let PRODUCTS, label;
-  if (Array.isArray(body.cat) && body.cat.length) {
+  if (Array.isArray(body.sr) && body.sr.length) {
+    // Sroman (vip-studio-sroman.html): conference programs, any combination
+    PRODUCTS = [];
+    for (const k of [...new Set(body.sr)].filter(x => x === "sr10" || x === "srn" || x === "srp" || x === "sra")) {
+      const p = PAPERS[k];
+      if (p.closes && Date.now() >= p.closes) return res.status(410).json({ error: "This offer has ended. Contact us for a new quote." });
+      const t = p.tiers ? p.tiers.find(x => Date.now() < x[0]) : null;
+      PRODUCTS.push(t ? { name: p.name + ", " + t[2], amount: t[1], quantity: 1 } : { name: p.name, amount: p.after, quantity: 1 });
+    }
+    if (!PRODUCTS.length) return res.status(400).json({ error: "No products selected." });
+    label = PRODUCTS.map(x => x.name).join("; ").slice(0, 490);
+  } else if (Array.isArray(body.cat) && body.cat.length) {
     // Cat (vip-studio-cat.html): magazines 20/28 pages and stickers 1.000/2.000, any combination
     PRODUCTS = [];
     for (const k of [...new Set(body.cat)].filter(x => x === "cat20" || x === "cat28" || x === "catst" || x === "catst2")) {
