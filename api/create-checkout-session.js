@@ -36,6 +36,8 @@ const PAPERS = {
   "test": { label: "Test product", before: 100, after: 100, deadline: 0, name: "Test product — payment check, nothing will be printed" },
   // A0 (vip-studio-a0.html), final price (no ×1.6): € 17 per poster + € 20 UPS shipping per order. Night Shift 1 wd, closes Mon 26 Oct 09:00 Rome, delivery Tue 27 Oct
   "a0": { label: "A0 poster, 180gsm", before: 1700, after: 1700, deadline: new Date("2026-10-26T09:00:00+01:00").getTime(), closes: new Date("2026-10-26T09:00:00+01:00").getTime(), name: "A0 poster — 84,1 x 118,9 cm, 180gsm paper" },
+  // Malta (vip-studio-malta.html): € 128 ×1.6 = € 204,80, UPS to Malta included. Night Shift, closes Wed 28 Oct 09:00 Rome, delivery Fri 30 Oct
+  "malta": { label: "300 folded leaflets, A4, matte ~170gsm", before: 20480, after: 20480, deadline: new Date("2026-10-28T09:00:00+01:00").getTime(), closes: new Date("2026-10-28T09:00:00+01:00").getTime(), name: "300 folded leaflets — A4, folded in the centre, matte ~170gsm, UPS delivery to Malta included" },
   "am8": { label: "production 8 working days", before: 54560, after: 54560, deadline: 0, name: "1 table cloth — 487x289,5cm, 100% polyester fabric 235 g/m², single sided full color, production 8 working days" },
   "am4": { label: "production 4 working days", before: 60160, after: 60160, deadline: 0, name: "1 table cloth — 487x289,5cm, 100% polyester fabric 235 g/m², single sided full color, production 4 working days" },
   "am2": { label: "Night Shift, production 2 working days", before: 65600, after: 65600, deadline: 0, name: "1 table cloth — 487x289,5cm, 100% polyester fabric 235 g/m², single sided full color, Night Shift, production 2 working days" }
