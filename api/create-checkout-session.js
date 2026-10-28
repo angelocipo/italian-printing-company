@@ -109,7 +109,8 @@ module.exports = async (req, res) => {
       const r = RANA[k], q = Math.max(0, Math.min(r.max, parseInt(body.items[k], 10) || 0));
       if (!q) continue;
       if (r.closes && Date.now() >= r.closes) return res.status(410).json({ error: r.name + " is no longer available." });
-      const amount = r.deadline && Date.now() >= r.deadline ? r.after : r.before;
+      const noDl = k === "roll" && String(body.page || "").includes("vip-studio-rollup");
+      const amount = !noDl && r.deadline && Date.now() >= r.deadline ? r.after : r.before;
       if (amount == null) return res.status(410).json({ error: r.name + " is no longer available." });
       PRODUCTS.push({ name: r.name, amount, quantity: q });
     }
