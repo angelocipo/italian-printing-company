@@ -38,8 +38,8 @@ const PAPERS = {
   "a0": { label: "A0 poster, 180gsm", before: 1700, after: 1700, deadline: new Date("2026-10-26T09:00:00+01:00").getTime(), closes: new Date("2026-10-26T09:00:00+01:00").getTime(), name: "A0 poster — 84,1 x 118,9 cm, 180gsm paper" },
   // Malta (vip-studio-malta.html): € 128 ×1.6 = € 204,80, UPS to Malta included. Night Shift, closes Wed 28 Oct 09:00 Rome, delivery Fri 30 Oct
   "malta": { label: "300 folded leaflets, A4, matte ~170gsm", before: 20480, after: 20480, deadline: new Date("2026-10-28T09:00:00+01:00").getTime(), closes: new Date("2026-10-28T09:00:00+01:00").getTime(), name: "300 folded leaflets — A4, folded in the centre, matte ~170gsm, UPS delivery to Malta included" },
-  // Malta 500 flyers A5 double sided: € 149 ×1.6 = € 238,40, UPS to Malta included. Night Shift, closes Thu 29 Oct 09:00 Rome, delivery Fri 30 Oct (90%) / Mon 2 Nov (10%)
-  "mtfly": { label: "500 flyers, A5, double sided full color", before: 23840, after: 23840, deadline: new Date("2026-10-29T09:00:00+01:00").getTime(), closes: new Date("2026-10-29T09:00:00+01:00").getTime(), name: "500 flyers — A5, double sided full color" },
+  // Malta 500 flyers A5 double sided: final price € 149 (no ×1.6), UPS to Malta included. Night Shift, closes Thu 29 Oct 09:00 Rome, delivery Fri 30 Oct (90%) / Mon 2 Nov (10%)
+  "mtfly": { label: "500 flyers, A5, double sided full color", before: 14900, after: 14900, deadline: new Date("2026-10-29T09:00:00+01:00").getTime(), closes: new Date("2026-10-29T09:00:00+01:00").getTime(), name: "500 flyers — A5, double sided full color" },
   // Sroman (vip-studio-sroman.html): 125 conference programs A5, 8 pages, stapled. ×1.6 applied. Orders close Wed 4 Nov 09:00 Rome
   "sr10": { label: "Matte coated, 10 working days", before: 35040, after: 35040, deadline: 0, closes: new Date("2026-10-22T09:00:00+02:00").getTime(), name: "125 conference programs — A5, 8 pages, stapled, matte coating, double sided full color, production 10 working days" },
   // srn: Normal 7 wd until Tue 27 Oct 09:00, Fast Track 4 wd until Fri 30 Oct 09:00, Night Shift 1 wd until Wed 4 Nov 09:00 (delivery Fri 6 Nov)
