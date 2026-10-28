@@ -1,0 +1,34 @@
+Replace these lines in the <head> of each page.
+
+=== index.html (homepage) ===
+<link rel="canonical" href="https://www.italianprintingcompany.com/">
+<meta property="og:url" content="https://www.italianprintingcompany.com/">
+
+=== where-to-print-in-rome.html ===
+<title>Where to Print in Rome: Same-Day, English-Speaking Printer</title>
+<meta name="description" content="Need something printed in Rome today? Flyers, brochures, roll-ups and badges printed the same day and delivered to your hotel or venue. We answer in English.">
+
+=== rome.html ===
+<title>Print Shop in Rome | Same-Day Printing, English Spoken</title>
+<meta name="description" content="Print shop in Rome since 2008. Same-day flyers, brochures and roll-ups, delivered to your hotel, stand or venue. Quote in English on WhatsApp.">
+
+=== Homepage body text ===
+H1, replace:  "are in need for printing material"
+with:         "You're coming to Italy and need printed materials?"
+
+Remove the second copy of the "Venice, Turin, Naples & beyond" paragraph.
+Stats strip: remove the repeated labels (e.g. "Clients / year 100+ Clients / year" -> "100+ Clients / year").
+Magazines card: link it to /magazine-printing-italy.html.
+Quote form: add "Brochures" to the product list.
+Same-day tier: make it match the brochure page (decide whether brochures are same day in Rome).
+
+=== Q&A page ===
+Replace "Angelo is Italian, his business partner is Dutch" with:
+"Yes, and Dutch too. Angelo is Dutch-Italian and has worked with English-speaking exhibitors since 2008."
+
+=== After uploading ===
+Search Console > URL inspection > request indexing for:
+/printing-rollups-in-rome-italy.html
+/print-on-demand-italy.html
+/where-to-print-in-rome.html
+/rome.html

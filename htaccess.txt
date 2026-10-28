@@ -1,0 +1,21 @@
+# Rename to .htaccess and upload to the site root (Apache hosting).
+# If a .htaccess already exists, paste these lines at the top of it.
+RewriteEngine On
+
+# 1. Merge the two sites: non-www -> www
+RewriteCond %{HTTP_HOST} ^italianprintingcompany\.com$ [NC]
+RewriteRule ^(.*)$ https://www.italianprintingcompany.com/$1 [R=301,L]
+
+# 2. Force https
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://www.italianprintingcompany.com/$1 [R=301,L]
+
+# 3. /index.html -> /
+RewriteCond %{THE_REQUEST} \s/index\.html[\s?] [NC]
+RewriteRule ^index\.html$ / [R=301,L]
+
+# 4. Old WordPress URLs still in Google
+Redirect 301 /2026/05/15/urgent-any-recommendations-for-print-shops-in-rome/ https://www.italianprintingcompany.com/where-to-print-in-rome.html
+Redirect 301 /2026/04/23/how-much-does-professional-printing-cost-in-italy/ https://www.italianprintingcompany.com/qa.html
+Redirect 301 /italian-wedding-printing-services-superior-quality-quickly/ https://www.italianprintingcompany.com/
+Redirect 301 /conference-printing-in-bologna-delivered-fast-for-international-exhibitors/ https://www.italianprintingcompany.com/bologna.html
