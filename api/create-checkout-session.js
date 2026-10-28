@@ -116,7 +116,7 @@ module.exports = async (req, res) => {
     }
     if (!PRODUCTS.length) return res.status(400).json({ error: "No products selected." });
     const rq = (PRODUCTS.find(x => x.name === RANA.roll.name) || {}).quantity || 0;
-    if (rq > 0) PRODUCTS.push({ name: "Rollup delivery — UPS Priority (" + rq + (rq > 1 ? " rollups" : " rollup") + ")", amount: String(body.page || "").includes("vip-studio-serbia") ? 2000 + 1500 * (rq - 1) : 2000, quantity: 1 });
+    if (rq > 0) PRODUCTS.push({ name: "Rollup delivery — UPS Priority (" + rq + (rq > 1 ? " rollups" : " rollup") + ")", amount: /vip-studio-(serbia|rollup)/.test(String(body.page || "")) ? 2000 + 1500 * (rq - 1) : 2000, quantity: 1 });
     label = PRODUCTS.map(x => x.quantity + "x " + x.name).join("; ").slice(0, 490);
   } else {
     const paper = PAPERS[body.paper] || (/^ms[0-9]$/.test(body.paper) ? PAPERS.am8 : PAPERS["170"]);
