@@ -38,6 +38,8 @@ const PAPERS = {
   "a0": { label: "A0 poster, 180gsm", before: 1700, after: 1700, deadline: new Date("2026-10-26T09:00:00+01:00").getTime(), closes: new Date("2026-10-26T09:00:00+01:00").getTime(), name: "A0 poster — 84,1 x 118,9 cm, 180gsm paper" },
   // Malta (vip-studio-malta.html): € 128 ×1.6 = € 204,80, UPS to Malta included. Night Shift, closes Wed 28 Oct 09:00 Rome, delivery Fri 30 Oct
   "malta": { label: "300 folded leaflets, A4, matte ~170gsm", before: 20480, after: 20480, deadline: new Date("2026-10-28T09:00:00+01:00").getTime(), closes: new Date("2026-10-28T09:00:00+01:00").getTime(), name: "300 folded leaflets — A4, folded in the centre, matte ~170gsm, UPS delivery to Malta included" },
+  // Malta 500 flyers A5 double sided: € 149 ×1.6 = € 238,40, UPS to Malta included. Night Shift, closes Thu 29 Oct 09:00 Rome, delivery Fri 30 Oct (90%) / Mon 2 Nov (10%)
+  "mtfly": { label: "500 flyers, A5, double sided full color", before: 23840, after: 23840, deadline: new Date("2026-10-29T09:00:00+01:00").getTime(), closes: new Date("2026-10-29T09:00:00+01:00").getTime(), name: "500 flyers — A5, double sided full color" },
   // Sroman (vip-studio-sroman.html): 125 conference programs A5, 8 pages, stapled. ×1.6 applied. Orders close Wed 4 Nov 09:00 Rome
   "sr10": { label: "Matte coated, 10 working days", before: 35040, after: 35040, deadline: 0, closes: new Date("2026-10-22T09:00:00+02:00").getTime(), name: "125 conference programs — A5, 8 pages, stapled, matte coating, double sided full color, production 10 working days" },
   // srn: Normal 7 wd until Tue 27 Oct 09:00, Fast Track 4 wd until Fri 30 Oct 09:00, Night Shift 1 wd until Wed 4 Nov 09:00 (delivery Fri 6 Nov)
@@ -90,6 +92,16 @@ module.exports = async (req, res) => {
       if (p.closes && Date.now() >= p.closes) return res.status(410).json({ error: "This offer has ended. Contact us for a new quote." });
       const t = p.tiers ? p.tiers.find(x => Date.now() < x[0]) : null;
       PRODUCTS.push(t ? { name: p.name + ", " + t[2], amount: t[1], quantity: 1 } : { name: p.name, amount: p.after, quantity: 1 });
+    }
+    if (!PRODUCTS.length) return res.status(400).json({ error: "No products selected." });
+    label = PRODUCTS.map(x => x.name).join("; ").slice(0, 490);
+  } else if (Array.isArray(body.mt) && body.mt.length) {
+    // Malta (vip-studio-malta.html): 300 leaflets and/or 500 flyers, each with its own deadline
+    PRODUCTS = [];
+    for (const k of [...new Set(body.mt)].filter(x => x === "malta" || x === "mtfly")) {
+      const p = PAPERS[k];
+      if (p.closes && Date.now() >= p.closes) return res.status(410).json({ error: p.label + " is no longer available." });
+      PRODUCTS.push({ name: p.name || p.label, amount: p.after, quantity: 1 });
     }
     if (!PRODUCTS.length) return res.status(400).json({ error: "No products selected." });
     label = PRODUCTS.map(x => x.name).join("; ").slice(0, 490);
