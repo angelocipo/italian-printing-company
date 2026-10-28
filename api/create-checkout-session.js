@@ -54,7 +54,7 @@ const PAPERS = {
 };
 // Rana offer (vip-studio-rana.html): itemised, cents. after = express price from deadline on.
 const RANA = {
-  roll: { name: "Rollup — 80/85x200cm · Aluminum frame with indestructible synthetic paper · single sided full color", before: 7000, after: null, deadline: new Date("2026-10-28T11:00:00+01:00").getTime(), max: 50 },
+  roll: { name: "Rollup — 80/85x200cm · Aluminum frame with indestructible synthetic paper · single sided full color", before: 7000, after: null, deadline: new Date("2026-10-29T09:00:00+01:00").getTime(), max: 50 },
   bc250: { name: "6 x 250 business cards — 85x55mm, credit card size · 350gsm · double sided full color in offset", before: 22400, after: 28000, deadline: new Date("2026-10-20T09:00:00+02:00").getTime(), max: 1 },
   bc500: { name: "6 x 500 business cards — 85x55mm, credit card size · 350gsm · double sided full color in offset", before: 25300, after: 29900, deadline: new Date("2026-10-20T09:00:00+02:00").getTime(), max: 1 },
   br25: { name: "2,500 folded brochures — A4, open 63x29.7cm · 250gsm matte · double sided full color Offset", before: 83600, after: 104000, deadline: new Date("2026-10-21T09:00:00+02:00").getTime(), max: 1 },
@@ -62,9 +62,9 @@ const RANA = {
   br50: { name: "5,000 folded brochures — A4, open 63x29.7cm · 250gsm matte · double sided full color Offset", before: 152800, after: 189200, deadline: new Date("2026-10-21T09:00:00+02:00").getTime(), max: 1 },
   env: { name: "2,500 DIN C6 (16,2 x 11,4 cm) envelopes — 80gsm · print full colour", before: 25600, after: null, max: 1 },
   wc: { name: "2.500 white cards A6 (15x10,5 cm) — turnaround time 7 working days", before: 13100, after: 18080, deadline: new Date("2026-10-21T09:00:00+02:00").getTime(), closes: new Date("2026-10-27T09:00:00+01:00").getTime(), max: 1 },
-  // Serbia (vip-studio-serbia.html): 300 postcards, Fast Track until Tue 27 Oct 09:00, Night Shift until Wed 28 Oct 11:00
-  pc: { name: "300 postcards — 300gsm matte · double sided full color", before: 11200, after: 14880, deadline: new Date("2026-10-27T09:00:00+01:00").getTime(), closes: new Date("2026-10-28T11:00:00+01:00").getTime(), max: 1 },
-  pc40: { name: "40 postcards — 300gsm matte · double sided full color", before: 12480, after: 12480, deadline: new Date("2026-10-27T09:00:00+01:00").getTime(), closes: new Date("2026-10-28T11:00:00+01:00").getTime(), max: 1 },
+  // Serbia (vip-studio-serbia.html): 300 postcards, Fast Track until Tue 27 Oct 09:00, Night Shift until Thu 29 Oct 09:00
+  pc: { name: "300 postcards — 300gsm matte · double sided full color", before: 11200, after: 14880, deadline: new Date("2026-10-27T09:00:00+01:00").getTime(), closes: new Date("2026-10-29T09:00:00+01:00").getTime(), max: 1 },
+  pc40: { name: "40 postcards — 300gsm matte · double sided full color", before: 12480, after: 12480, deadline: new Date("2026-10-27T09:00:00+01:00").getTime(), closes: new Date("2026-10-29T09:00:00+01:00").getTime(), max: 1 },
   envg: { name: "2.500 white DIN C6 (16,2 x 11,4 cm) envelopes — glossy gold foil", before: 277700, after: null, max: 1 }
 };
 const ZONES = {
