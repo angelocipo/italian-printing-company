@@ -55,6 +55,9 @@ const PAPERS = {
 // Rana offer (vip-studio-rana.html): itemised, cents. after = express price from deadline on.
 const RANA = {
   roll: { name: "Rollup — 80/85x200cm · Aluminum frame with indestructible synthetic paper · single sided full color", before: 7000, after: null, deadline: new Date("2026-10-29T09:00:00+01:00").getTime(), max: 50 },
+  pen70: { name: "70 personalised ballpoint pens — Push-button ballpoint pen with metal clip · plastic barrel, metal button, body and tip · photo print (CMYK) next to the clip, print area 58 x 6 mm · blue ink", before: 25694, after: null, deadline: new Date("2026-11-24T09:00:00+01:00").getTime(), max: 1 },
+  pin70: { name: "70 personalised pins — Full colour print with your artwork", before: 12374, after: 15731, deadline: new Date("2026-11-24T09:00:00+01:00").getTime(), closes: new Date("2026-11-30T09:00:00+01:00").getTime(), max: 1 },
+  choc50: { name: "50 personalised chocolates — Individually wrapped in a paper cup · top printed in full colour with your artwork (digital print)", before: 21066, after: null, deadline: new Date("2026-11-16T09:00:00+01:00").getTime(), max: 1 },
   bc250: { name: "6 x 250 business cards — 85x55mm, credit card size · 350gsm · double sided full color in offset", before: 22400, after: 28000, deadline: new Date("2026-10-20T09:00:00+02:00").getTime(), max: 1 },
   bc500: { name: "6 x 500 business cards — 85x55mm, credit card size · 350gsm · double sided full color in offset", before: 25300, after: 29900, deadline: new Date("2026-10-20T09:00:00+02:00").getTime(), max: 1 },
   br25: { name: "2,500 folded brochures — A4, open 63x29.7cm · 250gsm matte · double sided full color Offset", before: 83600, after: 104000, deadline: new Date("2026-10-21T09:00:00+02:00").getTime(), max: 1 },
@@ -122,13 +125,14 @@ module.exports = async (req, res) => {
       if (!q) continue;
       if (r.closes && Date.now() >= r.closes) return res.status(410).json({ error: r.name + " is no longer available." });
       const noDl = k === "roll" && String(body.page || "").includes("vip-studio-rollup");
-      const amount = !noDl && r.deadline && Date.now() >= r.deadline ? r.after : r.before;
+      const dl = k === "roll" && String(body.page || "").includes("vip-studio-constanza") ? new Date("2026-11-26T09:00:00+01:00").getTime() : r.deadline;
+      const amount = !noDl && dl && Date.now() >= dl ? r.after : r.before;
       if (amount == null) return res.status(410).json({ error: r.name + " is no longer available." });
       PRODUCTS.push({ name: r.name, amount, quantity: q });
     }
     if (!PRODUCTS.length) return res.status(400).json({ error: "No products selected." });
     const rq = (PRODUCTS.find(x => x.name === RANA.roll.name) || {}).quantity || 0;
-    if (rq > 0) PRODUCTS.push({ name: "Rollup delivery — UPS Priority (" + rq + (rq > 1 ? " rollups" : " rollup") + ")", amount: /vip-studio-(serbia|rollup)/.test(String(body.page || "")) ? 2000 + 1500 * (rq - 1) : 2000, quantity: 1 });
+    if (rq > 0 && !body.pickup) PRODUCTS.push({ name: "Rollup delivery — UPS Priority (" + rq + (rq > 1 ? " rollups" : " rollup") + ")", amount: /vip-studio-(serbia|rollup|constanza)/.test(String(body.page || "")) ? 2000 + 1500 * (rq - 1) : 2000, quantity: 1 });
     label = PRODUCTS.map(x => x.quantity + "x " + x.name).join("; ").slice(0, 490);
   } else {
     const paper = PAPERS[body.paper] || (/^ms[0-9]$/.test(body.paper) ? PAPERS.am8 : PAPERS["170"]);
