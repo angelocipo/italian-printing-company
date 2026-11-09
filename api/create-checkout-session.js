@@ -32,6 +32,8 @@ const PAPERS = {
   "arina": { label: "130gsm glossy", before: 21862, after: 27718, deadline: new Date("2026-10-21T09:00:00+02:00").getTime(), closes: new Date("2026-10-23T09:00:00+02:00").getTime(), name: "50 magazines, 24 pages, A4 — open A3, closed A4, 130gsm glossy, double sided full color" },
   // Karl (vip-studio-karl.html), final client prices (no ×1.6): Standard 7 wd until Thu 22 Oct 09:00, Fast Track 3 wd until Wed 28 Oct 09:00, then closed
   "karl": { label: "130gsm paper", before: 29700, after: 39300, deadline: new Date("2026-10-22T09:00:00+02:00").getTime(), closes: new Date("2026-10-28T09:00:00+01:00").getTime(), name: "5,000 flyers — A4, 130gsm paper" },
+  // Taylor (vip-studio-taylor.html): Flyeralarm Express € 94,56 ×1.8 = € 170,21 (Fast Track, 2 wd) until Tue 10 Nov 09:00, Overnight € 117,64 ×1.8 = € 211,75 (Night Shift, 1 wd) until Wed 11 Nov 09:00, then closed; delivery Thu 12 Nov
+  "taylor": { label: "170gsm glossy paper", before: 17021, after: 21175, deadline: new Date("2026-11-10T09:00:00+01:00").getTime(), closes: new Date("2026-11-11T09:00:00+01:00").getTime(), name: "250 flyers — A4, 170gsm glossy paper, double sided full color, one sheet per copy (2-page PDF: page 1 front, page 2 back)" },
   // Test product for vip-studio-test.html — exactly € 1,00, no shipping, no deadline (not ×1.6)
   "test": { label: "Test product", before: 100, after: 100, deadline: 0, name: "Test product — payment check, nothing will be printed" },
   // A0 (vip-studio-a0.html), final price (no ×1.6): € 17 per poster + € 20 UPS shipping per order. Night Shift 1 wd, closes Mon 26 Oct 09:00 Rome, delivery Tue 27 Oct
