@@ -25,8 +25,6 @@ function html(d) {
 <div style="font-size:11px; font-weight:700; color:#0071e3; letter-spacing:1.4px;">REQUEST</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:4px;">${rows}</table>
 </td></tr></table></td></tr>
-<tr><td style="padding:24px 32px 0;"><a href="mailto:${esc(d.email)}?subject=${encodeURIComponent("Your quote — " + d.material + " · #" + d.ref)}" style="display:inline-block; background:#0071e3; color:#ffffff; font-size:15px; font-weight:600; text-decoration:none; padding:12px 24px; border-radius:980px;">Reply to ${esc(d.email)}</a>
-<div style="font-size:13px; line-height:1.5; color:#6e6e73; padding-top:12px;">Or just press Reply: it goes straight to the customer.</div></td></tr>
 <tr><td style="padding:28px 32px 30px;"><div style="border-top:1px solid #e6e6e8; padding-top:18px; font-size:12px; line-height:1.6; color:#86868b;">
 Sent from <a href="${esc(d.pageUrl)}" style="color:#0071e3; text-decoration:none;">${esc(d.page)}</a> · ${esc(d.when)} Rome time<br>
 <strong style="color:#1d1d1f; font-size:13px;">Italian Printing Company by Printing Italy di Angelo Cipolla</strong><br>Via Lorenzo Bonincontri 26, 00147 Roma RM · P.IVA 02452700590</div></td></tr>
