@@ -68,7 +68,7 @@ module.exports = async (req, res) => {
   const fields = [["Material", material], ["Event city", city]]
     .concat(Object.keys(b).filter(k => k[0] !== "_" && k !== "Submit" && !skip.has(k)).map(k => [k.replace(/_/g, " "), clip(b[k])]))
     .concat([["Email", email]]);
-  const ref = "Q-" + Array.from({ length: 6 }, () => "23456789ABCDEFGHJKLMNPQRSTUVWXYZ"[Math.floor(Math.random() * 32)]).join("");
+  const ref = "Q-" + ((a) => { const s = Array.from({ length: 6 }, () => a[Math.floor(Math.random() * 32)]); if (!/[2-9]/.test(s.join(""))) s[Math.floor(Math.random() * 6)] = a[Math.floor(Math.random() * 8)]; return s.join(""); })("23456789ABCDEFGHJKLMNPQRSTUVWXYZ");
   const when = new Date().toLocaleString("en-GB", { timeZone: "Europe/Rome", weekday: "short", day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
   const d = { ref, material, city, email, fields, page, pageUrl: SITE + "/" + (page === "index.html" ? "" : page), when };
   const subject = "Quote request — " + material + (city ? " (" + city + ")" : "") + " · #" + ref;
