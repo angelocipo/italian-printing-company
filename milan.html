@@ -439,5 +439,6 @@ f.addEventListener('submit',function(e){var em=f.querySelector('input[type=email
 if(h('Material'))h('Material').value=m;if(h('_replyto'))h('_replyto').value=em.value;if(h('_subject'))h('_subject').value='Quote request \u2014 '+m+(c?' ('+c.value+')':'');sub=true;var bt=f.querySelector('button[type=submit]');if(bt){bt.textContent='Sending\u2026';bt.style.opacity='0.6';}});
 fr&&fr.addEventListener('load',function(){if(!sub)return;sub=false;show('notSent',false);show('sent',true);});
 })();</script>
+<script>(function(){var t0=Date.now();document.querySelectorAll('form[action*="quote-request"]').forEach(function(f){f.addEventListener('submit',function(){var i=f.querySelector('input[name="_t"]');if(!i){i=document.createElement('input');i.type='hidden';i.name='_t';f.appendChild(i);}i.value=Math.round((Date.now()-t0)/1000);});});})();</script>
 </body>
 </html>

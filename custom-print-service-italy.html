@@ -341,5 +341,6 @@ if(f){f.addEventListener('submit',function(e){var em=f.querySelector('input[type
 fr&&fr.addEventListener('load',function(){if(!sub)return;sub=false;clearTimeout(to);show('notSent',false);show('sent',true);});}
 if(window.parent!==window){var p=function(){parent.postMessage({ipcEmbedHeight:Math.max(document.body.scrollHeight,document.documentElement.scrollHeight)},'*');};window.ResizeObserver&&new ResizeObserver(p).observe(document.body);addEventListener('load',p);}
 })();</script>
+<script>(function(){var t0=Date.now();document.querySelectorAll('form[action*="quote-request"]').forEach(function(f){f.addEventListener('submit',function(){var i=f.querySelector('input[name="_t"]');if(!i){i=document.createElement('input');i.type='hidden';i.name='_t';f.appendChild(i);}i.value=Math.round((Date.now()-t0)/1000);});});})();</script>
 </body>
 </html>
