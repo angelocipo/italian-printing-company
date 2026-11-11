@@ -391,7 +391,7 @@ var tot=function(){var t=money(sum(picked()));$$('[data-price]').forEach(functio
 cbs.forEach(function(c){if(c)c.addEventListener('change',function(){tot();hint.textContent='Secure payment with Stripe. Invoice details and artwork right after.';});});tot();
 $$('input[type=file]').forEach(function(fi){fi.addEventListener('change',function(){fi.previousElementSibling.textContent=fi.files[0]?fi.files[0].name:'Drop it here or choose a file';});});
 var v=function(f,n){var e=f.querySelector('[name="'+n+'"]');return e?e.value:'';};
-var mk=function(p){return p+Array.apply(null,Array(6)).map(function(){return '23456789ABCDEFGHJKLMNPQRSTUVWXYZ'[Math.floor(Math.random()*32)];}).join('');};
+var mk=function(p){return p+(function(a,s){s=Array.apply(null,Array(6)).map(function(){return a.charAt(Math.floor(Math.random()*32));});if(!/[2-9]/.test(s.join('')))s[Math.floor(Math.random()*6)]=a.charAt(Math.floor(Math.random()*8));return s.join('');})('23456789ABCDEFGHJKLMNPQRSTUVWXYZ');};
 var post=function(d){return fetch(EP,{method:'POST',body:d,headers:{Accept:'application/json'}}).then(function(r){return r.json();});};
 var base=function(d,r,kind,l){d.append('_subject',(kind==='invoice'?'VIP invoice details ':'VIP order ')+r);d.append('_captcha','false');d.append('_template','table');d.append('Reference',r);d.append('Request type',kind==='invoice'?'Invoice details and artwork (paid)':'Order placed, going to payment (step 1)');d.append('Order',lines(l));d.append('Total',money(sum(l))+' (VAT included)');d.append('Pick up',PU);};
 var done=function(r){show('showOffer',false);show('notSent',false);show('paidStep',false);show('done',true);var s=$('[data-if="done"] strong');if(s)s.textContent=r;scrollTo(0,0);};
