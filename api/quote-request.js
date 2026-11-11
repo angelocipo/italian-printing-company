@@ -31,6 +31,19 @@ Sent from <a href="${esc(d.pageUrl)}" style="color:#0071e3; text-decoration:none
 </table></td></tr></table></body></html>`;
 }
 
+// Returns a reason string if the submission looks like spam, otherwise "".
+function spamReason(b) {
+  const t = parseInt(b._t, 10);
+  if (!(t >= 3)) return isNaN(t) ? "no page timer" : "sent in " + t + "s";   // real visitors need more than 3 seconds; bots post directly
+  const text = Object.keys(b).filter(k => k[0] !== "_" && k !== "email").map(k => String(b[k] || "")).join("\n");
+  if (/[\u0400-\u04FF\u4E00-\u9FFF\u0600-\u06FF]/.test(text)) return "cyrillic/cjk/arabic text";
+  if (/<a\s|\[url|\[link/i.test(text)) return "html/bbcode link";
+  if ((text.match(/https?:\/\/|www\./gi) || []).length >= 2) return "multiple links";
+  if (/(^|\s)(?=[A-Z0-9]*\d)(?=[A-Z0-9]*[A-Z])[A-Z0-9]{14,}(\s|$)/.test(text)) return "random token";
+  if (/(casino|1xbet|viagra|crypto|bitcoin|forex|seo service|backlink|промокод|loan offer)/i.test(text)) return "spam keyword";
+  return "";
+}
+
 const done = (req, res, code, ok) => {
   if (String(req.headers.accept || "").includes("application/json")) return res.status(code).json({ ok });
   res.setHeader("Content-Type", "text/html; charset=utf-8");
@@ -42,6 +55,10 @@ module.exports = async (req, res) => {
   let b = req.body || {};
   if (typeof b === "string") b = Object.fromEntries(new URLSearchParams(b));
   if (clip(b._honey)) return done(req, res, 200, true); // spam bot filled the hidden field
+  // Spam filter: requests that look automated are dropped silently (the bot still sees "sent"),
+  // and logged in full in the Vercel runtime logs so a false positive can be recovered.
+  const why = spamReason(b);
+  if (why) { console.log("Spam dropped (" + why + "):", JSON.stringify(b).slice(0, 3000)); return done(req, res, 200, true); }
   const email = clip(b.email || b._replyto, 200);
   if (!/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(email)) return done(req, res, 400, false);
   const material = clip(b.Material, 200) || "Printing";
@@ -49,7 +66,7 @@ module.exports = async (req, res) => {
   const page = clip(b["Source page"], 200).replace(/[^A-Za-z0-9._\/-]/g, "") || "website";
   const skip = new Set(["email", "Material", "Event city", "Source page"]);
   const fields = [["Material", material], ["Event city", city]]
-    .concat(Object.keys(b).filter(k => k[0] !== "_" && !skip.has(k)).map(k => [k.replace(/_/g, " "), clip(b[k])]))
+    .concat(Object.keys(b).filter(k => k[0] !== "_" && k !== "Submit" && !skip.has(k)).map(k => [k.replace(/_/g, " "), clip(b[k])]))
     .concat([["Email", email]]);
   const ref = "Q-" + Array.from({ length: 6 }, () => "23456789ABCDEFGHJKLMNPQRSTUVWXYZ"[Math.floor(Math.random() * 32)]).join("");
   const when = new Date().toLocaleString("en-GB", { timeZone: "Europe/Rome", weekday: "short", day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
