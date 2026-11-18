@@ -1,5 +1,5 @@
 // Vercel serverless function — sends the HTML order confirmation (Resend) after a paid VIP Studio order.
-// Requires env vars: RESEND_API_KEY, STRIPE_SECRET_KEY. Optional: MAIL_FROM (default order@italianprintingcompany.com).
+// Requires env vars: RESEND_API_KEY, STRIPE_SECRET_KEY (and NEXI_API_KEY for Nexi orders, NEXI_TEST=1 for the sandbox). Optional: MAIL_FROM (default order@italianprintingcompany.com).
 // Amounts, products and the customer email come from Stripe (verified paid session), never from the browser.
 const { ddtPdf, ddtData } = require("../lib/ddt-pdf");
 const { fatturaFromOrder } = require("../lib/fattura-order");
@@ -42,6 +42,24 @@ ${box("DELIVERY / NOTES", `<table role="presentation" width="100%" cellpadding="
 
 const stripe = (path) => fetch("https://api.stripe.com/v1/" + path, { headers: { Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}` } }).then(r => r.json());
 
+// Nexi XPay order → same shape as a Stripe session + line items, so the email/DDT/invoice code is shared.
+const NEXI_BASE = () => process.env.NEXI_TEST === "1" ? "https://xpaysandbox.nexigroup.com/api/phoenix-0.0/psp/api/v1" : "https://xpay.nexigroup.com/api/phoenix-0.0/psp/api/v1";
+async function nexiOrder(orderId) {
+  if (!process.env.NEXI_API_KEY) return null;
+  const r = await fetch(NEXI_BASE() + "/orders/" + encodeURIComponent(orderId), { headers: { "X-Api-Key": process.env.NEXI_API_KEY, "Correlation-Id": require("crypto").randomUUID() } });
+  if (!r.ok) { console.error("Nexi order lookup failed:", r.status, orderId); return null; }
+  const o = ((await r.json()) || {}).orderStatus || {};
+  const ord = o.order || {};
+  const ok = (o.operations || []).find(x => x.operationResult === "EXECUTED" || x.operationResult === "AUTHORIZED");
+  if (!ok) return null;
+  const total = parseInt(ok.operationAmount || ord.amount, 10) || 0;
+  const ref = ord.customField || orderId;
+  const email = (ord.customerInfo && ord.customerInfo.cardHolderEmail) || "";
+  const s = { id: "nx_" + orderId, client_reference_id: ref, metadata: { reference: ref, paper: ord.description || "", provider: "nexi", nexi_order: orderId, nexi_operation: ok.operationId || "" }, amount_total: total, amount_subtotal: total, currency: "eur", payment_status: "paid", customer_email: email, customer_details: { email, name: (ord.customerInfo && ord.customerInfo.cardHolderName) || null }, created: Math.floor(Date.parse(ok.operationTime || "") / 1000) || Math.floor(Date.now() / 1000) };
+  const li = { data: [{ description: ord.description || "VIP Studio order " + ref, quantity: 1, amount_total: total }] };
+  return { s, li };
+}
+
 module.exports = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", SITE);
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -50,14 +68,24 @@ module.exports = async (req, res) => {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
   const body = req.body || {};
   const sid = String(body.session_id || "");
-  if (!/^cs_[A-Za-z0-9_]+$/.test(sid)) return res.status(400).json({ error: "Missing payment session" });
+  const isNexi = /^nx_[A-Za-z0-9]{1,18}$/.test(sid);
+  if (!isNexi && !/^cs_[A-Za-z0-9_]+$/.test(sid)) return res.status(400).json({ error: "Missing payment session" });
   try {
-    const s = await stripe("checkout/sessions/" + sid);
-    if (s.error || s.payment_status !== "paid") return res.status(402).json({ error: "Payment not found or not completed" });
-    const li = await stripe("checkout/sessions/" + sid + "/line_items?limit=50");
+    const f = body.f && typeof body.f === "object" ? body.f : {};
+    let s, li;
+    if (isNexi) {
+      // Nexi XPay: read the order from Nexi and accept it only if a payment was authorized/executed
+      const n = await nexiOrder(sid.slice(3));
+      if (!n) return res.status(402).json({ error: "Payment not found or not completed" });
+      s = n.s; li = n.li;
+      if (!s.customer_details.email && f.email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(f.email))) s.customer_details.email = String(f.email).slice(0, 200);
+    } else {
+      s = await stripe("checkout/sessions/" + sid);
+      if (s.error || s.payment_status !== "paid") return res.status(402).json({ error: "Payment not found or not completed" });
+      li = await stripe("checkout/sessions/" + sid + "/line_items?limit=50");
+    }
     const email = (s.customer_details && s.customer_details.email) || s.customer_email;
     if (!email) return res.status(400).json({ error: "No customer email" });
-    const f = body.f && typeof body.f === "object" ? body.f : {};
     const page = /^vip-studio[a-z0-9-]*\.html$/.test(String(body.page || "")) ? body.page : "vip-studio.html";
     const d = {
       link: SITE + "/" + page + "?paid=1&ref=" + encodeURIComponent(s.client_reference_id || "") + "&session_id=" + sid,

@@ -1,4 +1,4 @@
-// Vercel serverless function — creates a Stripe Checkout session for VIP Studio orders.
+// Vercel serverless function — creates a Stripe Checkout session (or a Nexi XPay payment page when body.provider === "nexi") for VIP Studio orders.
 // Requires env var STRIPE_SECRET_KEY (Vercel → Project → Settings → Environment Variables).
 // Place this file at /api/create-checkout-session.js in the repo root.
 
@@ -39,6 +39,8 @@ const PAPERS = {
   "pst7": { label: "100gsm glossy paper, Standard", before: 17760, after: 17760, deadline: new Date("2026-11-12T09:00:00+01:00").getTime(), closes: new Date("2026-11-11T00:00:00+01:00").getTime(), name: "Poster run — 50 copies of one design, A2 42×59.4 cm, 100gsm glossy paper, double sided full color, Standard, production 7 working days" },
   "pst2b": { label: "130gsm glossy paper, Fast Track", before: 19680, after: 19680, deadline: new Date("2026-11-11T11:00:00+01:00").getTime(), closes: new Date("2026-11-11T11:00:00+01:00").getTime(), name: "Poster run — 50 copies of one design, A2 42×59.4 cm, 130gsm glossy paper, double sided full color, Fast Track, production 3 working days" },
   "pst7b": { label: "130gsm glossy paper, Standard", before: 14560, after: 14560, deadline: new Date("2026-11-12T09:00:00+01:00").getTime(), closes: new Date("2026-11-11T00:00:00+01:00").getTime(), name: "Poster run — 50 copies of one design, A2 42×59.4 cm, 130gsm glossy paper, double sided full color, Standard, production 7 working days" },
+  // Sarah (vip-studio-sarah.html): fabric banner 12 x 4 ft (366 x 122 cm), final price € 147 per banner (no ×1.6), UPS delivery in Italy included. Night Shift, closes Thu 19 Nov 09:00 Rome, delivery Fri 20 Nov (~90%); qty 1–20
+  "sarah": { label: "Fabric banner 12 x 4 ft", before: 14700, after: 14700, deadline: new Date("2026-11-19T09:00:00+01:00").getTime(), closes: new Date("2026-11-19T09:00:00+01:00").getTime(), name: "Fabric banner 12 x 4 ft — 366 x 122 cm, polyester fabric, single sided full color, Night Shift, UPS delivery in Italy included" },
   // Test product for vip-studio-test.html — exactly € 1,00, no shipping, no deadline (not ×1.6)
   "test": { label: "Test product", before: 100, after: 100, deadline: 0, name: "Test product — payment check, nothing will be printed" },
   // A0 (vip-studio-a0.html), final price (no ×1.6): € 17 per poster + € 20 UPS shipping per order. Night Shift 1 wd, closes Mon 26 Oct 09:00 Rome, delivery Tue 27 Oct
@@ -93,6 +95,40 @@ const ZONES = {
   it:     { label: "Italy (+1 day)", amount: 0 }
 };
 const SITE = "https://www.italianprintingcompany.com";
+
+// Nexi XPay (Hosted Payment Page). Env vars: NEXI_API_KEY (Nexi back office → Terminals → API KEYS); NEXI_TEST=1 to use the sandbox.
+const NEXI_BASE = () => process.env.NEXI_TEST === "1" ? "https://xpaysandbox.nexigroup.com/api/phoenix-0.0/psp/api/v1" : "https://xpay.nexigroup.com/api/phoenix-0.0/psp/api/v1";
+async function nexiCheckout(res, lines, ref, email, page) {
+  if (!process.env.NEXI_API_KEY) return res.status(500).json({ error: "Nexi is not configured" });
+  const total = lines.reduce((t, x) => t + x.amount * (x.quantity || 1), 0);
+  const AL = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let rnd = ""; for (let i = 0; i < 6; i++) rnd += AL[Math.floor(Math.random() * AL.length)];
+  // orderId: max 18 characters, letters/digits only, new for every payment attempt
+  const orderId = (ref.replace(/[^A-Za-z0-9]/g, "").slice(0, 12) + rnd).slice(0, 18);
+  const order = {
+    orderId, amount: String(total), currency: "EUR", customerId: ref.replace(/[^A-Za-z0-9_-]/g, "").slice(0, 27) || undefined,
+    description: lines.map(x => (x.quantity || 1) + "x " + x.name).join("; ").slice(0, 255),
+    customField: ref.slice(0, 255)
+  };
+  if (email) order.customerInfo = { cardHolderEmail: email };
+  const back = `${SITE}/${page}?paid=1&ref=${encodeURIComponent(ref)}&session_id=nx_${orderId}`;
+  try {
+    const r = await fetch(NEXI_BASE() + "/orders/hpp", {
+      method: "POST",
+      headers: { "X-Api-Key": process.env.NEXI_API_KEY, "Correlation-Id": require("crypto").randomUUID(), "Content-Type": "application/json" },
+      body: JSON.stringify({ order, paymentSession: { actionType: "PAY", amount: String(total), language: "eng", resultUrl: back, cancelUrl: `${SITE}/${page}?canceled=1` } })
+    });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok || !d.hostedPage) {
+      console.error("Nexi error:", r.status, JSON.stringify(d.errors || d));
+      return res.status(502).json({ error: (d.errors && d.errors[0] && d.errors[0].description) || "Nexi request failed" });
+    }
+    return res.status(200).json({ url: d.hostedPage });
+  } catch (e) {
+    console.error("Nexi request failed:", e);
+    return res.status(500).json({ error: "Nexi request failed" });
+  }
+}
 
 module.exports = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -187,11 +223,14 @@ module.exports = async (req, res) => {
     if (/^(am|ms)[0-9]$/.test(body.paper)) PRODUCTS.push(body.ship === "ovn" ? { name: "UPS overnight shipping (1 working day)", amount: 9900, quantity: 1 } : { name: "UPS standard shipping (2–3 working days)", amount: 5500, quantity: 1 });
     if (body.paper === "a0") { const aq = Math.max(1, Math.min(50, parseInt(body.qty, 10) || 1)); PRODUCTS[0].quantity = aq; label = aq + "x A0 poster, 180gsm"; PRODUCTS.push({ name: "UPS shipping", amount: 2000, quantity: 1 }); }
     if (/^pst[27]b?$/.test(body.paper)) { const pq = Math.max(1, Math.min(20, parseInt(body.qty, 10) || 1)); PRODUCTS[0].quantity = pq; label = pq + "x 50 A2 posters, " + paper.label; }
+    if (body.paper === "sarah") { const sq = Math.max(1, Math.min(20, parseInt(body.qty, 10) || 1)); PRODUCTS[0].quantity = sq; label = sq + "x fabric banner 12 x 4 ft"; }
     if (body.paper === "mk") PRODUCTS.push({ name: "UPS shipping to Madrid", amount: 5600, quantity: 1 });
   }
   const ref = String(body.ref || "").replace(/[^A-Za-z0-9-]/g, "").slice(0, 20);
   const email = String(body.email || "").slice(0, 200);
   const page = /^vip-studio[a-z0-9-]*\.html$/.test(String(body.page || "")) ? body.page : "vip-studio.html";
+
+  if (body.provider === "nexi") return nexiCheckout(res, zone.amount > 0 ? PRODUCTS.concat([{ name: "Shipping — " + zone.label, amount: zone.amount, quantity: 1 }]) : PRODUCTS, ref, email, page);
 
   const p = new URLSearchParams();
   p.append("mode", "payment");
