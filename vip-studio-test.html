@@ -46,5 +46,10 @@ b.addEventListener('click',function(){
   .catch(function(e){m.hidden=false;m.textContent=e.message;b.disabled=false;b.textContent='Pay € 1,00';});
 });
 })();</script>
+<script data-nexi>(function(){var B=[].slice.call(document.querySelectorAll('button')).filter(function(x){return /^\s*Pay(\s|$)/.test(x.textContent);});
+B.forEach(function(b){if(b.getAttribute('data-nexi-done'))return;b.setAttribute('data-nexi-done','1');var n=b.cloneNode(false);n.removeAttribute('id');n.removeAttribute('data-nexi-done');n.textContent='Pay by card with Nexi';n.style.background='#fff';n.style.color='#0071e3';n.style.border='1px solid #0071e3';n.style.marginTop='10px';
+var fw=0;b.addEventListener('click',function(){if(!fw)window.__ipcNexi=0;},true);n.addEventListener('click',function(e){window.__ipcNexi=1;if(n.type!=='submit'){e.preventDefault();fw=1;b.click();fw=0;}},true);
+b.parentNode.insertBefore(n,b.nextSibling);});
+var F=window.fetch;window.fetch=function(u,o){if(window.__ipcNexi&&String(u).indexOf('/api/create-checkout-session')>-1&&o&&typeof o.body==='string'){try{var j=JSON.parse(o.body);j.provider='nexi';o.body=JSON.stringify(j);}catch(e){}}return F.apply(this,arguments);};})();</script>
 </body>
 </html>

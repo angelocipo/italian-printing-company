@@ -290,7 +290,7 @@ doc.save('Quote-'+o.ref+'.pdf');}catch(e){console.error(e);}});};
             </div>
             <p style="font-size:13px; color:#86868b; text-align:right; margin-top:4px;">VAT included</p>
             <button type="submit" style="width:100%; margin-top:22px; background:#0071e3; color:#fff; border:none; font-size:18px; font-weight:500; font-family:inherit; padding:16px; border-radius:980px; cursor:pointer;">Pay now</button>
-            <p style="font-size:13px; color:#86868b; text-align:center; margin-top:12px;">Secure payment with Stripe. Invoice details and artwork right after.</p>
+            <p style="font-size:13px; color:#86868b; text-align:center; margin-top:12px;">Secure payment with Stripe or Nexi. Invoice details and artwork right after.</p>
             <div style="display:flex; align-items:center; gap:12px; margin:22px 0 18px;">
               <span style="flex:1; height:1px; background:rgba(0,0,0,0.1);"></span>
               <span style="font-size:12px; color:#86868b; letter-spacing:0.3px; text-transform:uppercase;">or</span>
@@ -388,7 +388,7 @@ var tick=function(){var s=Math.max(0,Math.floor((DL-Date.now())/1000)),txt=s?((s
 if(!s){cbs.forEach(function(c){if(c)c.disabled=true;});ob.disabled=true;ob.textContent='Orders closed';var w=$('[data-countdown]');if(w)w.textContent='Orders closed since Mon 2 Nov, 15:00 Rome time.';}};
 tick();setInterval(tick,1000);
 var tot=function(){var t=money(sum(picked()));$$('[data-price]').forEach(function(e){e.textContent=t;});};
-cbs.forEach(function(c){if(c)c.addEventListener('change',function(){tot();hint.textContent='Secure payment with Stripe. Invoice details and artwork right after.';});});tot();
+cbs.forEach(function(c){if(c)c.addEventListener('change',function(){tot();hint.textContent='Secure payment with Stripe or Nexi. Invoice details and artwork right after.';});});tot();
 $$('input[type=file]').forEach(function(fi){fi.addEventListener('change',function(){fi.previousElementSibling.textContent=fi.files[0]?fi.files[0].name:'Drop it here or choose a file';});});
 var v=function(f,n){var e=f.querySelector('[name="'+n+'"]');return e?e.value:'';};
 var mk=function(p){return p+(function(a,s){s=Array.apply(null,Array(6)).map(function(){return a.charAt(Math.floor(Math.random()*32));});if(!/[2-9]/.test(s.join('')))s[Math.floor(Math.random()*6)]=a.charAt(Math.floor(Math.random()*8));return s.join('');})('23456789ABCDEFGHJKLMNPQRSTUVWXYZ');};
@@ -415,5 +415,10 @@ post(d).then(function(){try{localStorage.removeItem(KEY);}catch(x){}done(REF);},
 qb.addEventListener('click',function(){if(!window.ipcQuotePDF){hint.textContent='The quote PDF is loading, please try again in a moment.';return;}var l=picked();if(!l.length)l=PR;var T=money(sum(l));
 window.ipcQuotePDF({ref:mk('Q-'),url:location.href.split('?')[0],lines:l.map(function(p){return {text:p.name,amount:money(p.price)};}),subtotal:T,shippingCost:'Pick up',total:T,email:v(of,'email'),phone:v(of,'venue_phone'),shipping:PU});});
 })();</script>
+<script data-nexi>(function(){var B=[].slice.call(document.querySelectorAll('button')).filter(function(x){return /^\s*Pay(\s|$)/.test(x.textContent);});
+B.forEach(function(b){if(b.getAttribute('data-nexi-done'))return;b.setAttribute('data-nexi-done','1');var n=b.cloneNode(false);n.removeAttribute('id');n.removeAttribute('data-nexi-done');n.textContent='Pay by card with Nexi';n.style.background='#fff';n.style.color='#0071e3';n.style.border='1px solid #0071e3';n.style.marginTop='10px';
+var fw=0;b.addEventListener('click',function(){if(!fw)window.__ipcNexi=0;},true);n.addEventListener('click',function(e){window.__ipcNexi=1;if(n.type!=='submit'){e.preventDefault();fw=1;b.click();fw=0;}},true);
+b.parentNode.insertBefore(n,b.nextSibling);});
+var F=window.fetch;window.fetch=function(u,o){if(window.__ipcNexi&&String(u).indexOf('/api/create-checkout-session')>-1&&o&&typeof o.body==='string'){try{var j=JSON.parse(o.body);j.provider='nexi';o.body=JSON.stringify(j);}catch(e){}}return F.apply(this,arguments);};})();</script>
 </body>
 </html>

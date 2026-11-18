@@ -530,3 +530,9 @@ Quote PDF: QR code back, placed under the URL (left).
 - print-shop-rome.html, client-details.html — embroidery removed (text, FAQ, schema)
 - 19 VIP pages (vip-studio*.html) — embroidery removed from text and og descriptions; reference codes always contain a digit
 - sitemap.xml — lastmod updated (garments page 2026-11-16)
+
+## 2026-11-18 — export-2026-11-18
+- api/create-checkout-session.js — Nexi XPay payment page when body.provider === "nexi" (env NEXI_API_KEY, NEXI_TEST=1 for sandbox); new key "sarah" (fabric banner 12 x 4 ft, € 147 per banner incl. UPS Italy, qty 1–20, closes Thu 19 Nov 09:00)
+- api/send-confirmation.js — confirmation email also for Nexi orders (session_id nx_…), payment checked with Nexi before sending
+- vip-studio-sarah.html (new) — fabric banner 12 × 4 ft, Night Shift € 147, delivery Fri 20 Nov (~90%), red clock to Thu 19 Nov 09:00
+- 20 VIP pages (vip-studio*.html) — "Pay by card with Nexi" button next to "Pay now"; note "Secure payment with Stripe or Nexi"
