@@ -536,3 +536,8 @@ Quote PDF: QR code back, placed under the URL (left).
 - api/send-confirmation.js — confirmation email also for Nexi orders (session_id nx_…), payment checked with Nexi before sending
 - vip-studio-sarah.html (new) — fabric banner 12 × 4 ft, Night Shift € 147, delivery Fri 20 Nov (~90%), red clock to Thu 19 Nov 09:00
 - 20 VIP pages (vip-studio*.html) — "Pay by card with Nexi" button next to "Pay now"; note "Secure payment with Stripe or Nexi"
+
+## 2026-11-19 — export-2026-11-19
+- vip-studio-rodolfo.html (new) — photobook A4, 52 pages, cover 250gsm glossy, inside 170gsm, Fast Track € 588 each (UPS Italy included), qty +/−, clock to Thu 19 Nov 10:30, delivery Tue 24 – Wed 25 Nov
+- api/create-checkout-session.js — key "rodolfo" (58800 cents each, qty 1–20, closes Thu 19 Nov 10:30)
+- lib/ddt-pdf.js — DDT: Destinatario = hotel + delivery address + guest + mobile (box grows, nothing cut off); "Luogo di destinazione" box removed; Vettore left empty
