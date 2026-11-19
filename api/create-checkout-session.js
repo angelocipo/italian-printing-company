@@ -41,6 +41,8 @@ const PAPERS = {
   "pst7b": { label: "130gsm glossy paper, Standard", before: 14560, after: 14560, deadline: new Date("2026-11-12T09:00:00+01:00").getTime(), closes: new Date("2026-11-11T00:00:00+01:00").getTime(), name: "Poster run — 50 copies of one design, A2 42×59.4 cm, 130gsm glossy paper, double sided full color, Standard, production 7 working days" },
   // Sarah (vip-studio-sarah.html): fabric banner 12 x 4 ft (366 x 122 cm), final price € 147 per banner (no ×1.6), UPS delivery in Italy included. Night Shift, closes Thu 19 Nov 09:00 Rome, delivery Fri 20 Nov (~90%); qty 1–20
   "sarah": { label: "Fabric banner 12 x 4 ft", before: 14700, after: 14700, deadline: new Date("2026-11-19T09:00:00+01:00").getTime(), closes: new Date("2026-11-19T09:00:00+01:00").getTime(), name: "Fabric banner 12 x 4 ft — 366 x 122 cm, polyester fabric, single sided full color, Night Shift, UPS delivery in Italy included" },
+  // Rodolfo (vip-studio-rodolfo.html): photobook A4, 52 pages, cover 250gsm glossy, inside 170gsm, final price € 588 each (no ×1.6), UPS Italy included. Fast Track 3–4 wd, closes Thu 19 Nov 10:30 Rome, delivery Tue 24 – Wed 25 Nov; qty 1–20
+  "rodolfo": { label: "Photobook A4, 52 pages", before: 58800, after: 58800, deadline: new Date("2026-11-19T10:30:00+01:00").getTime(), closes: new Date("2026-11-19T10:30:00+01:00").getTime(), name: "Photobook A4, 52 pages — cover 250gsm glossy, inside pages 170gsm, full color, Fast Track 3–4 working days, UPS delivery in Italy included" },
   // Test product for vip-studio-test.html — exactly € 1,00, no shipping, no deadline (not ×1.6)
   "test": { label: "Test product", before: 100, after: 100, deadline: 0, name: "Test product — payment check, nothing will be printed" },
   // A0 (vip-studio-a0.html), final price (no ×1.6): € 17 per poster + € 20 UPS shipping per order. Night Shift 1 wd, closes Mon 26 Oct 09:00 Rome, delivery Tue 27 Oct
@@ -223,6 +225,7 @@ module.exports = async (req, res) => {
     if (/^(am|ms)[0-9]$/.test(body.paper)) PRODUCTS.push(body.ship === "ovn" ? { name: "UPS overnight shipping (1 working day)", amount: 9900, quantity: 1 } : { name: "UPS standard shipping (2–3 working days)", amount: 5500, quantity: 1 });
     if (body.paper === "a0") { const aq = Math.max(1, Math.min(50, parseInt(body.qty, 10) || 1)); PRODUCTS[0].quantity = aq; label = aq + "x A0 poster, 180gsm"; PRODUCTS.push({ name: "UPS shipping", amount: 2000, quantity: 1 }); }
     if (/^pst[27]b?$/.test(body.paper)) { const pq = Math.max(1, Math.min(20, parseInt(body.qty, 10) || 1)); PRODUCTS[0].quantity = pq; label = pq + "x 50 A2 posters, " + paper.label; }
+    if (body.paper === "rodolfo") { const rq = Math.max(1, Math.min(20, parseInt(body.qty, 10) || 1)); PRODUCTS[0].quantity = rq; label = rq + "x photobook A4, 52 pages"; }
     if (body.paper === "sarah") { const sq = Math.max(1, Math.min(20, parseInt(body.qty, 10) || 1)); PRODUCTS[0].quantity = sq; label = sq + "x fabric banner 12 x 4 ft"; }
     if (body.paper === "mk") PRODUCTS.push({ name: "UPS shipping to Madrid", amount: 5600, quantity: 1 });
   }
