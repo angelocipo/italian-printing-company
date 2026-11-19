@@ -544,3 +544,6 @@ Quote PDF: QR code back, placed under the URL (left).
 
 ## 2026-11-19 — export-2026-11-19b
 - vip-studio-rodolfo.html, api/create-checkout-session.js — Rodolfo deadline extended by 1 hour: closes Thu 19 Nov 11:30 Rome
+
+## 2026-11-19 — export-2026-11-19c
+- vip-studio-rodolfo.html, api/create-checkout-session.js — Rodolfo deadline: open the whole day, closes Thu 19 Nov 23:59 Rome
