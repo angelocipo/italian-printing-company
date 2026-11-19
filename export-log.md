@@ -541,3 +541,6 @@ Quote PDF: QR code back, placed under the URL (left).
 - vip-studio-rodolfo.html (new) — photobook A4, 52 pages, cover 250gsm glossy, inside 170gsm, Fast Track € 588 each (UPS Italy included), qty +/−, clock to Thu 19 Nov 10:30, delivery Tue 24 – Wed 25 Nov
 - api/create-checkout-session.js — key "rodolfo" (58800 cents each, qty 1–20, closes Thu 19 Nov 10:30)
 - lib/ddt-pdf.js — DDT: Destinatario = hotel + delivery address + guest + mobile (box grows, nothing cut off); "Luogo di destinazione" box removed; Vettore left empty
+
+## 2026-11-19 — export-2026-11-19b
+- vip-studio-rodolfo.html, api/create-checkout-session.js — Rodolfo deadline extended by 1 hour: closes Thu 19 Nov 11:30 Rome

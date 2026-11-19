@@ -133,7 +133,7 @@ doc.save('Quote-'+o.ref+'.pdf');}catch(e){console.error(e);}});};
             <p style="margin:0; padding:0 16px; font-size:14px; line-height:1.45; color:#6e6e73; text-wrap:pretty;">Delivery in 3–4 working days after your order and print-ready PDF: expected Tue 24 or Wed 25 November. UPS delivers during the day; a specific delivery hour can’t be booked.</p>
           </dd>
           <dt style="font-weight:600; color:#86868b;">Order before:</dt>
-          <dd style="margin:0;"><span data-clock="" style="display:inline-block; font-size:19px;  letter-spacing:1.5px; font-variant-numeric:tabular-nums; font-weight:700; color:#d70015;">1 d 00:34:47</span><span data-countdown="" style="display:block; font-size:19px; font-weight:500; line-height:1.35; color:#1d1d1f; margin-top:4px; text-wrap:pretty; white-space:pre-line;">Fast Track: Confirm your order and send your print-ready PDF before Thursday 19 November, 10:30 Rome time.
+          <dd style="margin:0;"><span data-clock="" style="display:inline-block; font-size:19px;  letter-spacing:1.5px; font-variant-numeric:tabular-nums; font-weight:700; color:#d70015;">1 d 00:34:47</span><span data-countdown="" style="display:block; font-size:19px; font-weight:500; line-height:1.35; color:#1d1d1f; margin-top:4px; text-wrap:pretty; white-space:pre-line;">Fast Track: Confirm your order and send your print-ready PDF before Thursday 19 November, 11:30 Rome time.
 After that, ordering is closed.</span></dd>
           <dt style="font-weight:600; color:#86868b;">VAT/IVA:</dt>
           <dd style="margin:0;">included.</dd>
@@ -368,7 +368,7 @@ After that, ordering is closed.</span></dd>
 <script>(function(){
 var $=function(s,r){return (r||document).querySelector(s);};
 var show=function(el,on){if(!el)return;el.hidden=!on;el.style.display=on?'contents':'';};
-var DL=new Date('2026-11-19T10:30:00+01:00').getTime();var PAP={'rodolfo':{label:'Photobook A4, 52 pages',b:588,a:588,dl:DL,dl2:DL,t:'Thursday 19 November, 10:30 Rome time',t2:'Thursday 19 November, 10:30 Rome time'}};var Q=1,SHIP=0;var ship=function(){return sel().length?SHIP:0;};var NAME=function(n){return n+' x photobook A4, 52 pages \u2014 cover 250gsm glossy, inside pages 170gsm, full color, Fast Track 3\u20134 working days, UPS delivery in Italy included, expected Tue 24 \u2013 Wed 25 Nov';};
+var DL=new Date('2026-11-19T11:30:00+01:00').getTime();var PAP={'rodolfo':{label:'Photobook A4, 52 pages',b:588,a:588,dl:DL,dl2:DL,t:'Thursday 19 November, 11:30 Rome time',t2:'Thursday 19 November, 11:30 Rome time'}};var Q=1,SHIP=0;var ship=function(){return sel().length?SHIP:0;};var NAME=function(n){return n+' x photobook A4, 52 pages \u2014 cover 250gsm glossy, inside pages 170gsm, full color, Fast Track 3\u20134 working days, UPS delivery in Italy included, expected Tue 24 \u2013 Wed 25 Nov';};
 var closed=function(){for(var k in PAP)if(Date.now()<PAP[k].dl2)return false;return true;};
 var sel=function(){var a=[];document.querySelectorAll('input[name=paper]:checked').forEach(function(r){if(price(r.value)!=null)a.push(r.value);});return a;};
 var sum=function(){return sel().length?588*Q:0;};
