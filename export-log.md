@@ -551,3 +551,7 @@ Quote PDF: QR code back, placed under the URL (left).
 ## 2026-11-19 — export-2026-11-19d
 - vip-studio-photo-poster.html (new) — photo poster 60 x 90 cm, glossy photo paper 220gsm, 6-colour pigment 2880 dpi, laminated, € 155 each incl. UPS to Rimini, qty +/−, clock to Thu 19 Nov 17:00, delivery Mon 23 Nov
 - api/create-checkout-session.js — key "photoposter" (15500 cents each, qty 1–20, closes Thu 19 Nov 17:00)
+
+## 2026-11-19 — export-2026-11-19e
+- All VIP pages (vip-studio*.html) — Nexi payment button removed; note back to "Secure payment with Stripe." (api Nexi code left in place, unused)
+- vip-studio-photo-poster.html — new photo: img/photo-poster-hd.webp (new, 1340 x 777, converted from AVIF)
