@@ -555,3 +555,10 @@ Quote PDF: QR code back, placed under the URL (left).
 ## 2026-11-19 — export-2026-11-19e
 - All VIP pages (vip-studio*.html) — Nexi payment button removed; note back to "Secure payment with Stripe." (api Nexi code left in place, unused)
 - vip-studio-photo-poster.html — new photo: img/photo-poster-hd.webp (new, 1340 x 777, converted from AVIF)
+
+## 2026-11-19 — export-2026-11-19f
+- vip-studio-photo-poster.html — option "Matt lamination" + € 15 per poster
+- api/create-checkout-session.js — key "photopostermatt" (17000 cents each)
+
+## 2026-11-19 — export-2026-11-19g
+- vip-studio-photo-poster.html, api/create-checkout-session.js — photo poster orders close Thu 19 Nov 18:00 (was 17:00)
