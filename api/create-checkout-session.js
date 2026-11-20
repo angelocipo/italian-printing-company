@@ -209,6 +209,15 @@ module.exports = async (req, res) => {
     const rq = (PRODUCTS.find(x => x.name === RANA.roll.name) || {}).quantity || 0;
     if (rq > 0 && !body.pickup) PRODUCTS.push({ name: "Rollup delivery — UPS Priority (" + rq + (rq > 1 ? " rollups" : " rollup") + ")", amount: /vip-studio-(serbia|rollup|constanza)/.test(String(body.page || "")) ? 2000 + 1500 * (rq - 1) : 2000, quantity: 1 });
     label = PRODUCTS.map(x => x.quantity + "x " + x.name).join("; ").slice(0, 490);
+  } else if (body.paper === "a4f") {
+    // A4 flyers (vip-studio-a4-flyers.html): Flyeralarm price IVA escl. × 1.6 × 1.22, cents. Rolling 09:00 cut-off, never closes. Keep in sync with the page.
+    const A4F = { "130": { std: [5589, 7644, 9046, 11062], ft: [11244, 13301, 14701, 16717], ns: [14937, 16994, 18394, 20986] }, "170": { std: [7371, 9475, 11320, 14800], ft: [13026, 15130, 16975, 20455], ns: [16719, 18823, 20668, 24726] }, "250": { std: [5684, 9990, 12221, 15975], ft: [11341, 15645, 17876, 21630], ns: [15034, 19338, 21570, 25901] } };
+    const QS = [100, 250, 500, 1000], SN = { std: "Standard, production 4–6 working days", ft: "Fast Track, production 2 working days", ns: "Night Shift, production 1 working day" };
+    const w = String(body.w), sp = String(body.s), qi = QS.indexOf(parseInt(body.q, 10));
+    if (!A4F[w] || !A4F[w][sp] || qi < 0) return res.status(400).json({ error: "Please choose quantity, paper and speed." });
+    const qn = String(QS[qi]).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    PRODUCTS = [{ name: qn + " flyers — A4, " + w + "gsm glossy paper, double sided full color, " + SN[sp], amount: A4F[w][sp][qi], quantity: 1 }];
+    label = qn + " A4 flyers, " + w + "gsm glossy, " + SN[sp].split(",")[0];
   } else {
     const paper = PAPERS[body.paper] || (/^ms[0-9]$/.test(body.paper) ? PAPERS.am8 : PAPERS["170"]);
     if (paper.closes && Date.now() >= paper.closes) return res.status(410).json({ error: "This offer has ended. Contact us for a new quote." });
