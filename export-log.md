@@ -570,3 +570,12 @@ Quote PDF: QR code back, placed under the URL (left).
 ## 2026-11-20 — export-2026-11-20b
 - vip-studio-a4-flyers.html — new A4 flyer offer: quantity 100 / 250 / 500 / 1.000, paper 130 / 170 / 250gsm glossy, columns Standard (4–6 wd) / Fast Track (2 wd) / Night Shift (1 wd); Flyeralarm IVA escl. × 1.6 + IVA; rolling 09:00 cut-off with red clock; delivery dates calculated live
 - api/create-checkout-session.js — "a4f" price table (w, q, s) checked server-side
+
+## 2026-11-20 — export-2026-11-20c
+- vip-studio-a4-flyers.html — estimated delivery +1 working day for all speeds (safety margin)
+
+## 2026-11-20 — export-2026-11-20d
+- vip-studio-a0, malta, photo-poster, rodolfo, sarah (.html) — fix: after the deadline the page crashed (clock looked up a missing product); now shows "Offer ended" correctly
+
+## 2026-11-20 — export-2026-11-20e
+- vip-studio-rodolfo.html, api/create-checkout-session.js — Rodolfo reopened: orders until Sat 21 Nov 18:00 Rome, delivery Wed 25 – Thu 26 Nov
