@@ -562,3 +562,11 @@ Quote PDF: QR code back, placed under the URL (left).
 
 ## 2026-11-19 — export-2026-11-19g
 - vip-studio-photo-poster.html, api/create-checkout-session.js — photo poster orders close Thu 19 Nov 18:00 (was 17:00)
+
+## 2026-11-20 — export-2026-11-20
+- vip-studio-a4-flyers.html (new) — the Taylor page renamed (A4 flyers), title "VIP Studio — A4 flyers"; price key "taylor" in the API unchanged
+- vip-studio-taylor.html — now only forwards to vip-studio-a4-flyers.html (keeps ?paid / session_id), noindex
+
+## 2026-11-20 — export-2026-11-20b
+- vip-studio-a4-flyers.html — new A4 flyer offer: quantity 100 / 250 / 500 / 1.000, paper 130 / 170 / 250gsm glossy, columns Standard (4–6 wd) / Fast Track (2 wd) / Night Shift (1 wd); Flyeralarm IVA escl. × 1.6 + IVA; rolling 09:00 cut-off with red clock; delivery dates calculated live
+- api/create-checkout-session.js — "a4f" price table (w, q, s) checked server-side
