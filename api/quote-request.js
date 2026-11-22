@@ -40,6 +40,10 @@ function spamReason(b) {
   if (/<a\s|\[url|\[link/i.test(text)) return "html/bbcode link";
   if ((text.match(/https?:\/\/|www\./gi) || []).length >= 2) return "multiple links";
   if (/(^|\s)(?=[A-Z0-9]*\d)(?=[A-Z0-9]*[A-Z])[A-Z0-9]{14,}(\s|$)/.test(text)) return "random token";
+  // random mixed-case gibberish such as "nwnXYaiZQdSUZeJPXba": one long word with many lower->upper switches
+  if (text.split(/\s+/).some(w => /^[A-Za-z]{12,}$/.test(w) && (w.match(/[a-z][A-Z]/g) || []).length >= 4)) return "random mixed-case token";
+  // dotted throw-away gmail addresses like aso.j.i.da.ni.3.96@gmail.com
+  if (((String(b.email || b._replyto || "").split("@")[0].match(/\./g)) || []).length >= 5) return "dotted email";
   if (/(casino|1xbet|viagra|crypto|bitcoin|forex|seo service|backlink|промокод|loan offer)/i.test(text)) return "spam keyword";
   return "";
 }
