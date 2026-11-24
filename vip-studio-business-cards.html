@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<script src="cookie-consent.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://www.italianprintingcompany.com/vip-studio-business-cards.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.italianprintingcompany.com/vip-studio-business-cards.html">
+<meta property="og:title" content="VIP Studio — Business cards | Italian Printing Company">
+<meta property="og:description" content="Personalized garments and accessories, printed in Rome. One piece or ten, priced on the page, ordered on the page, with a named contact from first message to delivery.">
+<link rel="icon" type="image/webp" href="img/favicon.webp">
+<link rel="apple-touch-icon" href="img/favicon.webp">
+<title>VIP Studio — Business cards | Italian Printing Company</title>
+<meta name="description" content="Personalized garments and accessories, printed in Rome. One piece or ten, priced on the page, ordered on the page, with a named contact from first message to delivery.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:#fff; }
+  a { color:#0071e3; text-decoration:none; }
+  a:hover { color:#0059b8; }
+  ::selection { background:#0071e3; color:#fff; }
+  @media (max-width:600px) { .vip-spec { grid-template-columns:1fr !important; gap:4px !important; } .vip-spec dt { margin-top:12px; padding-top:0 !important; } .vip-ptab { grid-template-columns:repeat(3,minmax(0,1fr)) !important; column-gap:4px !important; padding-left:8px !important; padding-right:8px !important; font-size:15px; } .vip-ptab > span:first-child { grid-column:1 / -1; padding-bottom:4px; } .vip-ptab label { padding:8px 4px !important; gap:4px !important; font-size:14px; justify-content:flex-start !important; } .vip-ptab > span { font-size:13px; } }
+  @media (max-width:900px) { .co-cols { grid-template-columns:minmax(0,1fr) !important; } .co-two { grid-template-columns:minmax(0,1fr) !important; } }
+  @media (max-width:820px) { .vip-row { grid-template-columns:1fr !important; } .vip-hero-h { font-size:26px !important; } }
+  .co-cols > *, .co-two > * { min-width:0; }
+  form input, form select, form textarea { max-width:100%; min-width:0; }
+</style>
+<script>(function(){
+var SRC='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+function one(src,ok,cb){if(ok())return cb();var s=document.createElement('script');s.src=src;s.onload=cb;s.onerror=cb;document.head.appendChild(s);}
+var LOGO=null,LW=[];function logo(cb){if(LOGO!==null)return cb();LW.push(cb);if(LW.length>1)return;var srcs=['/img/ipc-logo.webp','img/ipc-logo.webp','../img/ipc-logo.webp'],i=0;var done=function(){var w=LW;LW=[];w.forEach(function(f){f();});};var tryNext=function(){if(i>=srcs.length){LOGO=false;return done();}var im=new Image();im.onload=function(){try{var c=document.createElement('canvas');c.width=im.naturalWidth;c.height=im.naturalHeight;var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0);LOGO={d:c.toDataURL('image/png'),r:im.naturalWidth/im.naturalHeight};}catch(e){LOGO=false;}done();};im.onerror=function(){tryNext();};im.src=srcs[i++];};tryNext();}
+var QRSRC='https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
+function load(cb){one(SRC,function(){return !!window.jspdf;},function(){one(QRSRC,function(){return !!window.qrcode;},function(){logo(cb);});});}
+load(function(){});
+window.ipcQuotePDF=function(o){load(function(){try{
+var doc=new window.jspdf.jsPDF({unit:'mm',format:'a4'}),W=210,M=20,y=22,ink=[29,29,31],grey=[110,110,115];
+var txt=function(t,x,yy,sz,b,c,al){doc.setFont('helvetica',b?'bold':'normal');doc.setFontSize(sz);doc.setTextColor.apply(doc,c||ink);doc.text(t,x,yy,al?{align:al}:undefined);};
+var wrap=function(t,w,sz){doc.setFontSize(sz);return doc.splitTextToSize(String(t||''),w);};
+var lh=0;if(LOGO){lh=14;doc.addImage(LOGO.d,'PNG',M,y-6,lh*LOGO.r,lh);lh+=4;}
+txt('Italian Printing Company',M,y+lh,LOGO?11:16,true);
+txt('by Printing Italy di Angelo Cipolla',M,y+lh+5,9,false,grey);
+txt('Via Lorenzo Bonincontri 26, 00147 Roma RM',M,y+lh+9.5,9,false,grey);
+txt('P.IVA 02452700590 · info@italianprintingcompany.com',M,y+lh+14,9,false,grey);
+txt('www.italianprintingcompany.com',M,y+lh+18.5,9,false,grey);
+txt('QUOTE',W-M,y,16,true,null,'right');
+txt(o.ref,W-M,y+6,10,true,null,'right');
+txt(new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}),W-M,y+10.5,9,false,grey,'right');
+y+=32+lh;doc.setDrawColor(210,210,215);doc.line(M,y,W-M,y);y+=8;
+txt('Quote for',M,y,9,true,grey);txt('Delivery',W/2+4,y,9,true,grey);y+=5;
+var L0=[o.name,o.company,o.vat?'VAT number: '+o.vat:'',o.sdi?'Codice destinatario / PEC: '+o.sdi:'',o.billing,o.email,o.phone].filter(Boolean).join('\n'),L=L0;
+var R=[o.shipping,o.guest?'Registered guest: '+o.guest:'',o.guestPhone?'Mobile: '+o.guestPhone:'',o.deadline?'Event deadline: '+o.deadline:''].filter(Boolean).join('\n');
+if(!L)L='\u2014';if(!R)R='\u2014';var l1=wrap(L,W/2-M-4,10),l2=wrap(R,W/2-M-4,10);
+txt(l1,M,y,10);txt(l2,W/2+4,y,10);y+=Math.max(l1.length,l2.length)*4.6+8;
+doc.setFillColor(245,245,247);doc.rect(M,y-5,W-2*M,8,'F');txt('Description',M+3,y,9,true,grey);txt('Amount',W-M-3,y,9,true,grey,'right');y+=9;
+o.lines.forEach(function(it){var d=wrap(it.text,W-2*M-40,10);txt(d,M+3,y,10);txt(it.amount,W-M-3,y,10,true,null,'right');y+=d.length*4.6+4;doc.setDrawColor(230,230,232);doc.line(M,y-2,W-M,y-2);y+=2;});
+y+=2;var row=function(a,b,big){txt(a,W-M-60,y,big?12:10,big,big?null:grey);txt(b,W-M-3,y,big?12:10,true,null,'right');y+=big?7:5.5;};
+row('Subtotal',o.subtotal);row('Shipping',o.shippingCost);doc.line(W-M-60,y-3,W-M,y-3);y+=1;row('Total',o.total,true);txt('VAT included',W-M-3,y-2,8,false,grey,'right');
+y+=10;var c=wrap('Prices follow the deadlines shown on '+o.url+' (Rome time). Production is authorized and starts only once payment has been received; any delay in payment delays production and delivery. The invoice is issued and sent after payment. UPS delivers during the day; a specific delivery hour can\u2019t be booked. Files: print-ready PDF at 100% final size with bleed, or a Canva editing link.',W-2*M,9);
+txt(c,M,y,9,false,grey);y+=c.length*4.2+6;
+txt('To confirm, reply to the email with this reference or order on the page:',M,y,9,true);
+var uw=wrap(String(o.url||''),W-2*M,9);txt(uw,M,y+4.6,9,true);y+=4.6+uw.length*4.2+3;
+if(window.qrcode&&o.url){try{var S=30,qx=M,qy=y;if(qy+S+6>287){doc.addPage();qy=20;}var qr=window.qrcode(0,'M');qr.addData(String(o.url));qr.make();var n=qr.getModuleCount(),m=S/n;doc.setFillColor(29,29,31);for(var r=0;r<n;r++)for(var cc=0;cc<n;cc++)if(qr.isDark(r,cc))doc.rect(qx+cc*m,qy+r*m,m+0.02,m+0.02,'F');txt('Scan to order',qx+S/2,qy+S+4,8,false,grey,'center');}catch(e){}}
+doc.save('Quote-'+o.ref+'.pdf');}catch(e){console.error(e);}});};
+})();
+</script>
+<script defer="" src="/_vercel/insights/script.js"></script>
+<script defer="" src="/_vercel/speed-insights/script.js"></script>
+</head>
+<body>
+<div style="font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Inter,sans-serif; color:#1d1d1f; background:#fff; -webkit-font-smoothing:antialiased; overflow-x:hidden;">
+
+  <div style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.72); backdrop-filter:saturate(180%) blur(20px); -webkit-backdrop-filter:saturate(180%) blur(20px); border-bottom:1px solid rgba(0,0,0,0.06);">
+    <div style="max-width:1100px; margin:0 auto; height:48px; padding:0 22px; display:flex; align-items:center; justify-content:space-between;">
+      <a href="/" style="display:flex; align-items:center; gap:9px;">
+        <img src="img/ipc-logo.webp" alt="Italian Printing Company" style="height:28px; width:auto; display:block;">
+      </a>
+      <div style="display:flex; align-items:center; gap:20px;">
+        <span style="font-size:12.5px; color:#86868b;">VIP Studio</span>
+        <a href="https://api.whatsapp.com/send/?phone=393396021366&amp;text&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:#fff; background:#25D366; padding:6px 14px; border-radius:980px; font-weight:500;">
+          <svg viewBox="0 0 32 32" width="14" height="14" fill="#fff" aria-hidden="true"><path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.115.553 4.1 1.523 5.823L4 29l8.4-1.49A11.94 11.94 0 0 0 16 27c6.627 0 12-5.373 12-12S22.628 3 16.001 3zm0 21.6c-1.84 0-3.56-.5-5.04-1.37l-.36-.21-4.98.88.9-4.86-.235-.375A9.56 9.56 0 0 1 6.4 15c0-5.29 4.31-9.6 9.6-9.6s9.6 4.31 9.6 9.6-4.31 9.6-9.6 9.6z"></path></svg>
+          Talk to Angelo
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div data-if="sent" hidden="">
+    <section style="max-width:640px; margin:0 auto; padding:96px 22px 110px; text-align:center;">
+      <div style="width:56px; height:56px; margin:0 auto; border-radius:50%; background:#0071e3; display:flex; align-items:center; justify-content:center;">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6"></path></svg>
+      </div>
+      <h2 style="font-size:clamp(30px,4vw,44px); line-height:1.1; font-weight:700; letter-spacing:-1.4px; margin-top:26px;" data-sent-h="">Your order is with us.</h2>
+      <p style="font-size:18px; line-height:1.5; color:#6e6e73; margin-top:16px;" data-sent-p="">A confirmation is on its way to your inbox. We read every note before printing and reply within one working day with the proof and the invoice details.</p>
+      <p style="font-size:15px; color:#86868b; margin-top:22px;">Reference: <strong style="color:#1d1d1f;"></strong></p>
+      <a href="/" style="display:inline-block; margin-top:32px; background:#0071e3; color:#fff; font-size:17px; font-weight:500; padding:14px 30px; border-radius:980px;">Back to the site</a>
+    </section>
+  </div>
+
+  <section style="max-width:1100px; margin:0 auto; padding:20px 22px 0;" data-s1="">
+    <div style="background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:26px; overflow:hidden; padding:clamp(18px,2.2vw,30px) clamp(26px,3.4vw,46px) clamp(26px,3.4vw,46px); font-family:Poppins,'SF Pro Display',-apple-system,sans-serif;">
+      <div class="vip-row" style="display:grid; grid-template-columns:1fr 1.05fr; gap:clamp(24px,3.6vw,50px); align-items:start;">
+        <div style="position:relative; aspect-ratio:1000/667; border-radius:6px; overflow:hidden; background:#fff;">
+          <img src="img/ipc-showcase.webp" width="1000" height="667" fetchpriority="high" alt="Italian Printing Company roll-up banners, flyers and business cards" style="width:100%; height:100%; object-fit:contain; display:block;">
+        </div>
+        <div>
+          <div style="padding:0 clamp(0px,1.6vw,26px);">
+            <p style="font-size:14px; font-weight:600; color:#0071e3; letter-spacing:0.4px; text-transform:uppercase; margin:0;">VIP Studio · by invitation</p>
+            <h1 class="vip-hero-h" style="font-size:clamp(26px,2.8vw,36px); line-height:1.12; font-weight:700; letter-spacing:-0.8px; margin-top:12px;">Personalized products,<br>made with full attention.</h1>
+            <p style="font-size:clamp(17px,2.1vw,21px); line-height:1.45; color:#6e6e73; margin-top:20px; letter-spacing:-0.3px; text-wrap:pretty;">We recently delivered in Rome, Milan, Florence, Bologna, Genoa, Napoli &amp; beyond — straight to your venue, but preferably to your hotel.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1100px; margin:0 auto; padding:64px 22px 0;" data-s1="">
+    <div style="display:flex; flex-direction:column; gap:34px;">
+      <div style="background:#f5f5f7; border-radius:26px; padding:34px;">
+        <dl class="vip-spec" style="margin:0; display:grid; grid-template-columns:auto 1fr; gap:14px 26px; font-size:17px; line-height:1.5;">
+          <dt style="font-weight:600; color:#86868b; padding-top:8px;">Product:</dt>
+          <dd style="margin:0; display:flex; flex-wrap:wrap; gap:8px;" data-m="prod"></dd>
+          <dt style="font-weight:600; color:#86868b;">Print:</dt>
+          <dd style="margin:0;" data-m="desc"></dd>
+          <dt style="font-weight:600; color:#86868b; padding-top:8px;">Size:</dt>
+          <dd style="margin:0; display:flex; flex-wrap:wrap; gap:8px;" data-m="size"></dd>
+          <dt style="font-weight:600; color:#86868b;">Template:</dt>
+          <dd style="margin:0;"><a href="template/business-card-85x55.pdf" download onclick="event.stopPropagation()" style="display:inline-block; padding:5px 10px; border:1.5px solid #d2d2d7; border-radius:8px; background:#fff; font-size:12.5px; font-weight:600; color:#0071e3; text-decoration:none;">Template 85 × 55 mm (PDF)</a> <span style="font-size:14px; color:#6e6e73;">Add 2 mm bleed on each side and keep text 3 mm inside the edge. Other sizes: send your PDF at final size plus bleed.</span></dd>
+          <dt style="font-weight:600; color:#86868b; padding-top:8px;">Quantity:</dt>
+          <dd style="margin:0; display:flex; flex-wrap:wrap; gap:8px;" data-m="qty"></dd>
+          <dt style="font-weight:600; color:#86868b; padding-top:12px;">Paper:</dt>
+          <dd style="margin:0; display:flex; flex-direction:column; gap:10px; max-width:680px;" data-m="tab"></dd>
+          <dt style="font-weight:600; color:#86868b;">Order before:</dt>
+          <dd style="margin:0;"><span data-clock="" style="display:inline-block; font-size:19px; letter-spacing:1.5px; font-variant-numeric:tabular-nums; font-weight:700; color:#d70015;"></span><span data-countdown="" style="display:block; font-size:19px; font-weight:500; line-height:1.35; color:#1d1d1f; margin-top:4px; text-wrap:pretty; white-space:pre-line;"></span></dd>
+          <dt style="font-weight:600; color:#86868b;">VAT/IVA/DELIVERY:</dt>
+          <dd style="margin:0;">included.</dd>
+        </dl>
+        <div style="border-top:1px solid rgba(0,0,0,0.12); margin-top:26px;"></div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <div data-if="notSent" style="display:contents">
+  <div>
+    <section id="checkout" style="max-width:1100px; margin:0 auto; padding:64px 22px 0;"><div data-s1="" style="text-align:center;">
+      <p style="font-size:14px; font-weight:600; color:#0071e3; letter-spacing:0.4px; text-transform:uppercase;">Step 1 of 2 · Delivery and payment</p>
+      <h2 style="font-size:clamp(32px,4.4vw,50px); line-height:1.06; font-weight:700; letter-spacing:-1.6px; margin-top:12px;">Reserve your print run, invoice details next.</h2>
+      <p style="font-size:16px; line-height:1.5; color:#6e6e73; margin-top:16px; text-wrap:pretty;">Tell us where to deliver and pay securely. Right after payment you fill in your invoice details.</p>
+    </div><div data-s2="" style="display:none"><div style="width:48px; height:48px; border-radius:50%; background:#0071e3; display:flex; align-items:center; justify-content:center;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6"></path></svg></div><p style="font-size:14px; font-weight:600; color:#0071e3; letter-spacing:0.4px; text-transform:uppercase; margin-top:22px;">Step 2 of 2 · Invoice and artwork</p><h2 style="font-size:clamp(32px,4.4vw,50px); line-height:1.06; font-weight:700; letter-spacing:-1.6px; margin-top:12px;">Payment received. Now your invoice.</h2><p style="font-size:16px; line-height:1.5; color:#6e6e73; margin-top:16px; text-wrap:pretty;">Reference <strong data-ref2="" style="color:#1d1d1f;"></strong>. The invoice will be issued exactly as written here.</p></div></section>
+
+    <section style="max-width:1100px; margin:0 auto; padding:36px 22px 0;">
+      <div>
+
+        <form style="background:#f5f5f7; border-radius:26px; padding:36px;">
+          <div class="co-cols" style="display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:start;">
+          <div data-s2="" style="display:none">
+          <h3 style="font-size:21px; font-weight:600; letter-spacing:-0.4px;">Who is ordering</h3>
+          <div class="co-two" style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;">
+            <div>
+              <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Name <span style="color:#0071e3;">*</span></label>
+              <input name="name" placeholder="Full name" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;" data-req="">
+            </div>
+            
+            <div>
+              <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Phone <span style="color:#0071e3;">*</span></label>
+              <input name="phone" placeholder="+39 …" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;" data-req="">
+            </div>
+            <div>
+              <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Company</label>
+              <input name="company" placeholder="Leave blank if private" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;">
+            </div>
+          </div>
+
+          <h3 style="font-size:21px; font-weight:600; letter-spacing:-0.4px; margin-top:34px;">Invoicing</h3>
+          <p style="font-size:14px; color:#86868b; margin-top:6px;">The invoice will be issued exactly as written here.</p>
+          <div class="co-two" style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;">
+            <div>
+              <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">VAT number <span style="color:#0071e3;">*</span></label>
+              <input name="vat" placeholder="If none, insert 0000000" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;" data-req="">
+            </div>
+            <div>
+              <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Codice destinatario / PEC</label>
+              <input name="sdi" placeholder="Italian businesses only" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;">
+            </div>
+          </div>
+          <div style="margin-top:14px;">
+            <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Billing address <span style="color:#0071e3;">*</span></label>
+            <textarea name="billing" rows="3" placeholder="Street and number" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; line-height:1.45; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; resize:vertical; outline:none;" data-req=""></textarea>
+          </div>
+          <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2fr); gap:14px; margin-top:14px;">
+            <div>
+              <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Postcode <span style="color:#0071e3;">*</span></label>
+              <input name="postcode" type="text" placeholder="00187" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;" data-req="">
+            </div>
+            <div>
+              <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">City <span style="color:#0071e3;">*</span></label>
+              <input name="city" type="text" placeholder="Rome" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;" data-req="">
+            </div>
+          </div>
+          <div style="margin-top:14px;">
+            <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Country <span style="color:#0071e3;">*</span></label>
+            <input name="country" type="text" placeholder="Italy" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;" data-req="">
+          </div>
+
+          </div>
+          <div>
+          
+          
+          
+          
+          
+          
+
+          
+          
+          
+          
+          
+          
+
+          <div data-s1=""><h3 style="font-size:21px; font-weight:600; letter-spacing:-0.4px;">Delivery</h3><div style="margin-top:16px;">
+              <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Email <span style="color:#0071e3;">*</span></label>
+              <input type="email" name="email" placeholder="you@company.com" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;" required="">
+            <p style="font-size:13px; color:#86868b; margin-top:8px;">For the payment receipt and your invoice.</p></div><label style="display:none">
+            <input type="checkbox" style="width:18px; height:18px; accent-color:#0071e3;">
+            Ship to the billing address
+          </label><div data-if="differentAddress" style="display:contents">
+            <div style="margin-top:14px;">
+              <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Hotel name</label>
+              <input name="hotel" type="text" placeholder="e.g. Hotel Hassler Roma" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;">
+            </div>
+            <div style="margin-top:14px;">
+              <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Shipping address</label>
+              <textarea name="shipping" rows="3" placeholder="Hotel name and address, guest name, check-in date" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; line-height:1.45; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; resize:vertical; outline:none;" required=""></textarea>
+              <p style="font-size:13px; color:#86868b; margin-top:8px;">Preferably a hotel, addressed to a registered guest. No B&amp;B’s.</p>
+              <p style="font-size:13px; line-height:1.45; color:#6e6e73; margin-top:6px; text-wrap:pretty;"><strong style="color:#1d1d1f;">Shipping to a venue or other address?</strong> It is your responsibility to make sure someone is there to receive the delivery: inform the venue or the people staying there, and keep the contact person’s cellphone switched on. UPS cannot redeliver at a set time, and a missed delivery can mean your print arrives too late.</p>
+            </div>
+          </div><div class="co-two" style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px;">
+            <div>
+              <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Registered guest <span style="color:#0071e3;">*</span></label>
+              <input required="" name="venue_contact" placeholder="Name as on the hotel booking" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;">
+            </div>
+            <div>
+              <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Their mobile number <span style="color:#0071e3;">*</span></label>
+              <input required="" name="venue_phone" placeholder="Cellphone, not a landline" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;">
+            </div>
+          </div><p style="font-size:13px; color:#86868b; margin-top:8px;">We contact the venue before delivery to make sure they accept the goods.</p><div style="margin-top:14px;">
+            <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Deadline of the event <span style="color:#0071e3;">*</span></label>
+            <input required="" name="deadline" placeholder="e.g. Thursday morning, before the fair opens" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;">
+            <p style="font-size:13px; color:#86868b; margin-top:8px;">Tell us the deadline and we confirm feasibility by email, before anything is charged.</p>
+          </div></div><div data-s2="" style="display:none"><div style="margin-top:14px;">
+            <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Notes</label>
+            <textarea name="notes" rows="3" placeholder="Sizes and quantities per size, Pantone colours, print position, your designer's contact…" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; line-height:1.45; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; resize:vertical; outline:none;"></textarea>
+          </div><button type="button" data-s2btn="" style="width:100%; margin-top:24px; background:#0071e3; color:#fff; border:none; font-size:18px; font-weight:500; font-family:inherit; padding:16px; border-radius:980px; cursor:pointer;">Send invoice details</button><p style="font-size:13px; color:#86868b; text-align:center; margin-top:12px;">Production starts once your artwork is checked.</p></div></div>
+          <div style="max-width: none; margin: 0px; border-top-width: medium; border-top-style: none; border-top-color: currentcolor; padding-top: 0px;" data-s1="" data-pay=""><div data-art=""><h3 style="font-size: 21px; font-weight: 600; letter-spacing: -0.4px; margin-top: 34px;" data-arth="">Your artwork</h3><div data-tpl="" style="margin-top:12px;"><span style="display:block; font-size:13px; color:#6e6e73;">Templates for your file: size, bleed and safe area at 1:1 scale.</span><div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;"><a href="template/business-card-85x55.pdf" download style="display:inline-block; padding:8px 12px; border:1.5px solid #d2d2d7; border-radius:10px; background:#fff; font-size:13px; font-weight:600; color:#0071e3; text-decoration:none;">Download template 85 × 55 mm (PDF)</a></div></div><label style="display:block; border:1px dashed #b9b9be; border-radius:14px; background:#fff; padding:18px; margin-top:16px; cursor:pointer;">
+            <span style="display:block; font-size:15px; font-weight:600; color:#1d1d1f;">Upload your design</span>
+            <span style="display:block; font-size:13px; color:#86868b; margin-top:4px;">Drop it here or choose a file</span>
+            <input type="file" name="attachment" style="margin-top:12px; font-size:13px; font-family:inherit; color:#6e6e73;">
+          </label><p style="font-size:13px; color:#86868b; margin-top:8px;">Print-ready PDF at 100% final size with bleed where applicable.</p><p style="display:flex; align-items:center; gap:8px; font-size:15px; font-weight:600; color:#1d1d1f; background:#fff4d6; border-radius:10px; padding:10px 14px; margin-top:10px;">Max 4 MB per file. Larger files: paste a link below.</p><div style="margin-top:14px;">
+            <label style="display:block; font-size:14px; font-weight:600; color:#1d1d1f;">Or paste a link to your file</label>
+            <input name="filelink" placeholder="Canva editing link, WeTransfer, Google Drive, SwissTransfer…" style="width:100%; margin-top:7px; font-size:16px; font-family:inherit; color:#1d1d1f; background:#fff; border:1px solid #e2e2e4; border-radius:13px; padding:13px 15px; outline:none;">
+            <p style="font-size:13px; color:#86868b; margin-top:8px;"><strong style="font-weight:700; color:#1d1d1f;">NO PASSWORD.</strong> Google Drive: set General access to “Anyone with the link”, so we can open it right away without requesting access.</p>
+          </div></div><h3 style="font-size: 21px; font-weight: 600; letter-spacing: -0.4px; margin-bottom: 16px; margin-top: 34px;">Payment</h3>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px;">
+              <span style="font-size:19px; font-weight:600; letter-spacing:-0.4px;">Subtotal</span>
+              <span style="font-size:28px; font-weight:700; letter-spacing:-1px;" data-price="">€ 170,21</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-top:8px;">
+              <span style="font-size:15px; font-weight:600; color:#86868b;">Shipping</span>
+              <span style="font-size:28px; font-weight:700; letter-spacing:-1px;">Free</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; border-top:1px solid rgba(0,0,0,0.1); margin-top:14px; padding-top:14px;">
+              <span style="font-size:19px; font-weight:600; letter-spacing:-0.4px;">Total</span>
+              <span style="font-size:28px; font-weight:700; letter-spacing:-1px;" data-price="">€ 170,21</span>
+            </div>
+            <p style="font-size:13px; color:#86868b; text-align:right; margin-top:4px;">VAT included</p>
+            <button type="submit" style="width:100%; margin-top:22px; background:#0071e3; color:#fff; border:none; font-size:18px; font-weight:500; font-family:inherit; padding:16px; border-radius:980px; cursor:pointer;">Pay now</button>
+            <p style="font-size:13px; color:#86868b; text-align:center; margin-top:12px;">Secure payment with Stripe. Invoice details and artwork right after.</p>
+            <div style="display:flex; align-items:center; gap:12px; margin:22px 0 18px;">
+              <span style="flex:1; height:1px; background:rgba(0,0,0,0.1);"></span>
+              <span style="font-size:12px; color:#86868b; letter-spacing:0.3px; text-transform:uppercase;">or</span>
+              <span style="flex:1; height:1px; background:rgba(0,0,0,0.1);"></span>
+            </div>
+            <button type="button" style="width:100%; background:#fff; color:#1d1d1f; border:1px solid #d2d2d7; font-size:17px; font-weight:500; font-family:inherit; padding:15px; border-radius:980px; cursor:pointer;">Request a formal quote instead</button>
+            <p style="font-size:13px; color:#86868b; text-align:center; margin-top:12px;">Downloads your quote as a PDF right away. No payment, no required fields.</p>
+            <p style="font-size:13px; line-height:1.5; color:#86868b; text-align:center; margin-top:18px; text-wrap:pretty;"><strong style="font-weight:600; color:#6e6e73;">Privacy:</strong> your details are used only to process your order. We don’t track you, and we never sell or share your data.</p>
+          </div></div>
+          
+        </form>
+
+      </div>
+    </section>
+
+    <section data-s1="" style="max-width:1100px; margin:0 auto; padding:44px 22px 0;">
+      <div data-footer-copy="" style="font-size:16px; line-height:1.5; color:#6e6e73; text-wrap:pretty; text-align:center;"><div style="font-weight:600; color:#1d1d1f;">Italian Printing Company by Printing Italy di Angelo Cipolla.</div><div>A Dutch-Italian printing company based in Rome, serving international exhibitors across Italy.</div></div>
+    </section>
+
+    <section style="max-width:1100px; margin:0 auto; padding:44px 22px 0;" data-s1="">
+      <div style="background:#f5f5f7; border-radius:26px; padding:44px;">
+        <p style="font-size:14px; font-weight:600; color:#0071e3; letter-spacing:0.4px; text-transform:uppercase;">Order conditions</p>
+        <h2 style="font-size:clamp(26px,3.2vw,36px); line-height:1.1; font-weight:700; letter-spacing:-1px; margin-top:10px;">Please read before you order.</h2>
+        <ol style="margin:30px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:26px;">
+          <li style="display:grid; grid-template-columns:38px 1fr; gap:16px; align-items:start;">
+            <span style="width:32px; height:32px; border-radius:50%; background:#1d1d1f; color:#fff; font-size:15px; font-weight:600; display:flex; align-items:center; justify-content:center;">1</span>
+            <p style="font-size:16.5px; line-height:1.55; color:#1d1d1f; text-wrap:pretty;">Comunicate the deadline of the event.</p>
+          </li>
+          <li style="display:grid; grid-template-columns:38px 1fr; gap:16px; align-items:start;">
+            <span style="width:32px; height:32px; border-radius:50%; background:#1d1d1f; color:#fff; font-size:15px; font-weight:600; display:flex; align-items:center; justify-content:center;">2</span>
+            <p style="font-size:16.5px; line-height:1.55; color:#1d1d1f; text-wrap:pretty;">Please provide a name and cellphone number (not a landline) of a contact person registered as a guest at any hotel. A hotel is preferred above any venue where things can get lost. Please contact the hotel prior to delivery to ensure they’ll accept the goods.</p>
+          </li>
+          <li style="display:grid; grid-template-columns:38px 1fr; gap:16px; align-items:start;">
+            <span style="width:32px; height:32px; border-radius:50%; background:#1d1d1f; color:#fff; font-size:15px; font-weight:600; display:flex; align-items:center; justify-content:center;">3</span>
+            <p style="font-size:16.5px; line-height:1.55; color:#1d1d1f; text-wrap:pretty;">To avoid any misunderstandings, please note that production of the quoted materials is considered authorized and confirmed only once payment has been received and processed. An invoice will be issued and sent to you after payment has been received.<br><br>Production will commence only upon payment confirmation and will follow the agreed turnaround time. Any delay in payment will result in a corresponding delay in production and delivery.</p>
+          </li>
+          <li style="display:grid; grid-template-columns:38px 1fr; gap:16px; align-items:start;">
+            <span style="width:32px; height:32px; border-radius:50%; background:#1d1d1f; color:#fff; font-size:15px; font-weight:600; display:flex; align-items:center; justify-content:center;">4</span>
+            <div>
+              <p style="font-size:16.5px; line-height:1.55; color:#1d1d1f; text-wrap:pretty;">For production, I require either:</p>
+              <ul style="margin:10px 0 0 20px; padding:0; font-size:16.5px; line-height:1.55; color:#1d1d1f;">
+                <li style="margin-top:6px;">A high-resolution print-ready PDF file at 100% final size, including bleed where applicable; or</li>
+                <li style="margin-top:6px;">A Canva editing link that allows me to access and modify the artwork if required for printing purposes.</li>
+              </ul>
+              <p style="font-size:16.5px; line-height:1.55; color:#1d1d1f; margin-top:12px; text-wrap:pretty;">To avoid errors, delays, and unnecessary revisions, I prefer to communicate directly with the graphic designer responsible for the artwork whenever possible. Direct communication helps prevent misunderstandings regarding file specifications, dimensions, bleed, resolution, colors, and other technical printing requirements.</p>
+            </div>
+          </li>
+          <li style="display:grid; grid-template-columns:38px 1fr; gap:16px; align-items:start;">
+            <span style="width:32px; height:32px; border-radius:50%; background:#1d1d1f; color:#fff; font-size:15px; font-weight:600; display:flex; align-items:center; justify-content:center;">5</span>
+            <p style="font-size:16.5px; line-height:1.55; color:#1d1d1f; text-wrap:pretty;">To ensure a more efficient and trouble-free delivery, we prefer to ship straight to your hotel, addressed to a registered guest. This way, we guarantee you receive your package conveniently without any issue. Delivery date means delivery in the entire day, we can’t promise delivery at 8am. Preferably give a day extra for delivery, better safe than sorry.</p>
+          </li>
+          <li style="display:grid; grid-template-columns:38px 1fr; gap:16px; align-items:start;">
+            <span style="width:32px; height:32px; border-radius:50%; background:#1d1d1f; color:#fff; font-size:15px; font-weight:600; display:flex; align-items:center; justify-content:center;">6</span>
+            <p style="font-size:16.5px; line-height:1.55; color:#1d1d1f; text-wrap:pretty;">An invoice will be issued and sent to you after payment has been received. Can you share with me your complete business details for invoice purposes, so I can send you immediately an invoice.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </div>
+  </div>
+
+  <section style="max-width:1100px; margin:0 auto; padding:56px 22px 20px;">
+    <div class="vip-row" style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+      <div style="background:#f5f5f7; border-radius:20px; padding:40px;">
+        <h3 style="font-size:22px; font-weight:600; letter-spacing:-0.4px;">One piece is a real order</h3>
+        <p style="font-size:17px; line-height:1.55; color:#6e6e73; margin-top:12px;">No minimum quantity. A single printed polo gets the same proof and the same check before it ships as a run of five hundred.</p>
+      </div>
+      <div style="background:#f5f5f7; border-radius:20px; padding:40px;">
+        <h3 style="font-size:22px; font-weight:600; letter-spacing:-0.4px;">A named contact</h3>
+        <p style="font-size:17px; line-height:1.55; color:#6e6e73; margin-top:12px;">You reply to the person who prints your job. English, Dutch or Italian, on WhatsApp or by email.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#f5f5f7; color:#86868b; font-size:12px; line-height:1.6; padding:40px 22px; text-align:center; margin-top:40px;">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div style="border-bottom:1px solid rgba(0,0,0,0.08); padding-bottom:22px;">
+        <div style="font-weight:600; color:#1d1d1f; font-size:14px;">Italian Printing Company by Printing Italy di Angelo Cipolla. Via Lorenzo Bonincontri 26, 00147 Roma RM · P.IVA 02452700590</div>
+      </div>
+      <p style="margin-top:18px;">A Dutch-Italian printing company based in Rome, serving international exhibitors across Italy.</p>
+    </div>
+  </footer>
+
+</div>
+<script>(function(){
+var $=function(s,r){return (r||document).querySelector(s);};
+var show=function(el,on){if(!el)return;el.hidden=!on;el.style.display=on?'contents':'';};
+var BC={"bc":{"q":[250,500,1000,2500,5000,7500,10000,15000,20000,25000,30000],"f":[{"l":"Landscape 8.5 × 5.5 cm","p":[{"g":300,"std":{"d":[4,6],"p":[30.18,40,45,54.6,80.87,105.45,128.36,172.34,210.52,259.44,291.98]},"ft":{"d":[2,2],"p":[79.02,85.97,92.25,104.43,130.71,155.3,178.2,222.18,260.38,343.16,375.7]},"ns":{"d":[1,1],"p":[113.26,120.34,131.86,149.39,181.3,206.38,234.86,279.78,323.86,410.43,458.93]}},{"g":400,"std":{"d":[5,7],"p":[41.83,45.44,49.66,60,88.84,116.46,143,193.05,253.56,311.44,364.58]},"ft":{"d":[2,2],"p":[90.67,94.3,98.5,109.84,138.67,166.29,192.86,242.89,337.31,395.16,448.3]}},{"g":500,"std":{"d":[7,9],"p":[40.68,44.08,48.98,59.28,83.33,107.13,132.54,177.53,223.41,272.3,313.18]}}]},{"l":"Portrait 5.5 × 8.5 cm","p":[{"g":300,"std":{"d":[4,6],"p":[30.18,40,45,54.6,80.87,105.45,128.36,172.34,210.52,259.44,291.98]},"ft":{"d":[2,2],"p":[79.02,85.97,92.25,104.43,130.71,155.3,178.2,222.18,260.38,343.16,375.7]},"ns":{"d":[1,1],"p":[113.26,120.34,131.86,149.39,181.3,206.38,234.86,279.78,323.86,410.43,458.93]}},{"g":400,"std":{"d":[5,7],"p":[41.83,45.44,49.66,60,88.84,116.46,143,193.05,253.56,311.44,364.58]},"ft":{"d":[2,2],"p":[90.67,94.3,98.5,109.84,138.67,166.29,192.86,242.89,337.31,395.16,448.3]}},{"g":500,"std":{"d":[7,9],"p":[40.68,44.08,48.98,59.28,83.33,107.13,132.54,177.53,223.41,272.3,313.18]}}]},{"l":"Landscape 9 × 5 cm","p":[{"g":300,"std":{"d":[4,6],"p":[38.96,43,46,52,74.53,97.95,118.47,157.66,189.05,234.53,264.42]},"ft":{"d":[2,2],"p":[87.8,90.2,93.79,101,124.38,147.81,168.3,207.5,238.89,318.25,348.14]},"ns":{"d":[1,1],"p":[122.21,124.67,133.42,145.85,174.82,198.73,224.77,264.79,301.92,385.01,430.79]}},{"g":400,"std":{"d":[5,7],"p":[41.27,45,48.72,58.6,86.43,113.12,138.73,190.12,250.21,292.84,339.69]}},{"g":500,"std":{"d":[7,9],"p":[40.68,44.08,48.98,59.28,83.33,107.13,132.54,177.53,223.41,272.3,313.18]}}]},{"l":"Portrait 5 × 9 cm","p":[{"g":300,"std":{"d":[4,6],"p":[38.96,43,46,52,74.53,97.95,118.47,157.66,189.05,234.53,264.42]},"ft":{"d":[2,2],"p":[87.8,90.2,93.79,101,124.38,147.81,168.3,207.5,238.89,318.25,348.14]},"ns":{"d":[1,1],"p":[122.21,124.67,133.42,145.85,174.82,198.73,224.77,264.79,301.92,385.01,430.79]}},{"g":400,"std":{"d":[5,7],"p":[41.27,45,48.72,58.6,86.43,113.12,138.73,190.12,250.21,292.84,339.69]}},{"g":500,"std":{"d":[7,9],"p":[40.68,44.08,48.98,59.28,83.33,107.13,132.54,177.53,223.41,272.3,313.18]}}]},{"l":"Square 5.5 × 5.5 cm","p":[{"g":300,"std":{"d":[4,6],"p":[34.94,41,41,45,57.6,73.88,89.21,116.96,141.95,166.12,184.66]},"ft":{"d":[2,2],"p":[83.78,84.78,85.85,91.02,107.46,123.72,139.04,166.8,191.78,215.95,234.49]},"ns":{"d":[1,1],"p":[118.12,119.13,125.3,135.68,157.55,174.16,194.89,223.23,253.84,278.51,312.71]}},{"g":400,"std":{"d":[5,7],"p":[36.44,41,43,49,65.84,85.46,104.72,142.71,174.31,222.08,252.71]}},{"g":500,"std":{"d":[7,9],"p":[40.68,44.08,48.98,59.28,83.33,107.13,132.54,177.53,223.41,272.3,313.18]}}]}]},"st":{"q":[500,1000,2500,5000,10000,15000,20000],"f":[{"l":"Landscape 8.5 × 5.5 cm","p":[{"g":300,"std":{"d":[5,7],"p":[60.66,78.34,113.61,161.37,260.96,359.05,469.27]}},{"g":400,"std":{"d":[5,7],"p":[75.29,98.53,133.92,172.94,273.15,395.21,533.57]}},{"g":500,"std":{"d":[7,9],"p":[149.69,213.05,426.5,785.53,1502.19,2242.19,2916.8]}}]},{"l":"Portrait 5.5 × 8.5 cm","p":[{"g":300,"std":{"d":[5,7],"p":[60.66,78.34,113.61,161.37,260.96,359.05,469.27]}},{"g":400,"std":{"d":[5,7],"p":[75.29,98.53,133.92,172.94,273.15,395.21,533.57]}},{"g":500,"std":{"d":[7,9],"p":[149.69,213.05,426.5,785.53,1502.19,2242.19,2916.8]}}]},{"l":"Landscape 9 × 5 cm","p":[{"g":300,"std":{"d":[5,7],"p":[59.46,76.44,110.42,156.41,256.55,346.84,453.49]}},{"g":400,"std":{"d":[5,7],"p":[73.64,95.97,130,170.7,264.2,382.01,516.15]}},{"g":500,"std":{"d":[7,9],"p":[109.43,157.95,286.65,527.7,999.4,1464.09,1955.59]}}]},{"l":"Portrait 5 × 9 cm","p":[{"g":300,"std":{"d":[5,7],"p":[59.46,76.44,110.42,156.41,256.55,346.84,453.49]}},{"g":400,"std":{"d":[5,7],"p":[73.64,95.97,130,170.7,264.2,382.01,516.15]}},{"g":500,"std":{"d":[7,9],"p":[109.43,157.95,286.65,527.7,999.4,1464.09,1955.59]}}]},{"l":"Square 5.5 × 5.5 cm","p":[{"g":300,"std":{"d":[5,7],"p":[48.86,60.44,82.48,117.01,184.63,251.13,303.96]}},{"g":400,"std":{"d":[5,7],"p":[59.2,74.3,97.78,127.22,194.99,267.44,346.49]}},{"g":500,"std":{"d":[7,9],"p":[149.69,213.05,426.5,785.53,1502.19,2242.19,2916.8]}}]}]}};
+var SN={std:'Standard, production 4–6 working days',ft:'Fast Track, production 2 working days',ns:'Night Shift, production 1 working day'};
+var SNAME={std:'Standard',ft:'Fast Track',ns:'Night Shift'};
+var PN={bc:'Business cards',st:'Soft Touch business cards'};
+var PD={bc:'double sided full color on coated paper, trimmed to size',st:'double sided full color with a soft-touch finish, matt coated paper, trimmed to size'};
+var S={p:'bc',f:0,g:300,s:'std',q:250};
+var cur=function(){return BC[S.p];};
+var fm=function(){return cur().f[S.f];};
+var pp=function(g){var a=fm().p;for(var i=0;i<a.length;i++)if(a[i].g===(g||S.g))return a[i];return null;};
+var qi=function(q){return cur().q.indexOf(q==null?S.q:q);};
+var cellP=function(g,s,q){var x=pp(g);return x&&x[s]?x[s].p[qi(q)]:null;};
+var fix=function(){var qs=cur().q;if(qs.indexOf(S.q)<0){var b=qs[0];qs.forEach(function(v){if(v<=Math.max(S.q,qs[0])&&v>=b)b=v;});S.q=qs.indexOf(250)>=0?250:qs[0];}
+if(cellP(S.g,S.s)==null){var done=false;[S.s,'std','ft','ns'].forEach(function(s){if(done)return;fm().p.forEach(function(x){if(!done&&x.g===S.g&&x[s]){S.s=s;done=true;}});});if(!done){var f0=fm().p[0];S.g=f0.g;S.s=f0.std?'std':f0.ft?'ft':'ns';}}};
+var sel=function(){return {q:S.q,w:S.g,s:S.s};};
+var fmtN=function(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.');};
+var PAP={bc:{}};Object.defineProperty(PAP.bc,'label',{get:function(){return S.g+'gsm coated paper, '+fmtN(S.q)+' cards';}});
+var closed=function(){return false;};
+var paper=function(){return 'bc';};
+var price=function(){return cellP(S.g,S.s);};
+var speed=function(){return SNAME[S.s]+', production '+PL(S.s);};
+var money=function(n){return n==null?'—':'€ '+n.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');};
+var pad=function(n){return String(n).padStart(2,'0');};
+var HOL={'2026-11-01':1,'2026-12-08':1,'2026-12-25':1,'2026-12-26':1,'2027-01-01':1,'2027-01-06':1};
+var romeNow=function(){var p={};new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Rome',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hour12:false}).formatToParts(new Date()).forEach(function(x){p[x.type]=x.value;});return {d:new Date(Date.UTC(+p.year,+p.month-1,+p.day)),h:+p.hour%24};};
+var isWd=function(d){var w=d.getUTCDay();return w>0&&w<6&&!HOL[d.toISOString().slice(0,10)];};
+var addWd=function(d,n){d=new Date(d);while(n>0){d.setUTCDate(d.getUTCDate()+1);if(isWd(d))n--;}return d;};
+var fmtD=function(d){return d.toLocaleDateString('en-GB',{timeZone:'UTC',weekday:'short',day:'numeric',month:'short'});};
+var fmtL=function(d){return d.toLocaleDateString('en-GB',{timeZone:'UTC',weekday:'long',day:'numeric',month:'long'});};
+var start=function(){var r=romeNow(),st=r.d;if(!isWd(st)||r.h>=9)st=addWd(st,1);return st;};
+var eta=function(n){return fmtD(addWd(addWd(start(),n-1),1));};
+var deliv=function(s,g){var x=pp(g);if(!x||!x[s])return '—';var d=x[s].d;return d[0]===d[1]?eta(d[0]+1):eta(d[0]+1)+' – '+eta(d[1]+1);};
+var romeOff=function(t){var d=new Date(t);return Date.parse(d.toLocaleString('en-US',{timeZone:'Europe/Rome'}))-Date.parse(d.toLocaleString('en-US',{timeZone:'UTC'}));};
+var next9=function(){var st=start(),t=st.getTime()+9*3600000;return t-romeOff(t);};
+var clock=function(){var s=Math.max(0,Math.floor((next9()-Date.now())/1000));var d=Math.floor(s/86400);return (d?d+' d ':'')+pad(Math.floor(s%86400/3600))+':'+pad(Math.floor(s%3600/60))+':'+pad(s%60);};
+var valid=function(){return 'Send your order and print-ready PDF before '+fmtL(start())+', 09:00 Rome time, and production starts that day.\nAfter 09:00, production starts the next working day.';};
+var PL=function(s){var x=pp();return x&&x[s]?(x[s].d[0]===x[s].d[1]?x[s].d[0]+' working day'+(x[s].d[0]>1?'s':''):x[s].d[0]+'–'+x[s].d[1]+' working days'):'';};
+var RNG=function(s){var lo=99,hi=0;fm().p.forEach(function(x){if(x[s]){lo=Math.min(lo,x[s].d[0]);hi=Math.max(hi,x[s].d[1]);}});return lo===hi?lo+' working day'+(lo>1?'s':''):lo+'–'+hi+' working days';};
+var SZ=function(){return fm().l;};
+var CH='display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px solid #d2d2d7; border-radius:980px; padding:8px 16px; cursor:pointer; font-weight:600;';
+var RD='width:16px; height:16px; margin:0; accent-color:#0071e3;';
+var chip=function(nm,v,on,t){return '<label style="'+CH+'"><input type="radio" name="'+nm+'" value="'+v+'"'+(on?' checked':'')+' style="'+RD+'">'+t+'</label>';};
+var render=function(){fix();
+var m=function(k){return document.querySelector('[data-m="'+k+'"]');};
+m('prod').innerHTML=['bc','st'].map(function(k){return chip('bp',k,S.p===k,PN[k]);}).join('');
+m('desc').textContent=PD[S.p];
+m('size').innerHTML=cur().f.map(function(f,i){return chip('bf',i,S.f===i,f.l);}).join('');
+m('qty').innerHTML=cur().q.map(function(q){return chip('bq',q,S.q===q,fmtN(q)+' cards');}).join('');
+var cols=['std','ft','ns'],GR='display:grid; grid-template-columns:minmax(0,1fr) 108px 108px 108px; column-gap:8px;';
+var h='<div class="vip-ptab" style="'+GR+' align-items:end; padding:0 6px 2px 16px; font-size:13px; line-height:1.3; color:#86868b;"><span>Price for '+fmtN(S.q)+' cards</span>'+cols.map(function(s){return '<span style="text-align:right;"><strong style="display:block; font-size:15px; color:#1d1d1f;">'+SNAME[s]+'</strong>'+RNG(s)+'</span>';}).join('')+'</div>';
+fm().p.forEach(function(x){h+='<div class="vip-ptab" style="'+GR+' align-items:center; background:#fff; border:1px solid #d2d2d7; border-radius:14px; padding:6px 6px 6px 16px;"><span style="min-width:0;">'+x.g+'gsm'+(S.p==='st'?' matt coated':' coated paper')+'</span>'+cols.map(function(s){var v=x[s]?x[s].p[qi()]:null,k=x.g+'|'+s;return v==null?'<span style="text-align:right; padding:8px 8px; color:#86868b;">—</span>':'<label data-cell="'+k+'" style="display:flex; align-items:center; justify-content:flex-end; gap:6px; padding:8px 8px; border-radius:10px; cursor:pointer; font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap;"><input type="radio" name="bopt" value="'+k+'"'+(S.g===x.g&&S.s===s?' checked':'')+' style="width:16px; height:16px; margin:0; flex:none; accent-color:#0071e3;">'+money(v)+'</label>';}).join('')+'</div>';});
+h+='<div class="vip-ptab" style="'+GR+' align-items:start; padding:6px 14px 0 16px; font-size:14px; line-height:1.35; color:#1d1d1f;"><span style="font-weight:600;">Expected delivery<span style="display:block; font-weight:400; color:#6e6e73;">UPS, anywhere in Italy</span></span>'+cols.map(function(s){return '<span data-etacol="'+s+'" style="text-align:right; font-weight:600;">'+deliv(s)+'</span>';}).join('')+'</div>';
+h+='<p style="margin:0; padding:0 16px; font-size:14px; line-height:1.45; color:#6e6e73; text-wrap:pretty;">Dates count from the working day we receive your order and print-ready PDF: before 09:00 Rome time, production starts the same day; after 09:00, it starts the next working day. UPS delivers during the day; a specific delivery hour can’t be booked.</p>';
+h+='<p style="margin:0; padding:0 16px; font-size:14px; line-height:1.45; color:#6e6e73; text-wrap:pretty;">Night Shift: on-time delivery is about 90% certain.</p>';
+m('tab').innerHTML=h;tick();};
+var tick=function(){document.querySelectorAll('[data-cell]').forEach(function(e){var on=e.getAttribute('data-cell')===S.g+'|'+S.s;e.style.background=on?'#e8f1fc':'';e.style.boxShadow=on?'inset 0 0 0 1.5px #0071e3':'';});document.querySelectorAll('[data-etacol]').forEach(function(e){e.textContent=deliv(e.getAttribute('data-etacol'));});document.querySelectorAll('[data-price]').forEach(function(e){e.textContent=money(price());});document.querySelectorAll('[data-countdown]').forEach(function(e){e.textContent=valid();});document.querySelectorAll('[data-clock]').forEach(function(e){e.textContent=clock();});};
+document.querySelector('[data-m="prod"]').closest('dl').addEventListener('change',function(e){var t=e.target,n=t.name;if(n==='bp'){S.p=t.value;S.f=0;}else if(n==='bf')S.f=+t.value;else if(n==='bq')S.q=+t.value;else if(n==='bopt'){var x=t.value.split('|');S.g=+x[0];S.s=x[1];}else return;render();});
+var qp0=new URLSearchParams(location.search);if(qp0.get('p')==='st')S.p='st';
+render();setInterval(tick,1000);
+var ORD=function(){return fmtN(S.q)+' business cards — '+SZ()+', '+S.g+'gsm '+(S.p==='st'?'matt coated paper, soft-touch finish':'coated paper')+', double sided full color, '+speed();};
+var sentW=$('[data-if="sent"]'),formW=$('[data-if="notSent"]'),diffW=$('[data-if="differentAddress"]');
+var f=$('form'),sb=$('button[type=submit]',f),hint=sb.nextElementSibling,qb=[].filter.call(f.querySelectorAll('button[type=button]'),function(b){return /formal quote/i.test(b.textContent);})[0],cb=$('input[type=checkbox]',f),fi=$('input[type=file]',f);
+var HINT=hint.textContent;
+var done=function(ref,q){var h=$('[data-sent-h]',sentW),pp=$('[data-sent-p]',sentW);if(h)h.textContent=q?"Your quote request is with us.":'Your order is with us.';if(pp)pp.textContent=q?"Your quote has been downloaded as a PDF. We reply within one working day with the signed quote. Nothing is charged until you confirm the order.":"A confirmation is on its way to your inbox. We read every note before printing and reply within one working day with the proof and the invoice details.";$('strong',sentW).textContent=ref;show(sentW,true);show(formW,false);window.scrollTo(0,0);};
+var q=new URLSearchParams(location.search);
+if(q.get('paid')==='1'){}else if(q.get('canceled')==='1')hint.textContent='Payment was canceled. Your order was not charged \u2014 you can try again below.';
+cb.addEventListener('change',function(){show(diffW,!cb.checked);});
+fi.addEventListener('change',function(){fi.previousElementSibling.textContent=fi.files[0]?fi.files[0].name:'Drop it here or choose a file';});
+var v=function(n){var el=f.elements[n];return el&&el.value?el.value:'';};
+var busy=function(on,err){sb.disabled=on;sb.textContent=on?'Sending\u2026':'Pay now';hint.textContent=err||HINT;};
+var PAYERR='Could not start the payment. Your order was received by email \u2014 we will send you a payment link.';
+function pay0(ref,k){fetch('/api/create-checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({paper:'bc',pr:S.p,f:S.f,w:S.g,q:S.q,s:S.s,ref:ref,email:v('email'),page:'vip-studio-business-cards.html'})}).then(function(r){return r.json();}).then(function(d){if(d&&d.url)location.href=d.url;else busy(false,PAYERR);}).catch(function(){busy(false,PAYERR);});}
+function send(kind){
+var k=paper();if(price(k)==null)return;var TOTAL=money(price()),ORDER=ORD()+' \u2014 '+TOTAL;
+var ref='VIP-'+(function(a,s){s=Array.apply(null,Array(6)).map(function(){return a.charAt(Math.floor(Math.random()*32));});if(!/[2-9]/.test(s.join('')))s[Math.floor(Math.random()*6)]=a.charAt(Math.floor(Math.random()*8));return s.join('');})('23456789ABCDEFGHJKLMNPQRSTUVWXYZ'),d=new FormData();
+var add=function(x,y){d.append(x,y);};
+add('_subject',(kind==='quote'?'VIP quote request ':'VIP order ')+ref);add('_captcha','false');add('_template','table');add('_replyto',v('email'));add('email',v('email'));
+add('_autoresponse',(kind==='quote'?'Thank you for your quote request':'Thank you for your order')+(v('name')?', '+v('name'):'')+'.\n\nReference: '+ref+'\n\n'+ORDER+'\n\nExpected delivery: '+(function(){return deliv(S.s)+' (if your print-ready file reaches us before the next 09:00 Rome cut-off)';})()+'\n\nSubtotal: '+TOTAL+'\nShipping: Free\nTotal: '+TOTAL+' (VAT included)\n\n'+(kind==='quote'?'This is a quote request: nothing has been charged. We reply within one working day with the signed quote. To confirm, reply to this email or order on '+location.href.split('?')[0]+'.':'Payment is completed securely via Stripe at checkout. We check your file and confirm your deadline within one working day, then send the proof.')+' Reply to this email if anything needs correcting.\n\nItalian Printing Company by Printing Italy di Angelo Cipolla\nVia Lorenzo Bonincontri 26, 00147 Roma RM \u00b7 P.IVA 02452700590');
+add('Reference',ref);add('Request type',kind==='quote'?'Formal quote requested':'Order placed');add('Paper',PAP[k].label);add('Production',speed());add('Expected delivery',deliv(S.s)+' (if file received before the next 09:00 cut-off)');add('Order',ORDER);add('Total',TOTAL);add('Shipping','Free');add('Grand total',TOTAL);
+add('Name',v('name'));add('Email',v('email'));add('Phone',v('phone'));add('Company',v('company')||'\u2014');add('VAT number',v('vat')||'\u2014');add('Codice destinatario / PEC',v('sdi')||'\u2014');
+add('Billing address',v('billing'));add('Postcode',v('postcode')||'\u2014');add('City',v('city')||'\u2014');add('Country',v('country')||'\u2014');add('Hotel name',cb.checked?'\u2014':(v('hotel')||'\u2014'));add('Shipping address',cb.checked?'Same as billing':(v('shipping')||'\u2014'));add('Registered guest',v('venue_contact')||'\u2014');add('Venue mobile',v('venue_phone')||'\u2014');
+add('Deadline',v('deadline'));add('File link',v('filelink')||'\u2014');add('Notes',v('notes')||'\u2014');if(fi.files[0])add('attachment',fi.files[0]);
+busy(true);
+ipcFS(d).then(function(r){return r.json();}).then(function(){if(kind==='order')pay(ref,k);else{busy(false);if(window.ipcQuotePDF)ipcQuotePDF({ref:ref,url:location.href.split('?')[0],lines:ORDER.split('\n').map(function(l){var i=l.lastIndexOf(' \u2014 ');return {text:l.slice(0,i),amount:l.slice(i+3)};}),subtotal:TOTAL,shippingCost:'Free',total:TOTAL,name:v('name'),company:v('company'),vat:v('vat'),sdi:v('sdi'),billing:[v('billing'),[v('postcode'),v('city')].filter(Boolean).join(' '),v('country')].filter(Boolean).join('\n'),email:v('email'),phone:v('phone'),shipping:cb.checked?'Same as billing address':[v('hotel'),v('shipping')].filter(Boolean).join('\n'),guest:v('venue_contact'),guestPhone:v('venue_phone'),deadline:v('deadline')});done(ref,true);}}).catch(function(){busy(false,'Something went wrong. Please email info@italianprintingcompany.com \u2014 we will pick it up from there.');});
+}
+var lock=function(){if(!closed())return;f.querySelectorAll('input,select,textarea,button').forEach(function(el){if(el!==qb)el.disabled=true;});var dim=function(n){[].forEach.call(n.children,function(c){if(c===qb||c===qb.nextElementSibling)return;if(c.contains(qb))dim(c);else{c.style.opacity='0.45';c.style.pointerEvents='none';}});};dim(f);qb.disabled=false;};
+lock();setInterval(lock,1000);
+f.addEventListener('submit',function(e){e.preventDefault();if(closed())return;send('order');});
+var qp=function(k){var x=price(k);return x!=null?x:(PAP[k].a!=null?PAP[k].a:PAP[k].b);};
+function quickPDF(){var k=paper();var TOTAL=money(price()),ORDER=ORD()+' \u2014 '+TOTAL;var ref='Q-'+(function(a,s){s=Array.apply(null,Array(6)).map(function(){return a.charAt(Math.floor(Math.random()*32));});if(!/[2-9]/.test(s.join('')))s[Math.floor(Math.random()*6)]=a.charAt(Math.floor(Math.random()*8));return s.join('');})('23456789ABCDEFGHJKLMNPQRSTUVWXYZ');if(!window.ipcQuotePDF){hint.textContent='The quote PDF is loading, please try again in a moment.';return;}ipcQuotePDF({ref:ref,url:location.href.split('?')[0],lines:ORDER.split('\n').map(function(l){var i=l.lastIndexOf(' \u2014 ');return {text:l.slice(0,i),amount:l.slice(i+3)};}),subtotal:TOTAL,shippingCost:'Free',total:TOTAL,name:v('name'),company:v('company'),vat:v('vat'),sdi:v('sdi'),billing:[v('billing'),[v('postcode'),v('city')].filter(Boolean).join(' '),v('country')].filter(Boolean).join('\n'),email:v('email'),phone:v('phone'),shipping:cb.checked?'Same as billing address':[v('hotel'),v('shipping')].filter(Boolean).join('\n'),guest:v('venue_contact'),guestPhone:v('venue_phone'),deadline:v('deadline')});if(v('email')&&v('name'))send('quote');}
+qb.addEventListener('click',function(){quickPDF();});
+
+var DFS=['email','hotel','shipping','venue_contact','venue_phone','deadline','filelink'];
+var stp=function(n){document.querySelectorAll('[data-s1]').forEach(function(e){e.style.display=n===1?'':'none';});document.querySelectorAll('[data-s2]').forEach(function(e){e.style.display=n===2?'':'none';});document.querySelectorAll('[data-req]').forEach(function(e){e.required=n===2;});var ah=document.querySelector('[data-arth]');if(ah)ah.style.marginTop='0';var aw=document.querySelector('[data-art]'),bt=document.querySelector('[data-s2btn]'),pc=document.querySelector('[data-pay]');if(aw&&bt&&pc){if(n===2)bt.parentNode.insertBefore(aw,bt.parentNode.firstChild);else pc.insertBefore(aw,pc.firstChild);}};
+var R2=q.get('ref')||'',SID2=q.get('session_id')||'',PG2=location.pathname.split('/').pop()||'vip-studio.html';
+if(q.get('paid')==='1'){var sv2={};try{sv2=JSON.parse(localStorage.getItem('ipc_vip_paid')||'{}');}catch(x){}var sf2=sv2.ref===R2&&sv2.f?sv2.f:{};DFS.forEach(function(n){var el=f.elements[n];if(el&&sf2[n])el.value=sf2[n];});stp(2);var rr=document.querySelector('[data-ref2]');if(rr)rr.textContent=R2;window.scrollTo(0,0);
+try{if(SID2)localStorage.setItem('ipc_sid_'+R2,SID2);}catch(x){}if (SID2 && (function(s){var k='ipc_conf_'+s;try{if(localStorage.getItem(k))return false;localStorage.setItem(k,String(Date.now()));}catch(e){}try{var u=new URL(location.href);u.searchParams.delete('session_id');history.replaceState(history.state,'',u.pathname+u.search+u.hash);}catch(e){}return true;})(SID2)) fetch('/api/send-confirmation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:SID2,page:PG2,f:{hotel:sf2.hotel||'',shipping:sf2.shipping||'',guest:sf2.venue_contact||'',guestPhone:sf2.venue_phone||'',deadline:sf2.deadline||'',delivery:sf2.delivery||''}})}).catch(function(){try{localStorage.removeItem('ipc_conf_'+SID2);}catch(e){}});}
+else stp(1);
+var ib2=document.querySelector('[data-s2btn]'),ih2=ib2.nextElementSibling;
+ib2.addEventListener('click',function(){var bad=null;document.querySelectorAll('[data-req]').forEach(function(e){if(!bad&&!e.checkValidity())bad=e;});if(bad){bad.reportValidity();return;}
+var d=new FormData(),add=function(a,b){d.append(a,b);};add('_subject','VIP invoice details '+R2);add('_captcha','false');add('_template','table');add('_replyto',v('email'));add('Reference',R2);add('Request type','Invoice details and artwork (paid)');add('Page',PG2);
+[['Name','name'],['Email','email'],['Phone','phone'],['Company','company'],['VAT number','vat'],['Codice destinatario / PEC','sdi'],['Billing address','billing'],['Postcode','postcode'],['City','city'],['Country','country'],['Hotel name','hotel'],['Shipping address','shipping'],['Registered guest','venue_contact'],['Venue mobile','venue_phone'],['Deadline','deadline'],['File link','filelink'],['Notes','notes']].forEach(function(p){add(p[0],v(p[1])||'\u2014');});
+if(fi.files[0])add('attachment',fi.files[0]);
+try{var S3=SID2||localStorage.getItem('ipc_sid_'+R2);if(S3)fetch('/api/send-invoice',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:S3,f:{name:v('name'),company:v('company'),vat:v('vat'),sdi:v('sdi'),billing:v('billing'),postcode:v('postcode'),city:v('city'),country:v('country')}})}).catch(function(){});}catch(x){}ib2.disabled=true;ib2.textContent='Sending\u2026';
+ipcFS(d).then(function(r){return r.json();}).then(function(){try{localStorage.removeItem('ipc_vip_paid');}catch(x){}done(R2,false);}).catch(function(){ib2.disabled=false;ib2.textContent='Send invoice details';ih2.textContent='Something went wrong. Please email info@italianprintingcompany.com \u2014 we will pick it up from there.';});});
+function pay(){var sf={};DFS.forEach(function(n){sf[n]=v(n);});sf.delivery=(function(){return deliv(S.s)+' (if your print-ready file reaches us before the next 09:00 Rome cut-off)';})();try{localStorage.setItem('ipc_vip_paid',JSON.stringify({ref:arguments[0],f:sf}));}catch(x){}return pay0.apply(null,arguments);}
+})();</script>
+
+
+<script src="ipc-mail.js"></script>
+</body></html>
