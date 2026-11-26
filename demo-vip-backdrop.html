@@ -379,7 +379,8 @@ var todayIso=function(){return new Intl.DateTimeFormat('en-CA',{timeZone:'Europe
 var addD=function(iso,n){var a=iso.split('-');var d=new Date(Date.UTC(+a[0],+a[1]-1,+a[2]+n));return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate());};
 var dow=function(iso){var a=iso.split('-');return new Date(Date.UTC(+a[0],+a[1]-1,+a[2])).getUTCDay();};
 var easter=function(y){var a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),dd=((h+l-7*m+114)%31)+1;return y+'-'+pad(mo)+'-'+pad(dd);};
-var noInst=function(iso){if(dow(iso)===0)return true;if(['01-01','01-06','04-25','05-01','06-02','06-29','08-15','11-01','12-08','12-25','12-26'].indexOf(iso.slice(5))>=0)return true;return addD(easter(+iso.slice(0,4)),1)===iso;};
+var OPEN_DAYS=['2026-12-06'];
+var noInst=function(iso){if(OPEN_DAYS.indexOf(iso)>=0)return false;if(dow(iso)===0)return true;if(['01-01','01-06','04-25','05-01','06-02','06-29','08-15','11-01','12-08','12-25','12-26'].indexOf(iso.slice(5))>=0)return true;return addD(easter(+iso.slice(0,4)),1)===iso;};
 var fmtE=function(iso){var a=iso.split('-');return a[2]+'/'+a[1]+'/'+a[0];};
 var evText=function(){return (BD.s&&BD.e)?'Installation '+fmtE(BD.s)+(BD.st?' at '+BD.st:'')+', dismantling '+fmtE(BD.e)+(BD.et?' at '+BD.et:'')+(BD.addr?', '+BD.addr+' (Rome)':''):'—';};
 var DLV=function(){return evText();};
