@@ -245,8 +245,9 @@ module.exports = async (req, res) => {
     if (!PRODUCTS.length) return res.status(400).json({ error: "No products selected." });
     label = labels.join("; ").slice(0, 490);
   } else if (body.paper === "backdrop") {
-    // Event backdrop (vip-studio-backdrop.html): fixed size 585 × 300 cm, final price € 1.265,00 (VAT, installation and dismantling in Rome included). Keep in sync with vip-studio-backdrop.html
-    const bh = 300, bw = 585, ev = body.ev || {};
+    // Event backdrop (vip-studio-backdrop.html): custom size 100–400 cm high, 100–600 cm wide; 585 × 300 cm = € 1.265,00 final (VAT, installation and dismantling in Rome included), other sizes scale with the shop formula. Keep in sync with vip-studio-backdrop.html
+    const bh = Number(body.h), bw = Number(body.w), ev = body.ev || {};
+    if (!Number.isInteger(bh) || !Number.isInteger(bw) || bh < 100 || bh > 400 || bw < 100 || bw > 600) return res.status(400).json({ error: "Please choose a height of 100–400 cm and a width of 100–600 cm." });
     const isoOk = x => /^\d{4}-\d{2}-\d{2}$/.test(String(x || ""));
     const TM = /^(0[7-9]|1[0-9]|2[0-2]):(00|30)$/;
     const addr = String(ev.addr || "").replace(/\s+/g, " ").trim().slice(0, 120);
@@ -254,10 +255,11 @@ module.exports = async (req, res) => {
     const dayMs = iso => { const a = iso.split("-").map(Number); return Date.UTC(a[0], a[1] - 1, a[2]); };
     const isoOf = ms => new Date(ms).toISOString().slice(0, 10);
     const eas = y => { const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451), mo = Math.floor((h + l - 7 * m + 114) / 31), dd = ((h + l - 7 * m + 114) % 31) + 1; return Date.UTC(y, mo - 1, dd); };
-    const noInst = iso => new Date(dayMs(iso)).getUTCDay() === 0 || ["01-01","01-06","04-25","05-01","06-02","06-29","08-15","11-01","12-08","12-25","12-26"].includes(iso.slice(5)) || isoOf(eas(+iso.slice(0, 4)) + 86400000) === iso;
+    const OPEN_DAYS = ["2026-12-06"]; // Sunday opened on request
+    const noInst = iso => !OPEN_DAYS.includes(iso) && (new Date(dayMs(iso)).getUTCDay() === 0 || ["01-01","01-06","04-25","05-01","06-02","06-29","08-15","11-01","12-08","12-25","12-26"].includes(iso.slice(5)) || isoOf(eas(+iso.slice(0, 4)) + 86400000) === iso);
     const todayRome = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Rome" }).format(new Date());
     if (dayMs(ev.s) < dayMs(todayRome) + 5 * 86400000 || dayMs(ev.e) < dayMs(ev.s) || dayMs(ev.e) > dayMs(ev.s) + 30 * 86400000 || noInst(ev.s) || noInst(ev.e) || (ev.s === ev.e && ev.et <= ev.st)) return res.status(400).json({ error: "These installation and dismantling days are not available. Please pick other days." });
-    const baseC = 126500;
+    const rawF = (w, h) => w * 0.002 + 29 + ((2 * h + 2 * w) / 100) * 50, baseC = Math.round(126500 * rawF(bw, bh) / rawF(585, 300));
     const fd = iso => iso.slice(8) + "/" + iso.slice(5, 7) + "/" + iso.slice(0, 4);
     PRODUCTS = [
       { name: ("Event backdrop — " + bw + " × " + bh + " cm, aluminium truss frame and fire-retardant PVC print, installation " + fd(ev.s) + " " + ev.st + ", dismantling " + fd(ev.e) + " " + ev.et + ", " + addr + " (Rome)").slice(0, 250), amount: baseC, quantity: 1 }
