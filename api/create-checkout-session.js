@@ -244,6 +244,27 @@ module.exports = async (req, res) => {
     }
     if (!PRODUCTS.length) return res.status(400).json({ error: "No products selected." });
     label = labels.join("; ").slice(0, 490);
+  } else if (body.paper === "backdrop") {
+    // Event backdrop rental (vip-studio-backdrop.html): custom size 100–400 cm high, 100–600 cm wide, installed and dismantled in Rome. Same formula as the shop (euros VAT included) + 50% refundable deposit (a separate line, left out of the invoice). Keep in sync with vip-studio-backdrop.html
+    const bh = Number(body.h), bw = Number(body.w), ev = body.ev || {};
+    if (!Number.isInteger(bh) || !Number.isInteger(bw) || bh < 100 || bh > 400 || bw < 100 || bw > 600) return res.status(400).json({ error: "Please choose a height of 100–400 cm and a width of 100–600 cm." });
+    const isoOk = x => /^\d{4}-\d{2}-\d{2}$/.test(String(x || ""));
+    const TM = /^(0[7-9]|1[0-9]|2[0-2]):(00|30)$/;
+    const addr = String(ev.addr || "").replace(/\s+/g, " ").trim().slice(0, 120);
+    if (!isoOk(ev.s) || !isoOk(ev.e) || !TM.test(String(ev.st || "")) || !TM.test(String(ev.et || "")) || addr.length < 6) return res.status(400).json({ error: "Please pick the installation and dismantling days and times, and enter the event address in Rome." });
+    const dayMs = iso => { const a = iso.split("-").map(Number); return Date.UTC(a[0], a[1] - 1, a[2]); };
+    const isoOf = ms => new Date(ms).toISOString().slice(0, 10);
+    const eas = y => { const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451), mo = Math.floor((h + l - 7 * m + 114) / 31), dd = ((h + l - 7 * m + 114) % 31) + 1; return Date.UTC(y, mo - 1, dd); };
+    const noInst = iso => new Date(dayMs(iso)).getUTCDay() === 0 || ["01-01","01-06","04-25","05-01","06-02","06-29","08-15","11-01","12-08","12-25","12-26"].includes(iso.slice(5)) || isoOf(eas(+iso.slice(0, 4)) + 86400000) === iso;
+    const todayRome = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Rome" }).format(new Date());
+    if (dayMs(ev.s) < dayMs(todayRome) + 5 * 86400000 || dayMs(ev.e) < dayMs(ev.s) || dayMs(ev.e) > dayMs(ev.s) + 30 * 86400000 || noInst(ev.s) || noInst(ev.e) || (ev.s === ev.e && ev.et <= ev.st)) return res.status(400).json({ error: "These installation and dismantling days are not available. Please pick other days." });
+    const baseC = Math.round((bw * 0.002 + 29 + ((2 * bh + 2 * bw) / 100) * 50) * 100), depC = Math.round(baseC / 2);
+    const fd = iso => iso.slice(8) + "/" + iso.slice(5, 7) + "/" + iso.slice(0, 4);
+    PRODUCTS = [
+      { name: ("Event backdrop rental — " + bw + " × " + bh + " cm, aluminium truss frame and fire-retardant PVC print, installation " + fd(ev.s) + " " + ev.st + ", dismantling " + fd(ev.e) + " " + ev.et + ", " + addr + " (Rome)").slice(0, 250), amount: baseC, quantity: 1 },
+      { name: "Refundable deposit (50%, returned after inspection)", amount: depC, quantity: 1 }
+    ];
+    label = ("Event backdrop " + bw + " × " + bh + " cm, installation " + fd(ev.s) + ", dismantling " + fd(ev.e)).slice(0, 490);
   } else if (body.paper === "a4f") {
     // A4 flyers (vip-studio-a4-flyers.html): Flyeralarm price IVA escl. × 1.6 × 1.22, cents. Rolling 09:00 cut-off, never closes. Keep in sync with the page.
     const A4F = { "130": { std: [5589, 7644, 9046, 11062], ft: [11244, 13301, 14701, 16717], ns: [14937, 16994, 18394, 20986] }, "170": { std: [7371, 9475, 11320, 14800], ft: [13026, 15130, 16975, 20455], ns: [16719, 18823, 20668, 24726] }, "250": { std: [5684, 9990, 12221, 15975], ft: [11341, 15645, 17876, 21630], ns: [15034, 19338, 21570, 25901] } };
