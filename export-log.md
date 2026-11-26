@@ -641,3 +641,7 @@ Quote PDF: QR code back, placed under the URL (left).
 
 ## export-2026-11-24k — Backdrop video replaced
 - site/img/backdrop-video.mp4 and backdrop-video.webp: new video (same filename; used on the VIP backdrop page and the home page)
+
+## export-2026-11-24l — Backdrop price re-based
+- Price reference now 585 x 330 cm = EUR 1.265,00 (default stays 585 x 300 cm = EUR 1.224,85; other sizes scaled)
+- site/vip-studio-backdrop.html and api/create-checkout-session.js (server price must match)

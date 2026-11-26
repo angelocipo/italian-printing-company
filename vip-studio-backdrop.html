@@ -373,7 +373,7 @@ var BD={h:300,w:585,s:'',e:'',st:'',et:'',addr:'',ym:''};
 var pad=function(n){return String(n).padStart(2,'0');};
 var money=function(n){return n==null?'—':'€ '+n.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');};
 var raw=function(){return BD.w*0.002+29+((2*BD.h+2*BD.w)/100)*50;};
-var baseC=function(){return Math.round(126500*raw()/(585*0.002+29+((2*300+2*585)/100)*50));};
+var baseC=function(){return Math.round(126500*raw()/(585*0.002+29+((2*330+2*585)/100)*50));};
 var price=function(){return baseC()/100;};
 var PAP={bc:{}};Object.defineProperty(PAP.bc,'label',{get:function(){return 'Event backdrop '+BD.w+' × '+BD.h+' cm';}});
 var closed=function(){return false;};
