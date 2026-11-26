@@ -142,8 +142,13 @@ doc.save('Quote-'+o.ref+'.pdf');}catch(e){console.error(e);}});};
           </dd>
           <dt style="font-weight:600; color:#86868b; padding-top:8px;">Installation and dismantling:</dt>
           <dd style="margin:0; max-width:none;">
-            <div data-bd="cal" style="border:1.5px solid #d2d2d7; border-radius:12px; background:#fff; padding:12px;"></div>
-            <p data-bd="calhint" style="font-size:13px; line-height:1.45; color:#6e6e73; margin:8px 0 0;"></p>
+            <div style="display:flex; flex-wrap:wrap; gap:18px; align-items:flex-start;">
+              <div style="flex:1 1 320px; min-width:0;">
+                <div data-bd="cal" style="border:1.5px solid #d2d2d7; border-radius:12px; background:#fff; padding:12px;"></div>
+                <p data-bd="calhint" style="font-size:13px; line-height:1.45; color:#6e6e73; margin:8px 0 0;"></p>
+              </div>
+              <video src="img/backdrop-video.mp4" poster="img/backdrop-video.webp" width="540" height="960" autoplay muted defaultmuted loop playsinline preload="auto" aria-label="XXXL backdrop printed by Italian Printing Company" style="flex:0 0 auto; width:100%; max-width:230px; height:auto; aspect-ratio:540/960; border-radius:12px; display:block; background:#000; object-fit:cover; margin:0 auto;"></video>
+            </div>
             <div style="display:flex; gap:12px; margin-top:12px;">
               <div style="flex:1 1 0; min-width:0;"><label style="display:block; font-size:13px; color:#6e6e73; margin-bottom:6px;" data-bd="stl">Installation time</label><select name="bdst" style="font:inherit; font-weight:600; font-size:17px; padding:11px 12px; border:1px solid #d2d2d7; border-radius:12px; background:#fff; color:#1d1d1f; width:100%;"></select></div>
               <div style="flex:1 1 0; min-width:0;"><label style="display:block; font-size:13px; color:#6e6e73; margin-bottom:6px;" data-bd="etl">Dismantling time</label><select name="bdet" style="font:inherit; font-weight:600; font-size:17px; padding:11px 12px; border:1px solid #d2d2d7; border-radius:12px; background:#fff; color:#1d1d1f; width:100%;"></select></div>
@@ -414,6 +419,7 @@ if(!BD.s||BD.e||iso<BD.s){BD.s=iso;BD.e='';}else{if(iso>addD(BD.s,SPAN)){calMsg=
 drawCal();});
 var bdOk=function(){var m='';if(!BD.s||!BD.e)m='Pick the installation and dismantling days in the calendar.';else if(!BD.st||!BD.et)m='Choose the installation and dismantling times.';else if(BD.s===BD.e&&BD.et<=BD.st)m='Dismantling must be after installation.';else if(BD.addr.trim().length<6)m='Enter the event address in Rome.';if(m){calMsg=m;drawCal();var h=q$('calhint');if(h&&h.scrollIntoView)h.scrollIntoView({block:'center',behavior:'smooth'});return false;}calMsg='';return true;};
 drawCal();tick();
+var bv=root.querySelector('video');if(bv){bv.muted=true;bv.defaultMuted=true;bv.loop=true;bv.setAttribute('playsinline','');var pl=function(){var p=bv.play();if(p&&p.catch)p.catch(function(){});};pl();bv.addEventListener('loadeddata',pl);document.addEventListener('visibilitychange',function(){if(!document.hidden)pl();});['touchstart','click','scroll'].forEach(function(ev){window.addEventListener(ev,function f(){pl();window.removeEventListener(ev,f);},{passive:true});});}
 var sentW=$('[data-if="sent"]'),formW=$('[data-if="notSent"]'),diffW=$('[data-if="differentAddress"]');
 var f=$('form'),sb=$('button[type=submit]',f),hint=sb.nextElementSibling,qb=[].filter.call(f.querySelectorAll('button[type=button]'),function(b){return /formal quote/i.test(b.textContent);})[0],cb=$('input[type=checkbox]',f),fi=$('input[type=file]',f);
 var HINT=hint.textContent;

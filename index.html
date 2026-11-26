@@ -35,12 +35,14 @@
     .ipc-tiles { grid-template-columns:1fr !important; }
     .ipc-tile { min-height:0 !important; padding:34px 30px !important; }
     .ipc-products { grid-template-columns:1fr 1fr !important; }
+    .ipc-bdcard { grid-column:auto !important; grid-row:auto !important; }
     .ipc-steps { grid-template-columns:1fr 1fr !important; }
     .ipc-stats { grid-template-columns:1fr 1fr !important; }
     .ipc-cities { grid-template-columns:1fr !important; }
   }
   @media (max-width:480px) {
     .ipc-products { grid-template-columns:1fr !important; }
+    .ipc-bdcard { grid-column:auto !important; grid-row:auto !important; }
     .ipc-steps { grid-template-columns:1fr !important; }
   }
 </style>
@@ -382,6 +384,15 @@ document.addEventListener('volumechange', function (e) {
           <p style="font-size:15px; color:#6e6e73; margin-top:5px; line-height:1.4;">Perfect-bound or stapled, printed and delivered to your stand.</p>
         </div>
       </a>
+      <a class="ipc-bdcard" href="vip-studio-backdrop.html" style="background:#f5f5f7; border-radius:22px; overflow:hidden; text-align:left; grid-column:1; grid-row:3; display:flex; flex-direction:column; text-decoration:none; color:inherit;">
+        <div style="aspect-ratio:4/3; overflow:hidden; background:#fff; padding:10px; border:1px solid #000; border-radius:22px 22px 0 0;">
+          <video data-ref="backdropRef" data-src="img/backdrop-video.mp4" poster="img/backdrop-video.webp" preload="none" autoplay muted defaultmuted loop playsinline aria-label="XXXL backdrop printed by Italian Printing Company" style="display:block; width:100%; height:100%; object-fit:contain;"></video>
+        </div>
+        <div style="padding:22px 24px 26px;">
+          <h4 style="font-size:21px; font-weight:600; letter-spacing:-0.4px; color:#0071e3;">Backdrops →</h4>
+          <p style="font-size:15px; color:#6e6e73; margin-top:5px; line-height:1.4;">XXXL printed backdrops, installed at your event in Rome.</p>
+        </div>
+      </a>
       
         <div style="background:#f5f5f7; border-radius:22px; overflow:hidden; text-align:left;">
           
@@ -555,7 +566,9 @@ function act(portrait){var s=portrait?P:L,h=portrait?L:P;if(!s||!h)return;h.styl
 var go=function(){if(!s.getAttribute('src')){s.src=s.dataset.src;s.load();}var p=s.play();p&&p.catch&&p.catch(function(){});};
 if(ready)go();else if(window.requestIdleCallback)requestIdleCallback(go,{timeout:2500});else setTimeout(go,1200);ready=true;}
 var mq=matchMedia('(orientation: portrait)');act(mq.matches);mq.addEventListener?mq.addEventListener('change',function(e){act(e.matches);}):mq.addListener(function(e){act(e.matches);});
-var M=$('[data-ref=magazinesRef]');if(M){M.muted=true;M.loop=true;var ld=function(){if(M.getAttribute('src'))return;M.src=M.dataset.src;M.load();M.play().catch(function(){});};
+[$('[data-ref=magazinesRef]'),$('[data-ref=backdropRef]')].forEach(function(M){if(!M)return;M.muted=true;M.loop=true;var ld=function(){if(M.getAttribute('src'))return;M.src=M.dataset.src;M.load();M.play().catch(function(){});};
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){ld();io.disconnect();}});},{rootMargin:'300px'});io.observe(M);}else ld();});
+var M=null;if(M){M.muted=true;M.loop=true;var ld=function(){if(M.getAttribute('src'))return;M.src=M.dataset.src;M.load();M.play().catch(function(){});};
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){ld();io.disconnect();}});},{rootMargin:'300px'});io.observe(M);}else ld();}
 var C=$('[data-ref=clientsRef]');function clients(){if(!C||C.dataset.ready)return;C.dataset.ready='1';
 var st=document.createElement('style');st.textContent=".ipc-clients{--ink:#0e0d0c;--paper:#f3eee3;--cyan:#00aeef;--magenta:#ec008c;--yellow:#c9a227;--slate:#8a8580;--line:rgba(14,13,12,0.18);--transition-speed:700ms;position:relative;width:100%;background:var(--paper);font-family:'Inter',sans-serif;padding:80px 28px 88px;overflow:hidden;box-sizing:border-box;}.ipc-clients *{box-sizing:border-box;}.ipc-clients .crop{position:absolute;width:22px;height:22px;z-index:5;opacity:.45;pointer-events:none;}.ipc-clients .crop::before,.ipc-clients .crop::after{content:'';position:absolute;background:var(--ink);}.ipc-clients .crop::before{width:100%;height:1px;top:0;left:0;}.ipc-clients .crop::after{width:1px;height:100%;top:0;left:0;}.ipc-clients .crop-tl{top:18px;left:18px;}.ipc-clients .crop-tr{top:18px;right:18px;transform:scaleX(-1);}.ipc-clients .crop-bl{bottom:18px;left:18px;transform:scaleY(-1);}.ipc-clients .crop-br{bottom:18px;right:18px;transform:scale(-1,-1);}.ipc-clients .clients-head{max-width:1080px;margin:0 auto 44px;text-align:center;}.ipc-clients .job-ticket{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--slate);margin-bottom:10px;}.ipc-clients .job-ticket .job-num{color:var(--ink);}.ipc-clients .clients-title{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.01em;line-height:.95;font-size:clamp(1.8rem,2vw + 1.3rem,2.8rem);color:var(--ink);margin:0 0 14px;}.ipc-clients .ink-bar{display:flex;gap:3px;justify-content:center;}.ipc-clients .ink-bar span{width:26px;height:6px;display:block;}.ipc-clients .ink-bar .c{background:var(--cyan);}.ipc-clients .ink-bar .m{background:var(--magenta);}.ipc-clients .ink-bar .y{background:var(--yellow);}.ipc-clients .ink-bar .k{background:var(--ink);opacity:.85;}.ipc-clients .carousel{position:relative;max-width:1180px;margin:0 auto;}.ipc-clients .logo-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px;}.ipc-clients .logo-slot{list-style:none;width:150px;display:flex;flex-direction:column;align-items:center;gap:10px;}.ipc-clients .placeholder-mark{width:100%;height:150px;border:1px dashed var(--line);border-radius:4px;display:flex;align-items:center;justify-content:center;background:rgba(14,13,12,0.02);}.ipc-clients .logo-img{max-width:100%;max-height:150px;object-fit:contain;filter:grayscale(1);opacity:.72;transition:filter .2s ease,opacity .2s ease;}.ipc-clients .logo-slot:hover .logo-img{filter:grayscale(0);opacity:1;}.ipc-clients .logo-caption{font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--slate);text-align:center;}@media (max-width:560px){.ipc-clients{padding:56px 18px 60px;}.ipc-clients .logo-slot{width:38%;}}";document.head.appendChild(st);
