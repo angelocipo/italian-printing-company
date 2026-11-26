@@ -126,8 +126,20 @@ doc.save('Quote-'+o.ref+'.pdf');}catch(e){console.error(e);}});};
           <dd style="margin:0;"><span style="font-weight:600;">Event backdrop</span></dd>
           <dt style="font-weight:600; color:#86868b;">Includes:</dt>
           <dd style="margin:0;">Aluminium truss frame and fire-retardant PVC print in high definition. Our team delivers, installs, levels and dismantles it. Rome only.</dd>
-          <dt style="font-weight:600; color:#86868b;">Size:</dt>
-          <dd style="margin:0;"><span style="font-weight:600;">585 × 300 cm</span> (width × height), landscape</dd>
+          <dt style="font-weight:600; color:#86868b; padding-top:10px;">Height:</dt>
+          <dd style="margin:0; display:flex; flex-wrap:wrap; align-items:center; gap:14px;" data-bd="h">
+            <input type="number" inputmode="numeric" name="bdh" min="100" max="400" step="1" value="300" aria-label="Height in cm" style="font:inherit; font-weight:600; font-size:17px; padding:11px 12px; border:1px solid #d2d2d7; border-radius:12px; background:#fff; color:#1d1d1f; width:110px;">
+            <span style="font-weight:600;">cm</span>
+            <input type="range" name="bdrh" min="100" max="400" step="1" value="300" aria-label="Height slider" style="flex:1 1 220px; min-width:180px; accent-color:#0071e3;">
+            <span style="flex-basis:100%; font-size:14px; color:#6e6e73;">100–400 cm</span>
+          </dd>
+          <dt style="font-weight:600; color:#86868b; padding-top:10px;">Width:</dt>
+          <dd style="margin:0; display:flex; flex-wrap:wrap; align-items:center; gap:14px;" data-bd="w">
+            <input type="number" inputmode="numeric" name="bdw" min="100" max="600" step="1" value="585" aria-label="Width in cm" style="font:inherit; font-weight:600; font-size:17px; padding:11px 12px; border:1px solid #d2d2d7; border-radius:12px; background:#fff; color:#1d1d1f; width:110px;">
+            <span style="font-weight:600;">cm</span>
+            <input type="range" name="bdrw" min="100" max="600" step="1" value="585" aria-label="Width slider" style="flex:1 1 220px; min-width:180px; accent-color:#0071e3;">
+            <span style="flex-basis:100%; font-size:14px; color:#6e6e73;">100–600 cm</span>
+          </dd>
           <dt style="font-weight:600; color:#86868b; padding-top:8px;">Installation and dismantling:</dt>
           <dd style="margin:0; max-width:none;">
             <div data-bd="cal" style="border:1.5px solid #d2d2d7; border-radius:12px; background:#fff; padding:12px;"></div>
@@ -355,7 +367,8 @@ var show=function(el,on){if(!el)return;el.hidden=!on;el.style.display=on?'conten
 var BD={h:300,w:585,s:'',e:'',st:'',et:'',addr:'',ym:''};
 var pad=function(n){return String(n).padStart(2,'0');};
 var money=function(n){return n==null?'—':'€ '+n.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');};
-var baseC=function(){return 126500;};
+var raw=function(){return BD.w*0.002+29+((2*BD.h+2*BD.w)/100)*50;};
+var baseC=function(){return Math.round(126500*raw()/(585*0.002+29+((2*300+2*585)/100)*50));};
 var price=function(){return baseC()/100;};
 var PAP={bc:{}};Object.defineProperty(PAP.bc,'label',{get:function(){return 'Event backdrop '+BD.w+' × '+BD.h+' cm';}});
 var closed=function(){return false;};
