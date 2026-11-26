@@ -525,57 +525,116 @@ Quote PDF: QR code back, placed under the URL (left).
 - sitemap.xml — removed redirect.html (noindex, non-canonical) and vip-studio.html (noindex)
 - Includes all earlier changes to these pages (index hero, roll-up links, Article schema, expanded wedding/vendor/conference pages)
 
-## 2026-11-16 — export-2026-11-16
-- personalized-garments-for-your-business.html — fabric printing section (tablecloths 487×289.5 cm, fabric backdrops, t-shirts/polos), new title/meta, embroidery removed
-- print-shop-rome.html, client-details.html — embroidery removed (text, FAQ, schema)
-- 19 VIP pages (vip-studio*.html) — embroidery removed from text and og descriptions; reference codes always contain a digit
-- sitemap.xml — lastmod updated (garments page 2026-11-16)
+## 2026-11-21 — export-2026-11-20f
+- vip-studio-a4-flyers, sarah, rodolfo, photo-poster (.html), api/send-confirmation.js — estimated delivery date added to the customer auto-reply and to the "Order confirmed" email (DELIVERY / NOTES box)
 
-## 2026-11-18 — export-2026-11-18
-- api/create-checkout-session.js — Nexi XPay payment page when body.provider === "nexi" (env NEXI_API_KEY, NEXI_TEST=1 for sandbox); new key "sarah" (fabric banner 12 x 4 ft, € 147 per banner incl. UPS Italy, qty 1–20, closes Thu 19 Nov 09:00)
-- api/send-confirmation.js — confirmation email also for Nexi orders (session_id nx_…), payment checked with Nexi before sending
-- vip-studio-sarah.html (new) — fabric banner 12 × 4 ft, Night Shift € 147, delivery Fri 20 Nov (~90%), red clock to Thu 19 Nov 09:00
-- 20 VIP pages (vip-studio*.html) — "Pay by card with Nexi" button next to "Pay now"; note "Secure payment with Stripe or Nexi"
+## 2026-11-21 — export-2026-11-21
+- api/send-invoice.js (NEW) + 20 vip-studio pages (.html) — after the customer submits invoice details (step 2), the shop receives a new FatturaPA XML built from the client fields (company, VAT, SDI/PEC, address, postcode, city, country)
 
-## 2026-11-19 — export-2026-11-19
-- vip-studio-rodolfo.html (new) — photobook A4, 52 pages, cover 250gsm glossy, inside 170gsm, Fast Track € 588 each (UPS Italy included), qty +/−, clock to Thu 19 Nov 10:30, delivery Tue 24 – Wed 25 Nov
-- api/create-checkout-session.js — key "rodolfo" (58800 cents each, qty 1–20, closes Thu 19 Nov 10:30)
-- lib/ddt-pdf.js — DDT: Destinatario = hotel + delivery address + guest + mobile (box grows, nothing cut off); "Luogo di destinazione" box removed; Vettore left empty
+## 2026-11-21 — export-2026-11-21b
+- vip-studio-constanza, vip-studio-constanza-2 (.html), api/create-checkout-session.js — pins: diameter ø 4 cm added to the product name
 
-## 2026-11-19 — export-2026-11-19b
-- vip-studio-rodolfo.html, api/create-checkout-session.js — Rodolfo deadline extended by 1 hour: closes Thu 19 Nov 11:30 Rome
+## 2026-11-21 — export-2026-11-21c
+- vip-studio-constanza, vip-studio-constanza-2 (.html) — roll-up quantity defaults to 1
 
-## 2026-11-19 — export-2026-11-19c
-- vip-studio-rodolfo.html, api/create-checkout-session.js — Rodolfo deadline: open the whole day, closes Thu 19 Nov 23:59 Rome
+## 2026-11-21 — export-2026-11-21d
+- vip-studio-constanza-2.html, api/create-checkout-session.js — new row "10 personalised pins" (qty +/- default 2, Fast Track € 53 / Night Shift € 84 each set, same deadlines as the 70 pins)
 
-## 2026-11-19 — export-2026-11-19d
-- vip-studio-photo-poster.html (new) — photo poster 60 x 90 cm, glossy photo paper 220gsm, 6-colour pigment 2880 dpi, laminated, € 155 each incl. UPS to Rimini, qty +/−, clock to Thu 19 Nov 17:00, delivery Mon 23 Nov
-- api/create-checkout-session.js — key "photoposter" (15500 cents each, qty 1–20, closes Thu 19 Nov 17:00)
+## 2026-11-21 — export-2026-11-21e
+- vip-studio-constanza-2.html, api/create-checkout-session.js — new row "10 posters 70 x 100 cm" (Fast Track € 116 / Night Shift € 150)
 
-## 2026-11-19 — export-2026-11-19e
-- All VIP pages (vip-studio*.html) — Nexi payment button removed; note back to "Secure payment with Stripe." (api Nexi code left in place, unused)
-- vip-studio-photo-poster.html — new photo: img/photo-poster-hd.webp (new, 1340 x 777, converted from AVIF)
+## 2026-11-21 — export-2026-11-21f
+- vip-studio-constanza-2.html, api/create-checkout-session.js — A4 flyers row (paper 130/170/250gsm, 100/250/500/1.000 copies, Standard/Fast Track/Night Shift, same prices and delivery estimate as the A4 flyers page; never closes)
 
-## 2026-11-19 — export-2026-11-19f
-- vip-studio-photo-poster.html — option "Matt lamination" + € 15 per poster
-- api/create-checkout-session.js — key "photopostermatt" (17000 cents each)
+## 2026-11-21 — export-2026-11-21g
+- vip-studio-constanza-2.html — every product row now has a "Quantity: ... all with the same design, can't be split into different graphics" note
 
-## 2026-11-19 — export-2026-11-19g
-- vip-studio-photo-poster.html, api/create-checkout-session.js — photo poster orders close Thu 19 Nov 18:00 (was 17:00)
+## 2026-11-21 — export-2026-11-21h
+- vip-studio-constanza-2.html — flyers row redone with the A4 flyers page layout (quantity pills, paper x speed price table, expected delivery per speed)
 
-## 2026-11-20 — export-2026-11-20
-- vip-studio-a4-flyers.html (new) — the Taylor page renamed (A4 flyers), title "VIP Studio — A4 flyers"; price key "taylor" in the API unchanged
-- vip-studio-taylor.html — now only forwards to vip-studio-a4-flyers.html (keeps ?paid / session_id), noindex
+## 2026-11-21 — export-2026-11-21i
+- vip-studio-constanza-2.html, api/create-checkout-session.js — flyers: a speed that cannot be delivered by Mon 30 Nov is disabled ("Not available"), also checked server-side; Standard is off now; default is Fast Track
 
-## 2026-11-20 — export-2026-11-20b
-- vip-studio-a4-flyers.html — new A4 flyer offer: quantity 100 / 250 / 500 / 1.000, paper 130 / 170 / 250gsm glossy, columns Standard (4–6 wd) / Fast Track (2 wd) / Night Shift (1 wd); Flyeralarm IVA escl. × 1.6 + IVA; rolling 09:00 cut-off with red clock; delivery dates calculated live
-- api/create-checkout-session.js — "a4f" price table (w, q, s) checked server-side
+## 2026-11-21 — export-2026-11-21j
+- vip-studio-constanza-2.html — note under "Choose your products": purchase the products that are ready to go
 
-## 2026-11-20 — export-2026-11-20c
-- vip-studio-a4-flyers.html — estimated delivery +1 working day for all speeds (safety margin)
+## 2026-11-21 — export-2026-11-21k
+- vip-studio-constanza-2.html — red note: send files as requested, using the templates
 
-## 2026-11-20 — export-2026-11-20d
-- vip-studio-a0, malta, photo-poster, rodolfo, sarah (.html) — fix: after the deadline the page crashed (clock looked up a missing product); now shows "Offer ended" correctly
+## 2026-11-21 — export-2026-11-21l
+- site/template/pin-51mm.pdf (NEW) — pin template: 51 x 51 mm artwork, visible round area ø 38 mm, safe line; instructions page
+- vip-studio-constanza, vip-studio-constanza-2 (.html) — "Template pin" link on the pins rows
 
-## 2026-11-20 — export-2026-11-20e
-- vip-studio-rodolfo.html, api/create-checkout-session.js — Rodolfo reopened: orders until Sat 21 Nov 18:00 Rome, delivery Wed 25 – Thu 26 Nov
+## 2026-11-21 — export-2026-11-21m
+- site/template/shopper-print-area-20x20.pdf (NEW) — shopper template, print area 20 x 20 cm
+- vip-studio-constanza-2.html — shoppers: can be split 30 + 30 pcs, print area 20 x 20 cm, template link
+
+## 2026-11-21 — export-2026-11-21n
+- site/template/poster-70x100.pdf (NEW) — poster 70 x 100 cm template (5 mm bleed, 10 mm safe area)
+- vip-studio-constanza-2.html — template link on the posters row
+
+## 2026-11-21 — export-2026-11-21o
+- site/template/notebook-a5-hardcover.pdf (NEW) — A5 hardcover notebook front cover template (5 mm bleed, 10 mm safe area)
+- vip-studio-constanza-2.html — template link on the A5 hardcover notebooks row
+
+## 2026-11-21 — export-2026-11-21p
+- vip-studio-constanza-2.html — product rows use the full width (right padding same as left)
+
+## 2026-11-22 — export-2026-11-22
+- api/quote-request.js — spam filter: blocks random mixed-case gibberish words and dotted throw-away email addresses (bot sent 3 fake quote requests at 01:19)
+
+## export-2026-11-22b — Branded order/quote/invoice emails
+- NEW api/order-email.js (Resend; shop + customer emails in site layout)
+- NEW site/ipc-mail.js (sends form to /api/order-email, falls back to FormSubmit)
+- 20 pages site/vip-studio-*.html patched to call ipcFS(d) (not patched: polonia, taylor, test, vip-studio.html)
+
+## export-2026-11-23 — Structured data (OpenRush audit fix)
+- site/index.html, site/contact.html, site/printer-in-italy.html: added JSON-LD (LocalBusiness, WebSite, WebPage/ContactPage, BreadcrumbList)
+
+## export-2026-11-24 — Money pages ranking 8–25 rewritten (Search Console)
+- site/printing-rollups-in-rome-italy.html (pos 15.1): title/meta/H1/intro with € 70 price, FAQ section + Product & FAQ JSON-LD
+- site/poster-printing-italy.html (pos 12.0): title/meta/H1/intro with sizes, delivery times
+- site/sticker-printing-italy.html (pos 10.7): title/meta/H1/intro with materials, delivery times
+
+## export-2026-11-24 — Orderable business cards
+- NEW site/vip-studio-business-cards.html (order page: two product blocks, Business cards + Soft Touch/Embossed, combined order, Standard / Fast Track / Night Shift, Stripe checkout)
+- api/create-checkout-session.js: new "bc" branch (server-side price table)
+- site/business-cards-printing-italy.html: new "Order online" section with the two products, linking to the order page
+- NEW site/template/business-card-90x50.pdf and business-card-55x55.pdf; order page links the template matching the chosen size
+
+## export-2026-11-24b — Full-width product blocks on VIP pages
+- Removed the 600–680 px max-width on the product spec rows so the right padding matches the left, on: vip-studio-a0.html vip-studio-a4-flyers.html vip-studio-amanda.html vip-studio-arina.html vip-studio-business-cards.html vip-studio-cat.html vip-studio-constanza-2.html vip-studio-karl.html vip-studio-malta.html vip-studio-mark.html vip-studio-martina.html vip-studio-photo-poster.html vip-studio-posters.html vip-studio-rodolfo.html vip-studio-ruchira.html vip-studio-sarah.html vip-studio-sroman.html vip-studio.html 
+
+## export-2026-11-24c — business-cards-printing-italy.html: Order online block moved directly under the hero
+
+## export-2026-11-24d — Business cards and Soft Touch prices +25% (Embossed unchanged)
+- api/create-checkout-session.js: price table updated (bc, st ×1.25; em unchanged); supersedes the one in export-2026-11-24
+- site/vip-studio-business-cards.html: embedded prices updated (latest order page)
+- site/business-cards-printing-italy.html: "from" prices now € 37,73 (business cards) and € 61,08 (Soft Touch)
+- vip-studio-business-cards.html also re-fixed: right padding equal to left again (max-width removed from size/paper rows)
+
+## export-2026-11-24e — index.html: Business cards and Roll-ups links under "Get prices in two hours."
+- site/index.html
+- links now point to vip-studio-business-cards.html and vip-studio-rollup.html
+
+## export-2026-11-24f — vip-studio-rollup.html right padding
+- Removed max-width:820px from the product list so the right padding equals the left
+
+## export-2026-11-24g — NEW VIP page: backdrop (Rome installation)
+- NEW site/vip-studio-backdrop.html: height 100–400 cm and width 100–600 cm sliders, default 585 × 300 cm = final price € 1.265,00 (other sizes scale with the shop formula; VAT, installation and dismantling included), Rome installation/dismantling calendar + times + address, Stripe checkout
+- api/create-checkout-session.js: new "backdrop" branch (€ 1.265,00 at 585 × 300 cm, scaled by size, dates validated on the server); supersedes export-2026-11-24d's copy
+- api/send-confirmation.js: label "INSTALLATION & DISMANTLING" for backdrop orders
+- NEW site/img/insieme-copia.webp (hero image of the backdrop page)
+- Sunday 06/12/2026 opened for installation/dismantling (calendar and server)
+
+## export-2026-11-24h — Backdrop: size sliders back, Sunday 6 Dec open
+- site/vip-studio-backdrop.html: height 100–400 cm / width 100–600 cm sliders (585 × 300 cm = € 1.265,00, other sizes scaled), Sunday 06/12/2026 selectable
+- api/create-checkout-session.js: backdrop price scaled by size, 06/12/2026 accepted; supersedes export-2026-11-24g's copy
+
+## export-2026-11-24i — Backdrop video (VIP page and home page)
+- site/vip-studio-backdrop.html: muted looping video to the right of the calendar
+- site/index.html: new "Backdrops" video card directly under the Magazines video (links to vip-studio-backdrop.html)
+- NEW site/img/backdrop-video.mp4 (2.7 MB, compressed from the 25 MB original) and site/img/backdrop-video.webp (poster)
+
+## export-2026-11-24j
+- site/index.html: Backdrops card same height as Magazines; Flyers + Stickers stacked (same height as Backdrops); Business cards/Brochures tall; Roll-up/Posters stacked.
