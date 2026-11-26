@@ -638,3 +638,6 @@ Quote PDF: QR code back, placed under the URL (left).
 
 ## export-2026-11-24j
 - site/index.html: Backdrops card same height as Magazines; Flyers + Stickers stacked (same height as Backdrops); Business cards/Brochures tall; Roll-up/Posters stacked.
+
+## export-2026-11-24k — Backdrop video replaced
+- site/img/backdrop-video.mp4 and backdrop-video.webp: new video (same filename; used on the VIP backdrop page and the home page)
