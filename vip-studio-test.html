@@ -37,14 +37,18 @@
 </main>
 <script>(function(){
 var q=new URLSearchParams(location.search),m=document.getElementById('msg'),b=document.getElementById('pay'),n=document.getElementById('paynx');
-if(q.get('paid')){m.hidden=false;m.textContent='Payment received. Reference: '+(q.get('ref')||'');}
+if(q.get('paid')&&q.get('provider')==='nexi'){m.hidden=false;m.textContent='Checking the Nexi payment…';
+  fetch('/api/nexi-verify'+location.search).then(function(r){return r.json();}).then(function(d){
+    m.textContent=d.ok?'Nexi payment verified (signature OK, esito OK). Reference: '+(q.get('ref')||'')+', transaction '+d.codTrans+', authorization '+d.codAut:'Nexi payment NOT confirmed. esito: '+(d.esito||'?')+', signature valid: '+d.macValid+(d.error?(' — '+d.error):'');
+  }).catch(function(){m.textContent='Could not verify the Nexi payment.';});
+}else if(q.get('paid')){m.hidden=false;m.textContent='Payment received. Reference: '+(q.get('ref')||'');}
 if(q.get('canceled')){m.hidden=false;m.textContent='Payment canceled.';}
 function go(btn,prov,label){
   b.disabled=true;n.disabled=true;btn.textContent='Opening checkout…';
   var ref='TEST-'+Date.now().toString(36).toUpperCase();
   var body={paper:'test',ref:ref,email:document.getElementById('email').value,page:'vip-studio-test.html'};if(prov)body.provider=prov;
   fetch('/api/create-checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
-  .then(function(r){return r.json();}).then(function(d){if(d.url)location.href=d.url;else throw new Error(d.error||'Checkout failed');})
+  .then(function(r){return r.json();}).then(function(d){if(d.form){var f=document.createElement('form');f.method='POST';f.action=d.form.action;f.acceptCharset='ISO-8859-1';Object.keys(d.form.fields).forEach(function(k){var i=document.createElement('input');i.type='hidden';i.name=k;i.value=d.form.fields[k];f.appendChild(i);});document.body.appendChild(f);f.submit();}else if(d.url)location.href=d.url;else throw new Error(d.error||'Checkout failed');})
   .catch(function(e){m.hidden=false;m.textContent=e.message;b.disabled=false;n.disabled=false;btn.textContent=label;});
 }
 b.addEventListener('click',function(){go(b,'','Pay € 1,00 with Stripe');});

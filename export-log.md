@@ -648,3 +648,9 @@ Quote PDF: QR code back, placed under the URL (left).
 
 ## export-2026-11-27a — Nexi test button
 - site/vip-studio-test.html: second button "Pay € 1,00 with Nexi" (provider nexi) next to Stripe. Needs NEXI_API_KEY (+ NEXI_TEST=1 for sandbox) in Vercel.
+
+## export-2026-11-27b — Nexi Alias/MAC payment (test)
+- api/create-checkout-session.js: if NEXI_ALIAS and NEXI_MAC_KEY are set, provider "nexi" returns a signed POST form for Nexi XPay Pagamento semplice (NEXI_TEST=1 -> int-ecommerce test)
+- NEW api/nexi-verify.js: verifies the MAC of the return from Nexi
+- site/vip-studio-test.html: Nexi button submits the form; on return it shows verified/not confirmed
+- Vercel env vars needed: NEXI_ALIAS, NEXI_MAC_KEY (+ NEXI_TEST=1 for tests)
