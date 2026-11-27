@@ -23,7 +23,7 @@
   <div style="background:#fff; border-radius:26px; padding:32px; display:flex; flex-direction:column; gap:18px;">
     <p style="font-size:13px; font-weight:600; color:#0071e3; letter-spacing:0.4px; text-transform:uppercase;">Internal · payment test</p>
     <h1 style="font-size:30px; line-height:1.15; font-weight:700; letter-spacing:-0.6px;">Test product</h1>
-    <p style="font-size:16px; line-height:1.5; color:#6e6e73;">Real Stripe checkout for € 1,00. No shipping, nothing is printed. Refund it from the Stripe dashboard after checking.</p>
+    <p style="font-size:16px; line-height:1.5; color:#6e6e73;">Real Stripe or Nexi checkout for € 1,00. No shipping, nothing is printed. Refund it from the Stripe dashboard after checking.</p>
     <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid #e5e5ea; padding-top:18px;">
       <span style="font-size:17px; font-weight:600;">Total, VAT included</span>
       <span style="font-size:24px; font-weight:700; font-variant-numeric:tabular-nums;">€&nbsp;1,00</span>
@@ -31,20 +31,24 @@
     <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600; color:#6e6e73;">Email for the Stripe receipt (optional)
       <input id="email" type="email" autocomplete="email" style="font:inherit; font-weight:400; color:#1d1d1f; font-size:17px; padding:12px 14px; border:1px solid #d2d2d7; border-radius:12px;">
     </label>
-    <button id="pay" type="button" style="font:inherit; font-size:17px; font-weight:600; color:#fff; background:#0071e3; border:0; border-radius:980px; padding:15px 28px; cursor:pointer;">Pay € 1,00</button>
+    <button id="pay" type="button" style="font:inherit; font-size:17px; font-weight:600; color:#fff; background:#0071e3; border:0; border-radius:980px; padding:15px 28px; cursor:pointer;">Pay € 1,00 with Stripe</button>
+    <button id="paynx" type="button" style="font:inherit; font-size:17px; font-weight:600; color:#0071e3; background:#fff; border:1.5px solid #0071e3; border-radius:980px; padding:14px 28px; cursor:pointer;">Pay € 1,00 with Nexi</button>
   </div>
 </main>
 <script>(function(){
-var q=new URLSearchParams(location.search),m=document.getElementById('msg'),b=document.getElementById('pay');
+var q=new URLSearchParams(location.search),m=document.getElementById('msg'),b=document.getElementById('pay'),n=document.getElementById('paynx');
 if(q.get('paid')){m.hidden=false;m.textContent='Payment received. Reference: '+(q.get('ref')||'');}
 if(q.get('canceled')){m.hidden=false;m.textContent='Payment canceled.';}
-b.addEventListener('click',function(){
-  b.disabled=true;b.textContent='Opening checkout…';
+function go(btn,prov,label){
+  b.disabled=true;n.disabled=true;btn.textContent='Opening checkout…';
   var ref='TEST-'+Date.now().toString(36).toUpperCase();
-  fetch('/api/create-checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({paper:'test',ref:ref,email:document.getElementById('email').value,page:'vip-studio-test.html'})})
+  var body={paper:'test',ref:ref,email:document.getElementById('email').value,page:'vip-studio-test.html'};if(prov)body.provider=prov;
+  fetch('/api/create-checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
   .then(function(r){return r.json();}).then(function(d){if(d.url)location.href=d.url;else throw new Error(d.error||'Checkout failed');})
-  .catch(function(e){m.hidden=false;m.textContent=e.message;b.disabled=false;b.textContent='Pay € 1,00';});
-});
+  .catch(function(e){m.hidden=false;m.textContent=e.message;b.disabled=false;n.disabled=false;btn.textContent=label;});
+}
+b.addEventListener('click',function(){go(b,'','Pay € 1,00 with Stripe');});
+n.addEventListener('click',function(){go(n,'nexi','Pay € 1,00 with Nexi');});
 })();</script>
 </body>
 </html>

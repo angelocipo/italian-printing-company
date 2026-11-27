@@ -645,3 +645,6 @@ Quote PDF: QR code back, placed under the URL (left).
 ## export-2026-11-24l — Backdrop price re-based
 - Price reference now 585 x 330 cm = EUR 1.265,00 (default stays 585 x 300 cm = EUR 1.224,85; other sizes scaled)
 - site/vip-studio-backdrop.html and api/create-checkout-session.js (server price must match)
+
+## export-2026-11-27a — Nexi test button
+- site/vip-studio-test.html: second button "Pay € 1,00 with Nexi" (provider nexi) next to Stripe. Needs NEXI_API_KEY (+ NEXI_TEST=1 for sandbox) in Vercel.
