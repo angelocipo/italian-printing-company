@@ -105,7 +105,28 @@ const SITE = "https://www.italianprintingcompany.com";
 
 // Nexi XPay (Hosted Payment Page). Env vars: NEXI_API_KEY (Nexi back office → Terminals → API KEYS); NEXI_TEST=1 to use the sandbox.
 const NEXI_BASE = () => process.env.NEXI_TEST === "1" ? "https://xpaysandbox.nexigroup.com/api/phoenix-0.0/psp/api/v1" : "https://xpay.nexigroup.com/api/phoenix-0.0/psp/api/v1";
+// Nexi XPay "Pagamento semplice" (Alias + MAC key). Env vars: NEXI_ALIAS, NEXI_MAC_KEY; NEXI_TEST=1 for the int-ecommerce test environment.
+// Nexi needs a POST form, so we return { form: { action, fields } } and the page submits it.
+function nexiSimple(res, lines, ref, email, page) {
+  const crypto = require("crypto");
+  const total = lines.reduce((t, x) => t + x.amount * (x.quantity || 1), 0);
+  const AL = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let rnd = ""; for (let i = 0; i < 6; i++) rnd += AL[Math.floor(Math.random() * AL.length)];
+  const codTrans = (ref.replace(/[^A-Za-z0-9]/g, "").slice(0, 20) + rnd).slice(0, 30);
+  const importo = String(total), divisa = "EUR";
+  const mac = crypto.createHash("sha1").update("codTrans=" + codTrans + "divisa=" + divisa + "importo=" + importo + process.env.NEXI_MAC_KEY).digest("hex");
+  const fields = {
+    alias: process.env.NEXI_ALIAS, importo, divisa, codTrans,
+    url: `${SITE}/${page}?paid=1&ref=${encodeURIComponent(ref)}&provider=nexi`,
+    url_back: `${SITE}/${page}?canceled=1`,
+    languageId: "ENG", mac
+  };
+  if (email) fields.mail = email;
+  const action = process.env.NEXI_TEST === "1" ? "https://int-ecommerce.nexi.it/ecomm/ecomm/DispatcherServlet" : "https://ecommerce.nexi.it/ecomm/ecomm/DispatcherServlet";
+  return res.status(200).json({ form: { action, fields } });
+}
 async function nexiCheckout(res, lines, ref, email, page) {
+  if (process.env.NEXI_ALIAS && process.env.NEXI_MAC_KEY) return nexiSimple(res, lines, ref, email, page);
   if (!process.env.NEXI_API_KEY) return res.status(500).json({ error: "Nexi is not configured" });
   const total = lines.reduce((t, x) => t + x.amount * (x.quantity || 1), 0);
   const AL = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
