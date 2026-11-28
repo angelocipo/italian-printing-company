@@ -654,3 +654,7 @@ Quote PDF: QR code back, placed under the URL (left).
 - NEW api/nexi-verify.js: verifies the MAC of the return from Nexi
 - site/vip-studio-test.html: Nexi button submits the form; on return it shows verified/not confirmed
 - Vercel env vars needed: NEXI_ALIAS, NEXI_MAC_KEY (+ NEXI_TEST=1 for tests)
+
+## export-2026-11-28a — Internal links to custom-print-service-italy.html
+- index.html, where-to-print-in-rome.html, rome.html, milan.html: one in-text link with anchor "custom print service in Italy" pointing to custom-print-service-italy.html (rome.html FAQ schema text updated to match)
+- custom-print-service-italy.html: meta description now starts with "Custom print service in Italy…"
